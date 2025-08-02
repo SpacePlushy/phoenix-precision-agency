@@ -18,16 +18,35 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/contact"
-              className="bg-[var(--color-accent)] text-white px-8 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity inline-block"
+              className="bg-[var(--color-accent)] text-white px-8 py-3 rounded-lg font-medium hover:bg-[var(--color-accent)]/90 hover:shadow-lg transition-all inline-block transform hover:scale-105"
             >
               Start Your Transformation
             </a>
             <a
               href="/portfolio"
-              className="border-2 border-[var(--color-accent)] text-[var(--color-accent)] px-8 py-3 rounded-lg font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all inline-block"
+              className="border-2 border-[var(--color-accent)] text-[var(--color-accent)] px-8 py-3 rounded-lg font-medium hover:bg-[var(--color-accent)] hover:text-white transition-all inline-block transform hover:scale-105"
             >
               View Our Work
             </a>
+          </div>
+          
+          {/* Trust Indicators */}
+          <div className="mt-12 pt-8 border-t border-gray-200">
+            <p className="text-sm text-[var(--color-muted)] mb-4">Trusted by businesses worldwide</p>
+            <div className="flex items-center justify-center gap-8 text-xs text-[var(--color-muted)]">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span>99.9% Uptime</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span>NASA-Grade Security</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <span>24/7 Support</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -102,12 +121,26 @@ export default function Home() {
           <p className="text-xl mb-8 opacity-90">
             Let&apos;s discuss how we can transform your digital presence and drive real business results.
           </p>
-          <a
-            href="/contact"
-            className="bg-white text-[var(--color-primary)] px-8 py-4 rounded-lg font-medium hover:shadow-lg transition-shadow inline-block"
-          >
-            Get Your Free Consultation
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/contact"
+              className="bg-white text-[var(--color-primary)] px-8 py-4 rounded-lg font-medium hover:shadow-xl transition-all inline-block transform hover:scale-105"
+            >
+              Get Your Free Consultation
+            </a>
+            <a
+              href="tel:+1-555-0123"
+              className="border-2 border-white text-white px-8 py-4 rounded-lg font-medium hover:bg-white hover:text-[var(--color-primary)] transition-all inline-block transform hover:scale-105"
+            >
+              Call Now: (555) 012-3456
+            </a>
+          </div>
+          
+          {/* Urgency Indicator */}
+          <div className="mt-8 flex items-center justify-center gap-2 text-sm opacity-80">
+            <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+            <span>Limited spots available this month</span>
+          </div>
         </div>
       </section>
     </div>

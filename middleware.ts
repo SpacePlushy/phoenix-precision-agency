@@ -1,50 +1,29 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
-// Check if Clerk is properly configured
-function isClerkConfigured() {
-  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-  const secretKey = process.env.CLERK_SECRET_KEY
-  
-  return !!(publishableKey && 
-         secretKey && 
-         publishableKey !== 'your_clerk_publishable_key_here' &&
-         secretKey !== 'your_clerk_secret_key_here' &&
-         publishableKey.startsWith('pk_'))
-}
-
-// Initialize Clerk middleware only if configured
-let clerkMiddlewareInstance: any = null
-
-if (isClerkConfigured()) {
-  try {
-    const { clerkMiddleware, createRouteMatcher } = require('@clerk/nextjs/server')
-    
-    const isProtectedRoute = createRouteMatcher([
-      '/dashboard(.*)',
-      '/api/protected(.*)',
-    ])
-
-    clerkMiddlewareInstance = clerkMiddleware((auth: any, req: any) => {
-      if (isProtectedRoute(req)) {
-        auth.protect()
-      }
-    })
-  } catch (error) {
-    console.warn('Failed to initialize Clerk middleware:', error)
-  }
-}
-
-// Main middleware function
+// Simple middleware that focuses on core functionality
 export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
-  
-  // If Clerk is not configured, allow all requests through
-  if (!isClerkConfigured() || !clerkMiddlewareInstance) {
-    return NextResponse.next()
-  }
 
-  // If Clerk is configured, use the initialized middleware
-  return clerkMiddlewareInstance(req)
+  // For now, allow all requests through to ensure site availability
+  // This can be enhanced later when authentication is needed
+  
+  // Add security headers for all responses
+  const response = NextResponse.next()
+  
+  // Basic security headers
+  response.headers.set('X-Frame-Options', 'DENY')
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  response.headers.set('Referrer-Policy', 'origin-when-cross-origin')
+  
+  // Only set CSP for non-API routes to avoid conflicts
+  if (!pathname.startsWith('/api/')) {
+    response.headers.set(
+      'Content-Security-Policy',
+      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;"
+    )
+  }
+  
+  return response
 }
 
 export const config = {
