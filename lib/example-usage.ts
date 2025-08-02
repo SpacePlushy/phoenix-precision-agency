@@ -78,6 +78,10 @@ async function rateLimitExample() {
   const userIp = '192.168.1.100';
   
   // Check rate limit
+  if (!rateLimiter) {
+    console.warn('Rate limiter not configured');
+    return;
+  }
   const result = await rateLimiter.limit(userIp);
   
   if (result.success) {
@@ -98,6 +102,10 @@ export async function handleContactFormSubmission(formData: {
   message: string;
 }) {
   // Check rate limit first
+  if (!rateLimiter) {
+    console.warn('Rate limiter not configured');
+    return { success: false, error: 'Service unavailable' };
+  }
   const rateLimitResult = await rateLimiter.limit(formData.email);
   
   if (!rateLimitResult.success) {

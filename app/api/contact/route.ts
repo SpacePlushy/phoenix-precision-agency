@@ -5,37 +5,39 @@ import { Lead } from '@/lib/types';
 import { Resend } from 'resend';
 import { ContactFormData } from '@/components/forms/ContactForm';
 
-// Initialize Resend
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend conditionally
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
-// Create a custom rate limiter for contact form (3 per hour per IP)
-const contactRateLimiter = new Ratelimit({
+// Create a custom rate limiter for contact form (3 per hour per IP) - only if Redis is configured
+const contactRateLimiter = redis ? new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(3, '1 h'),
   analytics: true,
   prefix: '@upstash/ratelimit/contact',
-});
+}) : null;
 
 export async function POST(request: NextRequest) {
   try {
     // Get IP address for rate limiting
     const ip = request.headers.get('x-forwarded-for') ?? request.headers.get('x-real-ip') ?? 'unknown';
     
-    // Check rate limit
-    const { success, limit, remaining, reset } = await contactRateLimiter.limit(ip);
-    
-    if (!success) {
-      return NextResponse.json(
-        { error: 'Too many requests. Please try again later.' },
-        { 
-          status: 429,
-          headers: {
-            'X-RateLimit-Limit': limit.toString(),
-            'X-RateLimit-Remaining': remaining.toString(),
-            'X-RateLimit-Reset': new Date(reset).toISOString(),
-          },
-        }
-      );
+    // Check rate limit if configured
+    let rateLimitHeaders = {};
+    if (contactRateLimiter) {
+      const { success, limit, remaining, reset } = await contactRateLimiter.limit(ip);
+      
+      rateLimitHeaders = {
+        'X-RateLimit-Limit': limit.toString(),
+        'X-RateLimit-Remaining': remaining.toString(),
+        'X-RateLimit-Reset': new Date(reset).toISOString(),
+      };
+      
+      if (!success) {
+        return NextResponse.json(
+          { error: 'Too many requests. Please try again later.' },
+          { status: 429, headers: rateLimitHeaders }
+        );
+      }
     }
 
     // Parse request body
@@ -93,13 +95,15 @@ export async function POST(request: NextRequest) {
       createdAt: new Date().toISOString(),
     };
 
-    // Store lead in Redis
-    await storeLead(lead);
+    // Store lead in Redis if configured
+    if (redis) {
+      await storeLead(lead);
+    }
 
     // Send email notification if Resend is configured
     if (process.env.RESEND_API_KEY && process.env.CONTACT_EMAIL_TO) {
       try {
-        await resend.emails.send({
+        await resend!.emails.send({
           from: process.env.CONTACT_EMAIL_FROM || 'Phoenix Precision <noreply@phoenixprecision.agency>',
           to: process.env.CONTACT_EMAIL_TO,
           subject: `New Contact Form Submission from ${lead.name}`,
@@ -130,11 +134,7 @@ export async function POST(request: NextRequest) {
       },
       { 
         status: 200,
-        headers: {
-          'X-RateLimit-Limit': limit.toString(),
-          'X-RateLimit-Remaining': remaining.toString(),
-          'X-RateLimit-Reset': new Date(reset).toISOString(),
-        },
+        headers: rateLimitHeaders,
       }
     );
   } catch (error) {

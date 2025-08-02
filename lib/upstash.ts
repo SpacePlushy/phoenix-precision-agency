@@ -2,19 +2,21 @@ import { Redis } from '@upstash/redis';
 import { Ratelimit } from '@upstash/ratelimit';
 import type { Lead, DemoAnalytics, DailyAnalytics, StorageKeys } from './types';
 
-// Initialize Redis client
-export const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+// Initialize Redis client conditionally
+export const redis = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN 
+  ? new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    })
+  : null;
 
-// Rate limiter setup - 10 requests per minute per IP
-export const rateLimiter = new Ratelimit({
+// Rate limiter setup - 10 requests per minute per IP (only if Redis is configured)
+export const rateLimiter = redis ? new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(10, '1 m'),
   analytics: true,
   prefix: '@upstash/ratelimit',
-});
+}) : null;
 
 // Storage key generators
 export const STORAGE_KEYS: StorageKeys = {
@@ -27,6 +29,11 @@ export const STORAGE_KEYS: StorageKeys = {
 
 // Lead storage functions with 30-day expiration (2592000 seconds)
 export async function storeLead(lead: Lead): Promise<void> {
+  if (!redis) {
+    console.warn('Redis not configured, skipping lead storage');
+    return;
+  }
+  
   const key = STORAGE_KEYS.lead(lead.id);
   const pipeline = redis.pipeline();
   
@@ -43,6 +50,8 @@ export async function storeLead(lead: Lead): Promise<void> {
 }
 
 export async function getLead(id: string): Promise<Lead | null> {
+  if (!redis) return null;
+  
   const key = STORAGE_KEYS.lead(id);
   const data = await redis.get<string>(key);
   
@@ -56,6 +65,8 @@ export async function getLead(id: string): Promise<Lead | null> {
 }
 
 export async function getRecentLeads(limit: number = 100): Promise<Lead[]> {
+  if (!redis) return [];
+  
   // Get lead IDs sorted by timestamp (newest first)
   const leadIds = await redis.zrange(STORAGE_KEYS.leadsList, 0, limit - 1, {
     rev: true,
@@ -85,6 +96,11 @@ export async function getRecentLeads(limit: number = 100): Promise<Lead[]> {
 
 // Analytics storage functions
 export async function storeDemoAnalytics(analytics: DemoAnalytics): Promise<void> {
+  if (!redis) {
+    console.warn('Redis not configured, skipping analytics storage');
+    return;
+  }
+  
   const key = STORAGE_KEYS.demoAnalytics(analytics.sessionId);
   
   // Store with 90-day expiration for analytics data
@@ -95,6 +111,8 @@ export async function storeDemoAnalytics(analytics: DemoAnalytics): Promise<void
 }
 
 export async function getDemoAnalytics(sessionId: string): Promise<DemoAnalytics | null> {
+  if (!redis) return null;
+  
   const key = STORAGE_KEYS.demoAnalytics(sessionId);
   const data = await redis.get<string>(key);
   
@@ -129,6 +147,8 @@ export async function updateDemoAnalytics(
 
 // Daily analytics aggregation
 async function updateDailyAnalytics(analytics: DemoAnalytics): Promise<void> {
+  if (!redis) return;
+  
   const date = new Date(analytics.createdAt).toISOString().split('T')[0];
   const key = STORAGE_KEYS.dailyAnalytics(date);
   
@@ -169,6 +189,8 @@ async function updateDailyAnalytics(analytics: DemoAnalytics): Promise<void> {
 }
 
 export async function getDailyAnalytics(date: string): Promise<DailyAnalytics | null> {
+  if (!redis) return null;
+  
   const key = STORAGE_KEYS.dailyAnalytics(date);
   return await redis.get<DailyAnalytics>(key);
 }
@@ -177,6 +199,8 @@ export async function getAnalyticsRange(
   startDate: string,
   endDate: string
 ): Promise<DailyAnalytics[]> {
+  if (!redis) return [];
+  
   const start = new Date(startDate);
   const end = new Date(endDate);
   const analytics: DailyAnalytics[] = [];
@@ -205,10 +229,13 @@ export async function setWithExpiry(
   value: unknown,
   expirySeconds: number
 ): Promise<void> {
+  if (!redis) return;
   await redis.setex(key, expirySeconds, JSON.stringify(value));
 }
 
 export async function get<T>(key: string): Promise<T | null> {
+  if (!redis) return null;
+  
   const data = await redis.get<string>(key);
   
   if (!data) return null;
@@ -221,9 +248,11 @@ export async function get<T>(key: string): Promise<T | null> {
 }
 
 export async function increment(key: string, amount: number = 1): Promise<number> {
+  if (!redis) return 0;
   return await redis.incrby(key, amount);
 }
 
 export async function decrement(key: string, amount: number = 1): Promise<number> {
+  if (!redis) return 0;
   return await redis.decrby(key, amount);
 }
