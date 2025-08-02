@@ -19,7 +19,7 @@ const metrics: Metric[] = [
     suffix: "%",
     label: "PageSpeed Score",
     description: "Google Core Web Vitals",
-    color: "text-green-600"
+    color: "text-[var(--color-success)]"
   },
   {
     icon: <Zap className="w-8 h-8" />,
@@ -35,7 +35,7 @@ const metrics: Metric[] = [
     suffix: "%",
     label: "Uptime",
     description: "Monthly availability",
-    color: "text-[var(--color-success)]"
+    color: "text-[var(--color-gold)]"
   }
 ];
 
@@ -101,14 +101,20 @@ function AnimatedCounter({ value, suffix, duration = 2000 }: AnimatedCounterProp
 
 export default function PerformanceMetrics() {
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-primary)] mb-4">
+    <section className="py-20 bg-gradient-to-b from-white to-[var(--color-gray-50)] relative">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[var(--color-primary)] rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-primary)] mb-6">
             Performance That Speaks for Itself
           </h2>
           <p className="text-lg text-[var(--color-muted)] max-w-2xl mx-auto">
-            Real metrics from our optimized websites, delivering exceptional user experiences.
+            Real metrics from our optimized websites, delivering exceptional user experiences
+            with aerospace-grade reliability.
           </p>
         </div>
 
@@ -116,28 +122,43 @@ export default function PerformanceMetrics() {
           {metrics.map((metric, index) => (
             <div
               key={index}
-              className="text-center p-8 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+              className="group text-center p-10 rounded-2xl bg-white shadow-xl hover:shadow-2xl transition-all duration-300 border border-[var(--color-border)] hover:border-[var(--color-accent)]/30 transform hover:scale-105"
             >
-              <div className={`${metric.color} flex justify-center mb-4`}>
-                {metric.icon}
+              {/* Icon with gradient background */}
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-primary)]/10 to-[var(--color-accent)]/10 rounded-full blur-lg"></div>
+                <div className={`relative w-20 h-20 mx-auto rounded-full flex items-center justify-center ${metric.color} bg-gradient-to-br from-[var(--color-gray-50)] to-white shadow-lg border border-[var(--color-border)]`}>
+                  {metric.icon}
+                </div>
               </div>
-              <div className={`${metric.color} mb-2`}>
+              
+              {/* Animated counter */}
+              <div className={`${metric.color} mb-4`}>
                 <AnimatedCounter value={metric.value} suffix={metric.suffix} />
               </div>
-              <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2">
+              
+              {/* Label and description */}
+              <h3 className="text-xl font-bold text-[var(--color-primary)] mb-3 group-hover:text-[var(--color-accent)] transition-colors">
                 {metric.label}
               </h3>
-              <p className="text-[var(--color-muted)] text-sm">
+              <p className="text-[var(--color-muted)] font-medium">
                 {metric.description}
               </p>
+              
+              {/* Bottom accent line */}
+              <div className="mt-6 mx-auto w-12 h-1 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-gold)] rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></div>
             </div>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <p className="text-sm text-[var(--color-muted)]">
-            Metrics measured with industry-standard tools: Google PageSpeed Insights, GTmetrix, and Pingdom
-          </p>
+        {/* Enhanced footer with certification badges */}
+        <div className="mt-16 text-center">
+          <div className="inline-flex items-center gap-3 bg-[var(--color-gray-50)] px-6 py-3 rounded-full border border-[var(--color-border)]">
+            <div className="w-2 h-2 bg-[var(--color-success)] rounded-full animate-pulse"></div>
+            <p className="text-sm text-[var(--color-muted)] font-medium">
+              Metrics measured with industry-standard tools: Google PageSpeed Insights, GTmetrix, and Pingdom
+            </p>
+          </div>
         </div>
       </div>
     </section>

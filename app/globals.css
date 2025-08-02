@@ -1,23 +1,57 @@
 @import "tailwindcss";
 
-/* Custom color scheme */
+/* Sophisticated Navy Color Scheme - Phoenix Precision Agency */
 :root {
-  --color-primary: #0F172A;
-  --color-accent: #3B82F6;
-  --color-success: #10B981;
-  --color-background: #F8FAFC;
-  --color-foreground: #0F172A;
-  --color-muted: #64748B;
-  --color-border: #E2E8F0;
-  --color-error: #EF4444;
-  --color-warning: #F59E0B;
+  /* Primary deep navy - conveys trust and aerospace precision */
+  --color-primary: #01257D;
+  --color-primary-light: #00303F;
+  --color-primary-dark: #001B5C;
+  
+  /* Electric blue accent - for CTAs and highlights */
+  --color-accent: #4A8BDF;
+  --color-accent-light: #6BA3E8;
+  --color-accent-dark: #2E6FCC;
+  
+  /* Professional supporting colors */
+  --color-success: #0EA5E9;
+  --color-background: #FFFFFF;
+  --color-foreground: #01257D;
+  --color-muted: #475569;
+  --color-border: #CBD5E1;
+  --color-error: #DC2626;
+  --color-warning: #D97706;
+  
+  /* Premium gold accents for aerospace feel */
+  --color-gold: #F59E0B;
+  --color-gold-light: #FCD34D;
+  --color-gold-dark: #D97706;
+  
+  /* High contrast grays */
+  --color-gray-50: #F8FAFC;
+  --color-gray-100: #F1F5F9;
+  --color-gray-200: #E2E8F0;
+  --color-gray-300: #CBD5E1;
+  --color-gray-400: #94A3B8;
+  --color-gray-500: #64748B;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1E293B;
+  --color-gray-900: #0F172A;
 }
 
 /* Tailwind v4 theme configuration */
 @theme inline {
-  /* Custom colors */
+  /* Primary navy colors */
   --color-primary: var(--color-primary);
+  --color-primary-light: var(--color-primary-light);
+  --color-primary-dark: var(--color-primary-dark);
+  
+  /* Electric blue accent colors */
   --color-accent: var(--color-accent);
+  --color-accent-light: var(--color-accent-light);
+  --color-accent-dark: var(--color-accent-dark);
+  
+  /* Supporting colors */
   --color-success: var(--color-success);
   --color-background: var(--color-background);
   --color-foreground: var(--color-foreground);
@@ -26,23 +60,42 @@
   --color-error: var(--color-error);
   --color-warning: var(--color-warning);
   
+  /* Premium gold accents */
+  --color-gold: var(--color-gold);
+  --color-gold-light: var(--color-gold-light);
+  --color-gold-dark: var(--color-gold-dark);
+  
+  /* High contrast grays */
+  --color-gray-50: var(--color-gray-50);
+  --color-gray-100: var(--color-gray-100);
+  --color-gray-200: var(--color-gray-200);
+  --color-gray-300: var(--color-gray-300);
+  --color-gray-400: var(--color-gray-400);
+  --color-gray-500: var(--color-gray-500);
+  --color-gray-600: var(--color-gray-600);
+  --color-gray-700: var(--color-gray-700);
+  --color-gray-800: var(--color-gray-800);
+  --color-gray-900: var(--color-gray-900);
+  
   /* System font stack */
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
 }
 
-/* Dark mode adjustments */
+/* Dark mode adjustments - Enhanced navy theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #F8FAFC;
-    --color-accent: #60A5FA;
-    --color-success: #34D399;
+    /* Maintain navy branding even in dark mode */
+    --color-primary: #4A8BDF;
+    --color-accent: #6BA3E8;
+    --color-success: #22D3EE;
     --color-background: #0F172A;
     --color-foreground: #F8FAFC;
     --color-muted: #94A3B8;
     --color-border: #334155;
     --color-error: #F87171;
-    --color-warning: #FBB040;
+    --color-warning: #FCD34D;
+    --color-gold: #FCD34D;
   }
 }
 
