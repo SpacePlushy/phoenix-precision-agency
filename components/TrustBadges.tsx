@@ -45,19 +45,23 @@ export default function TrustBadges() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {badges.map((badge, index) => (
-            <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:scale-105 border-border hover:border-accent/50">
+            <Card key={index} className="group hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/50 hover:-translate-y-1 shadow-lg">
               <CardContent className="flex items-center gap-6 p-8">
-                <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-primary-foreground shadow-lg group-hover:shadow-xl transition-all">
-                  {badge.icon}
+                <div className="flex-shrink-0 relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-md group-hover:blur-lg transition-all"></div>
+                  <div className="relative w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-primary-foreground shadow-lg group-hover:shadow-2xl transition-all group-hover:scale-110">
+                    {badge.icon}
+                  </div>
                 </div>
-                <div>
-                  <CardTitle className="text-lg mb-1 group-hover:text-accent transition-colors">
+                <div className="flex-1">
+                  <CardTitle className="text-lg mb-1 group-hover:text-accent transition-colors font-bold">
                     {badge.title}
                   </CardTitle>
-                  <CardDescription className="font-medium">
+                  <CardDescription className="font-medium text-muted-foreground group-hover:text-foreground/80 transition-colors">
                     {badge.subtitle}
                   </CardDescription>
                 </div>
+                <div className="w-1 h-8 bg-gradient-to-b from-accent to-gold rounded-full opacity-30 group-hover:opacity-100 transition-opacity"></div>
               </CardContent>
             </Card>
           ))}

@@ -125,31 +125,33 @@ export default function PerformanceMetrics() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {metrics.map((metric, index) => (
-            <Card key={index} className="group text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border-border hover:border-accent/50">
+            <Card key={index} className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/50 hover:-translate-y-1 shadow-lg">
               <CardContent className="p-10">
                 {/* Icon with gradient background */}
                 <div className="relative mb-6">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-lg"></div>
-                  <div className={`relative w-20 h-20 mx-auto rounded-full flex items-center justify-center ${metric.colorClass} bg-gradient-to-br from-background to-muted shadow-lg border border-border`}>
-                    {metric.icon}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-lg group-hover:blur-xl transition-all"></div>
+                  <div className={`relative w-20 h-20 mx-auto rounded-full flex items-center justify-center ${metric.colorClass} bg-gradient-to-br from-background to-muted shadow-lg border border-border group-hover:shadow-2xl transition-all group-hover:scale-110`}>
+                    <div className="transition-transform group-hover:scale-110">
+                      {metric.icon}
+                    </div>
                   </div>
                 </div>
                 
                 {/* Animated counter */}
-                <div className={`${metric.colorClass} mb-4`}>
+                <div className={`${metric.colorClass} mb-4 transition-transform group-hover:scale-105`}>
                   <AnimatedCounter value={metric.value} suffix={metric.suffix} />
                 </div>
                 
                 {/* Label and description */}
-                <CardTitle className="text-xl mb-3 group-hover:text-accent transition-colors">
+                <CardTitle className="text-xl mb-3 group-hover:text-accent transition-colors font-bold">
                   {metric.label}
                 </CardTitle>
-                <CardDescription className="font-medium">
+                <CardDescription className="font-medium text-muted-foreground group-hover:text-foreground/80 transition-colors">
                   {metric.description}
                 </CardDescription>
                 
                 {/* Bottom accent line */}
-                <div className="mt-6 mx-auto w-12 h-1 bg-gradient-to-r from-accent to-yellow-400 rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                <div className="mt-6 mx-auto w-12 h-1 bg-gradient-to-r from-accent to-yellow-400 rounded-full opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all"></div>
               </CardContent>
             </Card>
           ))}

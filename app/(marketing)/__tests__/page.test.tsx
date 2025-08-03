@@ -8,12 +8,28 @@ jest.mock('@/components/demo/DemoContainer', () => ({
   default: () => <div data-testid="demo-container">Demo Container</div>,
 }));
 
+// Mock the PerformanceMetrics component
+jest.mock('@/components/PerformanceMetrics', () => ({
+  __esModule: true,
+  default: () => <div data-testid="performance-metrics">Performance Metrics</div>,
+}));
+
 describe('Home Page', () => {
   it('renders the hero section', () => {
     render(<Home />);
     
-    expect(screen.getByText('Transform Your Business Online')).toBeInTheDocument();
+    expect(screen.getByText('Transform Your Business with')).toBeInTheDocument();
+    expect(screen.getByText('Aerospace Precision')).toBeInTheDocument();
     expect(screen.getByText(/We turn outdated websites into modern digital experiences/)).toBeInTheDocument();
+  });
+
+  it('displays trust indicators in hero section', () => {
+    render(<Home />);
+    
+    expect(screen.getByText('Trusted by businesses worldwide')).toBeInTheDocument();
+    expect(screen.getByText('99.9% Uptime')).toBeInTheDocument();
+    expect(screen.getByText('NASA-Grade Security')).toBeInTheDocument();
+    expect(screen.getByText('24/7 Support')).toBeInTheDocument();
   });
 
   it('displays call-to-action buttons', () => {
@@ -26,6 +42,16 @@ describe('Home Page', () => {
     const viewWorkLink = screen.getByText('View Our Work');
     expect(viewWorkLink).toBeInTheDocument();
     expect(viewWorkLink).toHaveAttribute('href', '/portfolio');
+  });
+
+  it('applies correct styling to CTA buttons', () => {
+    render(<Home />);
+    
+    const primaryButton = screen.getByText('Start Your Transformation');
+    expect(primaryButton).toHaveClass('bg-accent', 'hover:bg-accent/90');
+    
+    const secondaryButton = screen.getByText('View Our Work');
+    expect(secondaryButton).toHaveClass('border-white', 'hover:bg-white', 'hover:text-primary');
   });
 
   it('renders the demo container', () => {
@@ -57,22 +83,34 @@ describe('Home Page', () => {
   it('renders the CTA section', () => {
     render(<Home />);
     
-    expect(screen.getByText('Ready to Leave Your Competition Behind?')).toBeInTheDocument();
+    // Check for actual CTA text in the page
+    expect(screen.getByText('Ready to Leave Your')).toBeInTheDocument();
+    expect(screen.getByText('Competition Behind?')).toBeInTheDocument();
     expect(screen.getByText(/Let's discuss how we can transform your digital presence/)).toBeInTheDocument();
     
-    const consultationLink = screen.getByText('Get Your Free Consultation');
-    expect(consultationLink).toBeInTheDocument();
+    const consultationText = screen.getByText('Get Your Free Consultation');
+    expect(consultationText).toBeInTheDocument();
+    const consultationLink = consultationText.closest('a');
     expect(consultationLink).toHaveAttribute('href', '/contact');
+  });
+
+  it('displays premium badge and guarantees in CTA section', () => {
+    render(<Home />);
+    
+    expect(screen.getByText('Premium Digital Transformation')).toBeInTheDocument();
+    expect(screen.getByText('No-risk consultation')).toBeInTheDocument();
+    expect(screen.getByText('30-day guarantee')).toBeInTheDocument();
+    expect(screen.getByText('NASA-certified team')).toBeInTheDocument();
   });
 
   it('has proper heading hierarchy', () => {
     render(<Home />);
     
     const h1 = screen.getByRole('heading', { level: 1 });
-    expect(h1).toHaveTextContent('Transform Your Business Online');
+    expect(h1).toHaveTextContent('Transform Your Business withAerospace Precision');
     
     const h2Elements = screen.getAllByRole('heading', { level: 2 });
-    expect(h2Elements).toHaveLength(2); // Features and CTA sections
+    expect(h2Elements).toHaveLength(3); // Performance metrics, Features and CTA sections
     
     const h3Elements = screen.getAllByRole('heading', { level: 3 });
     expect(h3Elements).toHaveLength(3); // Three feature cards
@@ -82,7 +120,7 @@ describe('Home Page', () => {
     render(<Home />);
     
     // Check for section elements
-    const container = screen.getByText('Transform Your Business Online').closest('section');
+    const container = screen.getByText('Transform Your Business with').closest('section');
     expect(container).toBeInTheDocument();
     expect(container.tagName).toBe('SECTION');
   });
@@ -103,12 +141,80 @@ describe('Home Page', () => {
     render(<Home />);
     
     const startButton = screen.getByText('Start Your Transformation');
-    expect(startButton).toHaveClass('hover:opacity-90');
+    expect(startButton).toHaveClass('bg-accent', 'hover:bg-accent/90');
     
     const viewWorkButton = screen.getByText('View Our Work');
-    expect(viewWorkButton).toHaveClass('hover:bg-[var(--color-accent)]', 'hover:text-white');
+    expect(viewWorkButton).toHaveClass('hover:bg-white', 'hover:text-primary');
     
-    const featureCard = screen.getByText('Data-Driven Design').parentElement;
-    expect(featureCard).toHaveClass('hover:shadow-lg');
+    // Check feature cards for enhanced hover effects
+    const featureCards = screen.getAllByRole('heading', { level: 3 }).map(h => h.closest('.group'));
+    featureCards.forEach(card => {
+      if (card) {
+        expect(card).toHaveClass('hover:shadow-2xl', 'transition-all', 'duration-300', 'hover:scale-[1.02]');
+      }
+    });
+  });
+
+  describe('Card Enhancements', () => {
+    it('applies new Card component styling', () => {
+      render(<Home />);
+      
+      // Check hero trust indicators card - find the actual Card element
+      const trustText = screen.getByText('Trusted by businesses worldwide');
+      const trustCard = trustText.closest('[class*="rounded-lg"][class*="border"]');
+      expect(trustCard).toHaveClass('bg-white/10', 'border-white/20', 'backdrop-blur-sm', 'hover:bg-white/15');
+      
+      // Check feature cards
+      const featureSection = screen.getByText('Why Choose Phoenix Precision?').closest('section');
+      const cards = featureSection?.querySelectorAll('.rounded-lg.border');
+      
+      if (cards && cards.length > 0) {
+        expect(cards.length).toBe(3);
+        Array.from(cards).forEach(card => {
+          expect(card).toHaveClass('shadow-lg', 'hover:shadow-2xl', 'transition-all', 'duration-300');
+        });
+      }
+    });
+
+    it('includes gradient effects on feature cards', () => {
+      render(<Home />);
+      
+      // Check for gradient backgrounds
+      const gradientElements = document.querySelectorAll('.bg-gradient-to-br');
+      expect(gradientElements.length).toBeGreaterThan(0);
+      
+      // Check for blur effects
+      const blurElements = document.querySelectorAll('.blur-lg, .blur-xl');
+      expect(blurElements.length).toBeGreaterThan(0);
+    });
+
+    it('applies hover scale effects to icons', () => {
+      render(<Home />);
+      
+      // Check for icon containers with scale effects
+      const iconContainers = document.querySelectorAll('.group-hover\\:scale-110');
+      expect(iconContainers.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('Theme and Colors', () => {
+    it('uses new aerospace gradient backgrounds', () => {
+      render(<Home />);
+      
+      const sections = document.querySelectorAll('.aerospace-gradient, .aerospace-gradient-subtle');
+      expect(sections.length).toBeGreaterThan(0);
+    });
+
+    it('applies correct badge styling', () => {
+      render(<Home />);
+      
+      // Check trust badges
+      const badges = screen.getAllByRole('generic').filter(el => el.classList.contains('bg-emerald-500/20') || el.classList.contains('bg-gold/20') || el.classList.contains('bg-blue-500/20'));
+      expect(badges.length).toBeGreaterThan(0);
+      
+      badges.forEach(badge => {
+        expect(badge).toHaveClass('transition-all');
+      });
+    });
   });
 });

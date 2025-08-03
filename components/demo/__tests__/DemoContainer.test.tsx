@@ -189,4 +189,41 @@ describe('DemoContainer', () => {
     const afterLabels = screen.getAllByText('After');
     expect(afterLabels.length).toBeGreaterThan(0);
   });
+
+  describe('Card Enhancements', () => {
+    it('applies hover effects to cards', () => {
+      render(<DemoContainer />);
+      
+      // Check main header card
+      const headerCard = document.querySelector('.max-w-4xl.mx-auto');
+      expect(headerCard).toHaveClass('shadow-lg', 'hover:shadow-xl', 'transition-all', 'duration-300');
+      
+      // Check CTA card
+      const ctaCard = document.querySelector('.max-w-2xl.mx-auto');
+      expect(ctaCard).toHaveClass('shadow-lg', 'hover:shadow-xl', 'transition-all', 'duration-300', 'border-border', 'hover:border-accent/30');
+    });
+
+    it('applies correct border hover effects to mobile view', () => {
+      render(<DemoContainer />);
+      
+      // Check mobile view card
+      const mobileCard = document.querySelector('.lg\\:hidden.relative.overflow-hidden');
+      expect(mobileCard).toHaveClass('shadow-2xl', 'border-border', 'hover:border-accent/30', 'transition-all', 'duration-300');
+    });
+
+    it('uses CardContent component with proper padding', () => {
+      render(<DemoContainer />);
+      
+      // Check CardContent components
+      const cardContents = document.querySelectorAll('[class*="p-6"], [class*="p-8"]');
+      expect(cardContents.length).toBeGreaterThan(0);
+      
+      // Check specific padding classes
+      const headerContent = document.querySelector('.p-6');
+      expect(headerContent).toBeInTheDocument();
+      
+      const ctaContent = document.querySelector('.text-center.p-8');
+      expect(ctaContent).toBeInTheDocument();
+    });
+  });
 });

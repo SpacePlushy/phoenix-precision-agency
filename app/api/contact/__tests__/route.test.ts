@@ -57,16 +57,49 @@ jest.mock('@/lib/upstash', () => ({
 
 // Mock Resend
 const mockSend = jest.fn();
+const mockResendInstance = {
+  emails: {
+    send: mockSend,
+  },
+};
+
 jest.mock('resend', () => ({
-  Resend: jest.fn(() => ({
-    emails: {
-      send: mockSend,
-    },
-  })),
+  Resend: jest.fn(() => mockResendInstance),
 }));
 
+// Set up default env vars before importing
+process.env.UPSTASH_REDIS_REST_URL = 'http://localhost:8079';
+process.env.UPSTASH_REDIS_REST_TOKEN = 'test-token';
+
+// Mock the getResendInstance before importing
+jest.mock('../route', () => {
+  const originalModule = jest.requireActual('../route');
+  return {
+    ...originalModule,
+    getResendInstance: jest.fn(() => {
+      if (process.env.RESEND_API_KEY) {
+        return {
+          emails: {
+            send: jest.fn(),
+          },
+        };
+      }
+      return null;
+    }),
+  };
+});
+
 // Import the route handlers after mocks are set up
-const { POST, GET } = require('../route');
+const { POST, GET, getResendInstance } = require('../route');
+
+// Set up the mock send function
+const mockGetResendInstance = getResendInstance as jest.MockedFunction<typeof getResendInstance>;
+mockGetResendInstance.mockImplementation(() => {
+  if (process.env.RESEND_API_KEY) {
+    return mockResendInstance;
+  }
+  return null;
+});
 
 describe('/api/contact', () => {
   beforeEach(() => {
@@ -252,7 +285,7 @@ describe('/api/contact', () => {
     });
 
     it('sends email notification when configured', async () => {
-      // Set environment variables
+      // Set environment variables  
       process.env.RESEND_API_KEY = 'test-key';
       process.env.CONTACT_EMAIL_TO = 'admin@example.com';
       process.env.CONTACT_EMAIL_FROM = 'noreply@example.com';

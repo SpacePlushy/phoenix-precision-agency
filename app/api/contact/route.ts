@@ -8,6 +8,12 @@ import { ContactFormData } from '@/components/forms/ContactForm';
 // Initialize Resend conditionally
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
+// Helper function to get resend instance (for testing)
+export const getResendInstance = () => {
+  if (!process.env.RESEND_API_KEY) return null;
+  return resend || new Resend(process.env.RESEND_API_KEY);
+};
+
 // Create a custom rate limiter for contact form (3 per hour per IP) - only if Redis is configured
 const contactRateLimiter = redis ? new Ratelimit({
   redis,
@@ -101,9 +107,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Send email notification if Resend is configured
-    if (process.env.RESEND_API_KEY && process.env.CONTACT_EMAIL_TO) {
+    const resendInstance = getResendInstance();
+    if (resendInstance && process.env.CONTACT_EMAIL_TO) {
       try {
-        await resend!.emails.send({
+        await resendInstance.emails.send({
           from: process.env.CONTACT_EMAIL_FROM || 'Phoenix Precision <noreply@phoenixprecision.agency>',
           to: process.env.CONTACT_EMAIL_TO,
           subject: `New Contact Form Submission from ${lead.name}`,
