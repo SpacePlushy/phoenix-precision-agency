@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Link from "next/link";
+import { Analytics } from '@vercel/analytics/react';
 
 export default function MarketingLayout({
   children,
@@ -54,6 +55,7 @@ export default function MarketingLayout({
           </div>
         </div>
       </footer>
+      <Analytics />
     </>
   );
 }

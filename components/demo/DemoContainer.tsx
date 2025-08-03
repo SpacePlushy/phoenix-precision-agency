@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import { generateSessionId, trackDemoStart, trackDemoEnd, trackDemoInteraction, trackViewportTime } from '@/lib/analytics';
 
 export default function DemoContainer() {
   const [activeView, setActiveView] = useState<'old' | 'new'>('old');
@@ -15,6 +16,9 @@ export default function DemoContainer() {
   const progress = useMotionValue(0);
   const progressScale = useTransform(progress, [0, 100], [0, 1]);
   const animationRef = useRef<AnimationPlaybackControls | null>(null);
+  const [sessionId] = useState(() => generateSessionId());
+  const viewStartTime = useRef<number>(Date.now());
+  const interactionCount = useRef<number>(0);
 
   // Zoom animation variants with proper TypeScript typing
   const zoomVariants: Variants = {
@@ -39,6 +43,20 @@ export default function DemoContainer() {
       }
     }
   };
+
+  // Track initial demo view
+  useEffect(() => {
+    trackDemoStart(sessionId, activeView).catch(console.error);
+    
+    // Track viewport time when component unmounts
+    return () => {
+      const startTime = viewStartTime.current;
+      const viewportTime = Date.now() - startTime;
+      trackViewportTime(sessionId, viewportTime).catch(console.error);
+      trackDemoEnd(sessionId).catch(console.error);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionId]); // Only run once on mount
 
   useEffect(() => {
     // Clean up any existing animation
@@ -92,6 +110,10 @@ export default function DemoContainer() {
     setActiveView(view);
     progress.set(0);
     setIsPaused(true);
+    
+    // Track interaction
+    interactionCount.current++;
+    trackDemoInteraction(sessionId).catch(console.error);
     
     // Stop any ongoing animation
     if (animationRef.current) {
