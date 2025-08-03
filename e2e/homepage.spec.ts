@@ -53,12 +53,13 @@ test.describe('Homepage', () => {
 
     // Check for values - they appear inside card elements
     for (const metric of metrics) {
-      // Find the card containing this metric
-      const metricCard = metricsSection.locator('.bg-card', { hasText: metric.label }).first();
-      await expect(metricCard).toBeVisible({ timeout: 5000 });
+      // Find the metric container - look for the metric label and value in proximity
+      const metricLabel = metricsSection.getByText(metric.label);
+      await expect(metricLabel).toBeVisible({ timeout: 5000 });
       
-      // The value should appear within the card with extended timeout for animations
-      await expect(metricCard.getByText(metric.value)).toBeVisible({ timeout: 10000 });
+      // The value should appear near the label with extended timeout for animations
+      const metricContainer = metricLabel.locator('..').locator('..');
+      await expect(metricContainer.getByText(metric.value)).toBeVisible({ timeout: 10000 });
     }
   });
 

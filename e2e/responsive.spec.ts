@@ -3,13 +3,13 @@ import { waitForReactReady, disableAnimations } from './helpers/test-utils';
 
 // Helper to check mobile navigation
 async function checkMobileNavigation(page: Page) {
-  // Mobile menu button should be visible
-  const menuButton = page.getByRole('button', { name: /menu/i });
+  // Mobile menu button should be visible (using aria-label)
+  const menuButton = page.getByRole('button', { name: 'Toggle menu' });
   await expect(menuButton).toBeVisible();
   
   // Desktop navigation links should be hidden
-  const desktopNav = page.locator('nav').locator('a[href="/portfolio"]').first();
-  await expect(desktopNav).toHaveCSS('display', 'none');
+  const desktopNav = page.locator('.hidden.md\\:flex').locator('a[href="/portfolio"]').first();
+  await expect(desktopNav).not.toBeVisible();
   
   // Click menu button
   await menuButton.click();
