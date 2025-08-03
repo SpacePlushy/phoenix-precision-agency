@@ -52,7 +52,7 @@ describe('Home Page', () => {
     expect(primaryButton).toHaveClass('bg-accent', 'hover:bg-accent/90');
     
     const secondaryButton = screen.getByText('View Our Work');
-    // The link element has the button classes
+    // The link element has the button classes for dark theme
     expect(secondaryButton).toHaveClass('border-background/20', 'hover:bg-background/10');
   });
 

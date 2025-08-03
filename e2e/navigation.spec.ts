@@ -28,7 +28,7 @@ test.describe('Navigation and Routing', () => {
     await page.getByRole('link', { name: 'Phoenix Precision' }).first().click();
     await page.waitForURL('/', { timeout: 10000 });
     await waitForReactReady(page);
-    await expect(page.getByRole('heading', { name: /Transform Your Business/i })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('heading', { name: /Transform Your Business/i, level: 1 })).toBeVisible({ timeout: 10000 });
   });
 
   test('should handle direct URL navigation', async ({ page }) => {

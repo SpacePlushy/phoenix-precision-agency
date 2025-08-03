@@ -107,7 +107,7 @@ test.describe('Homepage', () => {
     await expect(footer.getByText(/NASA engineer bringing aerospace/i)).toBeVisible();
     
     // Check contact info
-    await expect(footer.getByText('contact@phoenixprecision.dev')).toBeVisible();
+    await expect(footer.getByText('fmp321@gmail.com')).toBeVisible();
     await expect(footer.getByText('(602) 531-4111')).toBeVisible();
     
     // Check social links

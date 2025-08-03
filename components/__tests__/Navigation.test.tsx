@@ -50,7 +50,7 @@ describe('Navigation', () => {
       const ctaButton = screen.getByRole('link', { name: /get started/i });
       expect(ctaButton).toHaveAttribute('href', '/contact');
       // The Button component itself has the classes, not its parent
-      expect(ctaButton).toHaveClass('border-muted-foreground/20');
+      expect(ctaButton).toHaveClass('border-accent/30', 'text-accent');
     });
 
     it('applies correct styling classes', () => {
@@ -58,10 +58,10 @@ describe('Navigation', () => {
       
       // Check sticky navigation
       const nav = screen.getByRole('navigation');
-      expect(nav).toHaveClass('sticky', 'top-0', 'z-50', 'backdrop-blur-md');
+      expect(nav).toHaveClass('sticky', 'top-0', 'z-50', 'backdrop-blur-md', 'border-b');
       
-      // Check Card component wrapper
-      const card = nav.querySelector('.bg-card.shadow-sm');
+      // Check Card component wrapper with dark theme
+      const card = nav.querySelector('.bg-card\\/80.shadow-lg');
       expect(card).toBeInTheDocument();
     });
 
@@ -138,7 +138,7 @@ describe('Navigation', () => {
       
       // Click on a mobile nav link - get the mobile one specifically
       const mobileLinks = screen.getAllByRole('link', { name: /portfolio/i });
-      const mobileLink = mobileLinks.find(link => link.classList.contains('py-2'));
+      const mobileLink = mobileLinks.find(link => link.classList.contains('py-3'));
       fireEvent.click(mobileLink!);
       
       // Menu should close
@@ -219,19 +219,19 @@ describe('Navigation', () => {
     it('uses correct color classes', () => {
       render(<Navigation />);
       
-      // Check primary colors - The span containing "Phoenix Precision" has text-primary class
+      // Check primary colors - The span containing "Phoenix Precision" has text-foreground class
       const logoText = screen.getByText((content, element) => {
         return element?.textContent === 'Phoenix Precision';
       });
-      expect(logoText).toHaveClass('text-primary');
+      expect(logoText).toHaveClass('text-foreground');
       
       // Check accent colors - "Precision" is in a nested span with text-accent
       const accentText = screen.getByText('Precision');
       expect(accentText).toHaveClass('text-accent');
       
-      // Check CTA button colors - it's an outline variant now
+      // Check CTA button colors - it's an outline variant now with accent colors
       const ctaButton = screen.getByRole('link', { name: /get started/i });
-      expect(ctaButton).toHaveClass('border-muted-foreground/20', 'text-primary');
+      expect(ctaButton).toHaveClass('border-accent/30', 'text-accent');
     });
 
     it('applies gradient effects correctly', () => {

@@ -23,8 +23,8 @@
   - text: 99.9% Uptime NASA-Grade Security 24/7 Support ⚡ Interactive Demo
   - heading "See the Transformation" [level=2]
   - paragraph: Experience firsthand how we transform outdated websites into modern, high-performing digital experiences that drive results
-  - button "2005 Website" [pressed]
-  - button "Modern Website"
+  - button "2005 Website"
+  - button "Modern Website" [pressed]
   - paragraph: Click to compare or watch the automatic demonstration
   - text: ❌ BEFORE (2005) http://www.acmebusiness.com/index.html 🌟 WELCOME TO ACME BUSINESS SOLUTIONS 🌟 YOUR PREMIER BUSINESS PARTNER SINCE 1995 🌟 ACME BUSINESS [ ANIMATED BANNER AD SPACE ]
   - heading "🚧 SITE UNDER CONSTRUCTION 🚧" [level=2]
