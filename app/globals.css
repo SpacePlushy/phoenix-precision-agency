@@ -322,20 +322,130 @@
   
   @keyframes marquee {
     0% {
-      transform: translateX(100%);
+      transform: translateX(100%) translateZ(0);
+      -webkit-transform: translateX(100%) translateZ(0);
     }
     100% {
-      transform: translateX(-100%);
+      transform: translateX(-100%) translateZ(0);
+      -webkit-transform: translateX(-100%) translateZ(0);
+    }
+  }
+  
+  @-webkit-keyframes marquee {
+    0% {
+      -webkit-transform: translateX(100%) translateZ(0);
+    }
+    100% {
+      -webkit-transform: translateX(-100%) translateZ(0);
     }
   }
   
   .animate-marquee {
     animation: marquee 15s linear infinite;
+    -webkit-animation: marquee 15s linear infinite;
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
   }
   
   /* Enhanced hover and interaction states */
   .hover\\:scale-102:hover {
-    transform: scale(1.02);
+    transform: scale(1.02) translateZ(0);
+  }
+  
+  /* Chrome-specific performance optimizations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  
+  /* Optimized progress bar animation */
+  .progress-bar-fill {
+    transform-origin: left center;
+    -webkit-transform-origin: left center;
+    transform: scaleX(var(--progress, 0)) translateZ(0);
+    -webkit-transform: scaleX(var(--progress, 0)) translateZ(0);
+    transition: transform 0.1s linear;
+    -webkit-transition: -webkit-transform 0.1s linear;
+    will-change: transform;
+    contain: layout style paint;
+  }
+  
+  /* Optimized blur effects */
+  .blur-optimized {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    transform: translateZ(0);
+  }
+  
+  /* Optimized scale animations */
+  .scale-optimized {
+    transform: scale(1) translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  .scale-optimized-hover:hover {
+    transform: scale(1.05) translateZ(0);
+  }
+  
+  .scale-optimized-active {
+    transform: scale(1.05) translateZ(0);
+  }
+  
+  /* Mobile view transitions optimized */
+  .mobile-view-transition {
+    transform: translateX(0) translateZ(0);
+    will-change: transform, opacity;
+    contain: layout style paint;
+  }
+  
+  /* Chrome-specific fixes */
+  @supports (contain: layout) {
+    .demo-section {
+      contain: layout style;
+    }
+  }
+  
+  /* Chrome and Webkit-specific optimizations */
+  @supports (-webkit-appearance: none) {
+    .chrome-optimized {
+      -webkit-transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      -webkit-font-smoothing: antialiased;
+      image-rendering: -webkit-optimize-contrast;
+    }
+    
+    /* Optimize marquee for Chrome */
+    .animate-marquee {
+      -webkit-transform: translateX(100%) translateZ(0);
+    }
+    
+    /* Force hardware acceleration on demo sections */
+    .demo-section * {
+      -webkit-transform: translateZ(0);
+    }
+  }
+  
+  /* CSS containment for demo section */
+  .demo-section {
+    contain: layout style;
+  }
+  
+  .demo-container-wrapper {
+    contain: layout style paint;
+    content-visibility: auto;
+  }
+  
+  /* Reduce paint areas for animations */
+  .gpu-accelerated,
+  .scale-optimized,
+  .mobile-view-transition {
+    isolation: isolate;
   }
   
   .hover\\:scale-105:hover {

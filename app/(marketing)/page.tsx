@@ -1,4 +1,4 @@
-import DemoContainer from "@/components/demo/DemoContainer";
+import LazyDemoContainer from "@/components/demo/LazyDemoContainer";
 import TrustBadges from "@/components/TrustBadges";
 import PerformanceMetrics from "@/components/PerformanceMetrics";
 import { Button } from "@/components/ui/button";
@@ -63,7 +63,7 @@ export default function Home() {
       </section>
 
       {/* Interactive Demo */}
-      <DemoContainer />
+      <LazyDemoContainer />
 
       {/* Trust Badges */}
       <TrustBadges />

@@ -22,7 +22,7 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
       </div>
       {/* Dated header with marquee effect */}
       <div className="bg-slate-700 text-amber-200 p-2 text-center overflow-hidden">
-        <div className="animate-marquee whitespace-nowrap font-['Times_New_Roman',serif] text-lg font-bold">
+        <div className="animate-marquee whitespace-nowrap font-['Times_New_Roman',serif] text-lg font-bold chrome-optimized">
           🌟 WELCOME TO ACME BUSINESS SOLUTIONS 🌟 YOUR PREMIER BUSINESS PARTNER SINCE 1995 🌟
         </div>
       </div>
@@ -40,7 +40,7 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
           </div>
 
           {/* Under construction notice */}
-          <div className="bg-amber-400 text-amber-900 p-2 mb-4 inline-block animate-pulse">
+          <div className="bg-amber-400 text-amber-900 p-2 mb-4 inline-block animate-pulse gpu-accelerated">
             <h2 className="font-['Comic_Sans_MS',cursive] text-xl">
               🚧 SITE UNDER CONSTRUCTION 🚧
             </h2>
@@ -53,6 +53,10 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
               src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='40' viewBox='0 0 200 40'%3E%3Crect width='200' height='40' fill='black'/%3E%3Ctext x='10' y='25' fill='lime' font-family='monospace' font-size='16'%3EVisitors: 0031337%3C/text%3E%3C/svg%3E"
               alt="Visitor Counter"
               className="inline-block"
+              loading="lazy"
+              decoding="async"
+              width="200"
+              height="40"
             />
           </div>
 
@@ -94,7 +98,7 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
             
             {/* Blinking text */}
             <div className="text-center mb-4">
-              <span className="font-['Comic_Sans_MS',cursive] text-red-600 text-lg font-bold animate-pulse">
+              <span className="font-['Comic_Sans_MS',cursive] text-red-600 text-lg font-bold animate-pulse gpu-accelerated">
                 *** NEW AND IMPROVED WEBSITE ***
               </span>
             </div>
@@ -106,7 +110,7 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
               <div className="w-[100px] h-[100px] bg-stone-200 border-2 border-stone-400 flex items-center justify-center">
                 <span className="text-xs text-stone-600 text-center">PHOTO23.BMP<br/>File Not Found</span>
               </div>
-              <div className="w-[100px] h-[100px] bg-amber-300 border-2 border-amber-600 flex items-center justify-center animate-pulse">
+              <div className="w-[100px] h-[100px] bg-amber-300 border-2 border-amber-600 flex items-center justify-center animate-pulse gpu-accelerated">
                 <span className="text-xs text-amber-800 text-center font-bold">CLICK HERE!<br/>💰💰💰</span>
               </div>
             </div>
@@ -126,12 +130,12 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
 
             {/* Scrolling text */}
             <div className="bg-yellow-200 border-2 border-yellow-500 p-2 mb-4 overflow-hidden">
-              <div className="animate-marquee whitespace-nowrap text-sm text-yellow-800 font-bold">
+              <div className="animate-marquee whitespace-nowrap text-sm text-yellow-800 font-bold chrome-optimized">
                 🔥 HOT DEALS! 🔥 CALL NOW FOR FREE CONSULTATION! 🔥 LIMITED TIME OFFER! 🔥
               </div>
             </div>
 
-            <p className="text-amber-800 font-bold animate-pulse text-center text-xl">
+            <p className="text-amber-800 font-bold animate-pulse text-center text-xl gpu-accelerated">
               Call NOW! 1-800-ACME-BIZ
             </p>
             

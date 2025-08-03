@@ -34,23 +34,23 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
               </div>
               <div className="hidden md:block ml-10">
                 <div className="flex items-baseline space-x-4">
-                  <a href="#" className="text-foreground hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  <a href="#" className="text-foreground hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors gpu-accelerated">
                     Services
                   </a>
-                  <a href="#" className="text-muted-foreground hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  <a href="#" className="text-muted-foreground hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors gpu-accelerated">
                     Portfolio
                   </a>
-                  <a href="#" className="text-muted-foreground hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  <a href="#" className="text-muted-foreground hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors gpu-accelerated">
                     About
                   </a>
-                  <a href="#" className="text-muted-foreground hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                  <a href="#" className="text-muted-foreground hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors gpu-accelerated">
                     Contact
                   </a>
                 </div>
               </div>
             </div>
             <div className="hidden md:block">
-              <button className="border border-border text-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-muted hover:text-accent transition-all">
+              <button className="border border-border text-primary px-4 py-2 rounded-lg text-sm font-medium hover:bg-muted hover:text-accent transition-colors transition-background gpu-accelerated">
                 Get Started
               </button>
             </div>
@@ -60,10 +60,10 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
 
       {/* Hero Section */}
       <section className="relative text-white overflow-hidden" style={{ background: 'linear-gradient(135deg, oklch(0.25 0.03 260) 0%, oklch(0.25 0.03 260) 70%, oklch(0.55 0.12 250) 100%)' }}>
-        {/* Background decoration */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-white rounded-full blur-2xl"></div>
+        {/* Background decoration - optimized */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-white rounded-full blur-xl gpu-accelerated"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-white rounded-full blur-lg gpu-accelerated"></div>
         </div>
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
@@ -82,13 +82,13 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
                 Fast, secure, and built for lasting success.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:shadow-2xl transition-all hover:scale-105 flex items-center justify-center gap-2">
+                <button className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:shadow-2xl transition-shadow transition-transform gpu-accelerated scale-optimized scale-optimized-hover flex items-center justify-center gap-2">
                   <span>View Our Work</span>
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
-                <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-all hover:scale-105 flex items-center justify-center gap-2">
+                <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors transition-background transition-transform gpu-accelerated scale-optimized scale-optimized-hover flex items-center justify-center gap-2">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
@@ -166,7 +166,7 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
 
           {/* Features Grid */}
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow">
+            <div className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow gpu-accelerated">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -175,7 +175,7 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
               <h3 className="text-lg font-semibold mb-2">Lightning Fast</h3>
               <p className="text-muted-foreground text-sm">Optimized for speed with sub-3s load times</p>
             </div>
-            <div className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow">
+            <div className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow gpu-accelerated">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
@@ -184,7 +184,7 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
               <h3 className="text-lg font-semibold mb-2">Mobile First</h3>
               <p className="text-muted-foreground text-sm">Responsive design that works on all devices</p>
             </div>
-            <div className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow">
+            <div className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow gpu-accelerated">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
