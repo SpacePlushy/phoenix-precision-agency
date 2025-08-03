@@ -17,7 +17,9 @@ describe('NewSiteView', () => {
   it('displays hero section with call-to-action', () => {
     render(<NewSiteView />);
     
-    expect(screen.getByText('Transform Your Digital Presence')).toBeInTheDocument();
+    // The text is split with a span, so we need to check the parent element
+    const heroHeading = screen.getByRole('heading', { level: 2 });
+    expect(heroHeading).toHaveTextContent(/Transform Your.*Digital Presence/);
     expect(screen.getByText(/Modern web solutions that drive growth/)).toBeInTheDocument();
     expect(screen.getByText('View Our Work')).toBeInTheDocument();
     expect(screen.getByText('Schedule a Call')).toBeInTheDocument();
@@ -66,7 +68,7 @@ describe('NewSiteView', () => {
     expect(h1).toHaveTextContent('Phoenix Precision');
     
     const h2 = screen.getByRole('heading', { level: 2 });
-    expect(h2).toHaveTextContent('Transform Your Digital Presence');
+    expect(h2).toHaveTextContent(/Transform Your.*Digital Presence/);
     
     const h3Elements = screen.getAllByRole('heading', { level: 3 });
     expect(h3Elements.length).toBeGreaterThan(0);
@@ -76,7 +78,7 @@ describe('NewSiteView', () => {
     render(<NewSiteView />);
     
     // Check for responsive classes
-    const heroSection = screen.getByText('Transform Your Digital Presence').parentElement?.parentElement;
+    const heroSection = screen.getByRole('heading', { level: 2 }).parentElement?.parentElement;
     expect(heroSection).toHaveClass('grid', 'grid-cols-1', 'md:grid-cols-2');
   });
 
@@ -93,11 +95,11 @@ describe('NewSiteView', () => {
   it('has hover states on interactive elements', () => {
     render(<NewSiteView />);
     
-    const viewWorkButton = screen.getByText('View Our Work');
-    expect(viewWorkButton).toHaveClass('hover:shadow-lg');
+    const viewWorkButton = screen.getByText('View Our Work').parentElement;
+    expect(viewWorkButton).toHaveClass('hover:shadow-2xl');
     
-    const scheduleButton = screen.getByText('Schedule a Call');
-    expect(scheduleButton).toHaveClass('hover:bg-white', 'hover:text-[var(--color-primary)]');
+    const scheduleButton = screen.getByText('Schedule a Call').parentElement;
+    expect(scheduleButton).toHaveClass('hover:bg-white', 'hover:text-primary');
   });
 
   it('uses CSS custom properties for theming', () => {
@@ -105,6 +107,6 @@ describe('NewSiteView', () => {
     
     // Check that the component root has the background class
     const mainDiv = container.firstChild as HTMLElement;
-    expect(mainDiv).toHaveClass('bg-[var(--color-background)]');
+    expect(mainDiv).toHaveClass('bg-background');
   });
 });

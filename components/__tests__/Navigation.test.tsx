@@ -49,7 +49,8 @@ describe('Navigation', () => {
       // Check CTA button
       const ctaButton = screen.getByRole('link', { name: /get started/i });
       expect(ctaButton).toHaveAttribute('href', '/contact');
-      expect(ctaButton.parentElement).toHaveClass('bg-accent');
+      // Button uses variant="outline" now, not bg-accent
+      expect(ctaButton.parentElement).toHaveClass('border-muted-foreground/20');
     });
 
     it('applies correct styling classes', () => {
@@ -59,8 +60,8 @@ describe('Navigation', () => {
       const nav = screen.getByRole('navigation');
       expect(nav).toHaveClass('sticky', 'top-0', 'z-50', 'backdrop-blur-md');
       
-      // Check Card component
-      const card = nav.querySelector('.rounded-none.border-0.shadow-sm');
+      // Check Card component wrapper
+      const card = nav.querySelector('.bg-card.shadow-sm');
       expect(card).toBeInTheDocument();
     });
 
@@ -109,9 +110,15 @@ describe('Navigation', () => {
       
       // All navigation links should be visible
       const homeLinks = screen.getAllByRole('link', { name: /home/i });
-      expect(homeLinks.length).toBeGreaterThanOrEqual(1); // At least mobile nav
-      expect(screen.getByRole('link', { name: /portfolio/i })).toBeInTheDocument();
-      expect(screen.getAllByRole('link', { name: /contact/i })).toHaveLength(2);
+      expect(homeLinks.length).toBeGreaterThanOrEqual(2); // Desktop + mobile nav
+      
+      // Should have 2 portfolio links (desktop + mobile)
+      const portfolioLinks = screen.getAllByRole('link', { name: /portfolio/i });
+      expect(portfolioLinks.length).toBe(2);
+      
+      // Should have 2 contact links (desktop + mobile)
+      const contactLinks = screen.getAllByRole('link', { name: /contact/i });
+      expect(contactLinks.length).toBe(2);
       
       // Close menu
       fireEvent.click(menuButton);
@@ -145,7 +152,9 @@ describe('Navigation', () => {
       fireEvent.click(menuButton);
       
       // Check mobile menu container
-      const mobileMenu = screen.getByText(/home/i).closest('.md\\:hidden.py-4');
+      const mobileMenus = document.querySelectorAll('.md\\:hidden.py-4');
+      const mobileMenu = Array.from(mobileMenus).find(el => el.classList.contains('border-t'));
+      expect(mobileMenu).toBeTruthy();
       expect(mobileMenu).toHaveClass('border-t', 'border-border');
       
       // Check CTA button is full width on mobile
@@ -184,7 +193,9 @@ describe('Navigation', () => {
     it('hides desktop navigation on mobile breakpoints', () => {
       render(<Navigation />);
       
-      const desktopNav = screen.getByText(/home/i).parentElement?.parentElement;
+      // Find the desktop navigation container that has the nav links
+      const desktopNav = document.querySelector('.hidden.md\\:flex.items-center.space-x-8');
+      expect(desktopNav).toBeInTheDocument();
       expect(desktopNav).toHaveClass('hidden', 'md:flex');
     });
 
@@ -208,17 +219,17 @@ describe('Navigation', () => {
     it('uses correct color classes', () => {
       render(<Navigation />);
       
-      // Check primary colors
-      const logo = screen.getByText('Phoenix').parentElement;
-      expect(logo).toHaveClass('text-primary');
+      // Check primary colors - Phoenix is inside a span with text-primary class
+      const phoenixText = screen.getByText('Phoenix');
+      expect(phoenixText.parentElement).toHaveClass('text-primary');
       
       // Check accent colors
       const accentText = screen.getByText('Precision');
       expect(accentText).toHaveClass('text-accent');
       
-      // Check CTA button colors
+      // Check CTA button colors - it's an outline variant now
       const ctaButton = screen.getByRole('link', { name: /get started/i });
-      expect(ctaButton.parentElement).toHaveClass('bg-accent', 'hover:bg-accent/90');
+      expect(ctaButton.parentElement).toHaveClass('border-muted-foreground/20', 'text-primary');
     });
 
     it('applies gradient effects correctly', () => {

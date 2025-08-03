@@ -48,8 +48,11 @@ describe('OldSiteView', () => {
   it('displays broken image placeholders', () => {
     render(<OldSiteView />);
     
-    expect(screen.getByText('IMG_0134.JPG')).toBeInTheDocument();
-    expect(screen.getByText('PHOTO23.BMP')).toBeInTheDocument();
+    // The text is split with br tags, so we need to check for the containing elements
+    expect(screen.getByText(/IMG_0134\.JPG/)).toBeInTheDocument();
+    expect(screen.getByText(/404 Error/)).toBeInTheDocument();
+    expect(screen.getByText(/PHOTO23\.BMP/)).toBeInTheDocument();
+    expect(screen.getByText(/File Not Found/)).toBeInTheDocument();
   });
 
   it('shows outdated footer information', () => {
@@ -66,7 +69,8 @@ describe('OldSiteView', () => {
     
     const mainDiv = container.firstChild;
     expect(mainDiv).toHaveClass('test-class');
-    expect(mainDiv).toHaveClass('bg-yellow-300');
+    // The background is now bg-amber-50, not bg-yellow-300
+    expect(mainDiv).toHaveClass('bg-amber-50');
   });
 
   it('has proper accessibility structure', () => {
