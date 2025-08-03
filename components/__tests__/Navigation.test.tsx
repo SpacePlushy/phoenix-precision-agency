@@ -49,8 +49,8 @@ describe('Navigation', () => {
       // Check CTA button
       const ctaButton = screen.getByRole('link', { name: /get started/i });
       expect(ctaButton).toHaveAttribute('href', '/contact');
-      // Button uses variant="outline" now, not bg-accent
-      expect(ctaButton.parentElement).toHaveClass('border-muted-foreground/20');
+      // The Button component itself has the classes, not its parent
+      expect(ctaButton).toHaveClass('border-muted-foreground/20');
     });
 
     it('applies correct styling classes', () => {
@@ -159,7 +159,7 @@ describe('Navigation', () => {
       
       // Check CTA button is full width on mobile
       const ctaButton = screen.getAllByRole('link', { name: /get started/i })[1]; // Mobile CTA
-      expect(ctaButton.parentElement).toHaveClass('w-full');
+      expect(ctaButton).toHaveClass('w-full');
     });
   });
 
@@ -219,17 +219,19 @@ describe('Navigation', () => {
     it('uses correct color classes', () => {
       render(<Navigation />);
       
-      // Check primary colors - Phoenix is inside a span with text-primary class
-      const phoenixText = screen.getByText('Phoenix');
-      expect(phoenixText.parentElement).toHaveClass('text-primary');
+      // Check primary colors - The span containing "Phoenix Precision" has text-primary class
+      const logoText = screen.getByText((content, element) => {
+        return element?.textContent === 'Phoenix Precision';
+      });
+      expect(logoText).toHaveClass('text-primary');
       
-      // Check accent colors
+      // Check accent colors - "Precision" is in a nested span with text-accent
       const accentText = screen.getByText('Precision');
       expect(accentText).toHaveClass('text-accent');
       
       // Check CTA button colors - it's an outline variant now
       const ctaButton = screen.getByRole('link', { name: /get started/i });
-      expect(ctaButton.parentElement).toHaveClass('border-muted-foreground/20', 'text-primary');
+      expect(ctaButton).toHaveClass('border-muted-foreground/20', 'text-primary');
     });
 
     it('applies gradient effects correctly', () => {
