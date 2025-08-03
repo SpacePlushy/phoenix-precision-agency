@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useMotionValue, animate, AnimationPlaybackControls, useTransform } from 'framer-motion';
 import OldSiteView from './OldSiteView';
 import NewSiteView from './NewSiteView';
 import { Button } from '@/components/ui/button';
@@ -10,30 +11,59 @@ import Link from 'next/link';
 
 export default function DemoContainer() {
   const [activeView, setActiveView] = useState<'old' | 'new'>('old');
-  const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const progress = useMotionValue(0);
+  const progressScale = useTransform(progress, [0, 100], [0, 1]);
+  const animationRef = useRef<AnimationPlaybackControls | null>(null);
 
   useEffect(() => {
+    // Clean up any existing animation
+    if (animationRef.current) {
+      animationRef.current.stop();
+    }
+
     if (isPaused) return;
 
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
+    // Create the animation
+    const runAnimation = () => {
+      // Reset progress to 0
+      progress.set(0);
+      
+      // Animate from 0 to 100
+      animationRef.current = animate(progress, 100, {
+        duration: 3,
+        ease: "linear",
+        repeat: Infinity,
+        repeatType: "loop",
+        onRepeat: () => {
+          // Switch view when animation repeats
           setActiveView((current) => current === 'old' ? 'new' : 'old');
-          return 0;
         }
-        return prev + (100 / 30); // 30 steps for 3 seconds
       });
-    }, 100); // Update every 100ms
+    };
 
-    return () => clearInterval(interval);
-  }, [isPaused]);
+    runAnimation();
+
+    // Cleanup function
+    return () => {
+      if (animationRef.current) {
+        animationRef.current.stop();
+      }
+    };
+  }, [isPaused, progress]);
 
   const handleViewClick = (view: 'old' | 'new') => {
     setActiveView(view);
-    setProgress(0);
+    progress.set(0);
     setIsPaused(true);
-    setTimeout(() => setIsPaused(false), 1000); // Resume after 1 second
+    
+    // Stop any ongoing animation
+    if (animationRef.current) {
+      animationRef.current.stop();
+    }
+    
+    // Resume after a short delay
+    setTimeout(() => setIsPaused(false), 1000);
   };
 
   return (
@@ -71,10 +101,18 @@ export default function DemoContainer() {
               <span className="font-semibold">2005 Website</span>
             </Button>
             <div className="relative flex-1 mx-6 h-2 bg-muted rounded-full overflow-hidden shadow-inner">
-              <div 
-                className="absolute left-0 top-0 h-full bg-gradient-to-r from-destructive to-success transition-all duration-100 ease-linear shadow-sm"
-                style={{ width: `${progress}%` }}
-              />
+              <div className="absolute inset-0 w-full h-full">
+                <motion.div 
+                  className="h-full bg-gradient-to-r from-destructive via-orange-500 to-success shadow-sm rounded-full origin-left"
+                  style={{ 
+                    scaleX: progressScale,
+                    willChange: 'transform'
+                  }}
+                >
+                  {/* Add a subtle glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-destructive/20 via-orange-500/20 to-success/20 blur-sm" />
+                </motion.div>
+              </div>
             </div>
             <Button
               variant={activeView === 'new' ? 'default' : 'outline'}
