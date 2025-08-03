@@ -79,6 +79,6 @@ test.describe('Contact Form Simple Tests', () => {
     await page.getByRole('button', { name: /Send Message/i }).click();
     
     // Should show error message
-    await expect(page.getByText(/Something went wrong/i)).toBeVisible({ timeout: 15000 });
+    await expect(page.getByText(/Something went wrong. Please try again./i)).toBeVisible({ timeout: 15000 });
   });
 });

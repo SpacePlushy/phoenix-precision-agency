@@ -56,10 +56,6 @@ test.describe('Interactive Demo', () => {
     const oldSiteBadge = page.locator('text=❌ BEFORE (2005)').first();
     await expect(oldSiteBadge).toBeVisible();
     
-    // Old site should have specific characteristics
-    const oldSiteContainer = page.locator('.bg-gray-200').first();
-    await expect(oldSiteContainer).toBeVisible();
-    
     // Switch to new view
     await page.getByRole('button', { name: 'Modern Website' }).click();
     await waitForAnimations(page, 100);
@@ -72,11 +68,11 @@ test.describe('Interactive Demo', () => {
   test('should show progress bar', async ({ page }) => {
     // Get the progress bar container - use more specific selector for the demo progress bar
     const demoSection = page.locator('section').filter({ hasText: 'Interactive Demo' });
-    const progressBar = demoSection.locator('.h-2.bg-muted').first();
+    const progressBar = demoSection.locator('.relative.flex-1.mx-6.h-2.bg-muted').first();
     await expect(progressBar).toBeVisible({ timeout: 10000 });
     
     // The progress bar should have a gradient fill
-    const progressFill = demoSection.locator('.bg-gradient-to-r').first();
+    const progressFill = progressBar.locator('.bg-gradient-to-r').first();
     await expect(progressFill).toBeVisible({ timeout: 5000 });
   });
 

@@ -9,7 +9,7 @@ export default function MarketingLayout({
   return (
     <>
       <Navigation />
-      <main>{children}</main>
+      <main id="main-content">{children}</main>
       
       {/* Footer */}
       <footer className="bg-primary text-primary-foreground py-12 mt-24">

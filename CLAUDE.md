@@ -1,5 +1,9 @@
 # Phoenix Precision Agency - Claude Memory
 
+## Testing Workflow
+- **User runs tests**: The user will run `pnpm test:e2e` and report results
+- **Claude should NOT run tests**: Wait for user to provide test results
+
 ## Deployment Workflow
 - **Push to GitHub**: `git push` - this will auto-deploy via Vercel
 - **User will report back**: The user will check the live site and report results

@@ -142,11 +142,15 @@ test.describe('Navigation and Routing', () => {
     const skipLinkExists = await skipLink.count() > 0;
     
     if (skipLinkExists) {
-      // If skip link exists, test it
+      // If skip link exists, verify it's visible when focused
+      await expect(skipLink).toBeVisible();
+      // Click the skip link
       await skipLink.click();
-      // Should focus main content area
-      const mainContent = page.locator('main').first();
-      await expect(mainContent).toBeFocused();
+      // Should navigate to main content
+      await expect(page).toHaveURL(/#main-content$/);
+    } else {
+      // Skip link should exist for accessibility
+      expect(skipLinkExists).toBeTruthy();
     }
   });
 
