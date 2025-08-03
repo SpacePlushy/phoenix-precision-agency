@@ -8,7 +8,7 @@ interface OldSiteViewProps {
 
 export default function OldSiteView({ className = '' }: OldSiteViewProps) {
   return (
-    <div className={`${className} bg-amber-50 min-h-[600px] overflow-hidden`}>
+    <div className={`${className} bg-amber-50 min-h-[600px] overflow-hidden relative`}>
       {/* Dated header with marquee effect */}
       <div className="bg-slate-700 text-amber-200 p-2 text-center overflow-hidden">
         <div className="animate-marquee whitespace-nowrap font-['Times_New_Roman',serif] text-lg font-bold">
@@ -17,14 +17,14 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
       </div>
 
       {/* Main content with table-based layout feel */}
-      <div className="p-4">
+      <div className="p-4 h-full">
         <center>
           <h1 className="font-['Times_New_Roman',serif] text-5xl text-amber-800 font-bold mb-4">
             ACME BUSINESS
           </h1>
           
           {/* Animated GIF placeholder */}
-          <div className="bg-stone-200 w-[468px] h-[60px] mx-auto mb-4 flex items-center justify-center border-2 border-stone-400">
+          <div className="bg-stone-200 max-w-[468px] w-full h-[60px] mx-auto mb-4 flex items-center justify-center border-2 border-stone-400">
             <span className="text-sm text-stone-600">[ ANIMATED BANNER AD SPACE ]</span>
           </div>
 
@@ -76,12 +76,12 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
           </div>
 
           {/* Content area with broken images */}
-          <div className="bg-stone-50 border-4 border-stone-400 p-4 max-w-[600px] mx-auto mb-4">
+          <div className="bg-stone-50 border-4 border-stone-400 p-4 max-w-[600px] w-full mx-auto mb-4">
             <h3 className="font-['Times_New_Roman',serif] text-2xl text-amber-800 mb-2">
               Welcome to the Future of Business!
             </h3>
             
-            <div className="flex justify-center gap-4 mb-4">
+            <div className="flex justify-center gap-4 mb-4 flex-wrap">
               <div className="w-[100px] h-[100px] bg-stone-200 border-2 border-stone-400 flex items-center justify-center">
                 <span className="text-xs text-stone-600">IMG_0134.JPG</span>
               </div>

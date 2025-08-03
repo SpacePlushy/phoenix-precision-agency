@@ -105,7 +105,9 @@ export default function DemoContainer() {
                   Before
                 </Badge>
               </div>
-              <OldSiteView className="w-full" />
+              <CardContent className="p-0">
+                <OldSiteView className="w-full" />
+              </CardContent>
             </Card>
             
             <Card 
@@ -121,7 +123,9 @@ export default function DemoContainer() {
                   After
                 </Badge>
               </div>
-              <NewSiteView className="w-full" />
+              <CardContent className="p-0">
+                <NewSiteView className="w-full" />
+              </CardContent>
             </Card>
           </div>
 
@@ -142,14 +146,14 @@ export default function DemoContainer() {
                   activeView === 'old' ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <OldSiteView className="w-full h-full" />
+                <OldSiteView className="w-full" />
               </div>
               <div 
                 className={`absolute inset-0 transition-opacity duration-500 ${
                   activeView === 'new' ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <NewSiteView className="w-full h-full" />
+                <NewSiteView className="w-full" />
               </div>
             </div>
           </Card>
