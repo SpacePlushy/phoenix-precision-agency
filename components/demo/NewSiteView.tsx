@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { motion } from 'framer-motion';
 
 interface NewSiteViewProps {
   className?: string;
@@ -8,7 +9,11 @@ interface NewSiteViewProps {
 
 export default function NewSiteView({ className = '' }: NewSiteViewProps) {
   return (
-    <div className={`${className} bg-background min-h-[600px] overflow-hidden relative`}>
+    <motion.div 
+      className={`${className} bg-background min-h-[600px] overflow-hidden relative`}
+      initial={false}
+      style={{ willChange: 'transform' }}
+    >
       {/* Browser Chrome */}
       <div className="bg-gray-100 px-4 py-2 flex items-center gap-2 border-b border-gray-300">
         <div className="flex gap-1.5">
@@ -196,6 +201,6 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
           </div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 }

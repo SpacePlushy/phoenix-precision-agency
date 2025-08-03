@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useMotionValue, animate, AnimationPlaybackControls, useTransform } from 'framer-motion';
+import { motion, useMotionValue, animate, AnimationPlaybackControls, useTransform, AnimatePresence, Variants } from 'framer-motion';
 import OldSiteView from './OldSiteView';
 import NewSiteView from './NewSiteView';
 import { Button } from '@/components/ui/button';
@@ -15,6 +15,30 @@ export default function DemoContainer() {
   const progress = useMotionValue(0);
   const progressScale = useTransform(progress, [0, 100], [0, 1]);
   const animationRef = useRef<AnimationPlaybackControls | null>(null);
+
+  // Zoom animation variants with proper TypeScript typing
+  const zoomVariants: Variants = {
+    initial: {
+      scale: 0.95,
+      opacity: 0,
+    },
+    animate: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.25, 0.46, 0.45, 0.94], // easeOut cubic-bezier
+      }
+    },
+    exit: {
+      scale: 1.05,
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+        ease: [0.55, 0.06, 0.68, 0.19], // easeIn cubic-bezier
+      }
+    }
+  };
 
   useEffect(() => {
     // Clean up any existing animation
@@ -32,7 +56,7 @@ export default function DemoContainer() {
       // Animate from 0 to 100
       animationRef.current = animate(progress, 100, {
         duration: 3,
-        ease: "linear",
+        ease: [0, 0, 1, 1], // linear cubic-bezier
         repeat: Infinity,
         repeatType: "loop",
         onRepeat: () => {
@@ -134,13 +158,23 @@ export default function DemoContainer() {
           {/* Desktop: Side by side with enhanced styling */}
           <div className="hidden lg:grid grid-cols-2 gap-12">
             {/* Before Card */}
-            <div className="relative group">
+            <motion.div 
+              className="relative group"
+              initial={false}
+              animate={{
+                scale: activeView === 'old' ? 1.05 : 1,
+                transition: {
+                  duration: 0.5,
+                  ease: [0.42, 0, 0.58, 1] // easeInOut cubic-bezier
+                }
+              }}
+            >
               <div className="absolute -inset-1 bg-gradient-to-r from-destructive/20 to-orange-500/20 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
               <Card 
                 className={`relative overflow-hidden transition-all duration-500 cursor-pointer rounded-xl ${
                   activeView === 'old' 
-                    ? 'shadow-2xl border-destructive/30 ring-2 ring-destructive/20 scale-105' 
-                    : 'shadow-xl border-border hover:shadow-2xl hover:border-destructive/20 hover:scale-105'
+                    ? 'shadow-2xl border-destructive/30 ring-2 ring-destructive/20' 
+                    : 'shadow-xl border-border hover:shadow-2xl hover:border-destructive/20'
                 }`}
                 onClick={() => handleViewClick('old')}
               >
@@ -150,20 +184,42 @@ export default function DemoContainer() {
                   </Badge>
                 </div>
                 <CardContent className="p-0">
-                  <OldSiteView className="w-full" />
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      opacity: activeView === 'old' ? 1 : 0.7,
+                      filter: activeView === 'old' ? 'blur(0px)' : 'blur(2px)',
+                      transition: {
+                        duration: 0.5,
+                        ease: [0.42, 0, 0.58, 1] // easeInOut cubic-bezier
+                      }
+                    }}
+                  >
+                    <OldSiteView className="w-full" />
+                  </motion.div>
                 </CardContent>
                 <div className="absolute inset-0 bg-gradient-to-t from-destructive/5 to-transparent pointer-events-none"></div>
               </Card>
-            </div>
+            </motion.div>
             
             {/* After Card */}
-            <div className="relative group">
+            <motion.div 
+              className="relative group"
+              initial={false}
+              animate={{
+                scale: activeView === 'new' ? 1.05 : 1,
+                transition: {
+                  duration: 0.5,
+                  ease: [0.42, 0, 0.58, 1] // easeInOut cubic-bezier
+                }
+              }}
+            >
               <div className="absolute -inset-1 bg-gradient-to-r from-success/20 to-accent/20 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
               <Card 
                 className={`relative overflow-hidden transition-all duration-500 cursor-pointer rounded-xl ${
                   activeView === 'new' 
-                    ? 'shadow-2xl border-success/30 ring-2 ring-success/20 scale-105' 
-                    : 'shadow-xl border-border hover:shadow-2xl hover:border-success/20 hover:scale-105'
+                    ? 'shadow-2xl border-success/30 ring-2 ring-success/20' 
+                    : 'shadow-xl border-border hover:shadow-2xl hover:border-success/20'
                 }`}
                 onClick={() => handleViewClick('new')}
               >
@@ -173,11 +229,23 @@ export default function DemoContainer() {
                   </Badge>
                 </div>
                 <CardContent className="p-0">
-                  <NewSiteView className="w-full" />
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      opacity: activeView === 'new' ? 1 : 0.7,
+                      filter: activeView === 'new' ? 'blur(0px)' : 'blur(2px)',
+                      transition: {
+                        duration: 0.5,
+                        ease: [0.42, 0, 0.58, 1] // easeInOut cubic-bezier
+                      }
+                    }}
+                  >
+                    <NewSiteView className="w-full" />
+                  </motion.div>
                 </CardContent>
                 <div className="absolute inset-0 bg-gradient-to-t from-success/5 to-transparent pointer-events-none"></div>
               </Card>
-            </div>
+            </motion.div>
           </div>
 
           {/* Mobile: Enhanced single view with improved transitions */}
@@ -185,31 +253,49 @@ export default function DemoContainer() {
             <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-primary/20 rounded-2xl blur opacity-25"></div>
             <Card className="relative overflow-hidden shadow-2xl rounded-xl">
               <div className="absolute top-6 left-6 z-20">
-                <Badge 
-                  variant={activeView === 'old' ? 'destructive' : 'default'} 
-                  className={`font-bold text-sm px-4 py-2 shadow-lg ${
-                    activeView === 'new' ? 'bg-success hover:bg-success text-white' : ''
-                  }`}
+                <motion.div
+                  key={activeView}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  {activeView === 'old' ? '❌ BEFORE (2005)' : '✅ AFTER (2024)'}
-                </Badge>
+                  <Badge 
+                    variant={activeView === 'old' ? 'destructive' : 'default'} 
+                    className={`font-bold text-sm px-4 py-2 shadow-lg ${
+                      activeView === 'new' ? 'bg-success hover:bg-success text-white' : ''
+                    }`}
+                  >
+                    {activeView === 'old' ? '❌ BEFORE (2005)' : '✅ AFTER (2024)'}
+                  </Badge>
+                </motion.div>
               </div>
               
               <div className="relative h-[500px] overflow-hidden">
-                <div 
-                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-                    activeView === 'old' ? 'opacity-100' : 'opacity-0 transform translate-x-full'
-                  }`}
-                >
-                  <OldSiteView className="w-full" />
-                </div>
-                <div 
-                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-                    activeView === 'new' ? 'opacity-100' : 'opacity-0 transform -translate-x-full'
-                  }`}
-                >
-                  <NewSiteView className="w-full" />
-                </div>
+                <AnimatePresence mode="wait">
+                  {activeView === 'old' ? (
+                    <motion.div
+                      key="old"
+                      className="absolute inset-0"
+                      variants={zoomVariants}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                    >
+                      <OldSiteView className="w-full" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="new"
+                      className="absolute inset-0"
+                      variants={zoomVariants}
+                      initial="initial"
+                      animate="animate"
+                      exit="exit"
+                    >
+                      <NewSiteView className="w-full" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
               <div className={`absolute inset-0 bg-gradient-to-t pointer-events-none ${
                 activeView === 'old' ? 'from-destructive/5 to-transparent' : 'from-success/5 to-transparent'
