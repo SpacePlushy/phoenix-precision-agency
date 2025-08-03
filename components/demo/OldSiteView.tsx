@@ -8,9 +8,9 @@ interface OldSiteViewProps {
 
 export default function OldSiteView({ className = '' }: OldSiteViewProps) {
   return (
-    <div className={`${className} bg-yellow-300 min-h-[600px] overflow-hidden`}>
+    <div className={`${className} bg-amber-50 min-h-[600px] overflow-hidden`}>
       {/* Dated header with marquee effect */}
-      <div className="bg-blue-700 text-yellow-300 p-2 text-center overflow-hidden">
+      <div className="bg-slate-700 text-amber-200 p-2 text-center overflow-hidden">
         <div className="animate-marquee whitespace-nowrap font-['Times_New_Roman',serif] text-lg font-bold">
           🌟 WELCOME TO ACME BUSINESS SOLUTIONS 🌟 YOUR PREMIER BUSINESS PARTNER SINCE 1995 🌟
         </div>
@@ -19,17 +19,17 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
       {/* Main content with table-based layout feel */}
       <div className="p-4">
         <center>
-          <h1 className="font-['Times_New_Roman',serif] text-5xl text-red-600 font-bold mb-4">
+          <h1 className="font-['Times_New_Roman',serif] text-5xl text-amber-800 font-bold mb-4">
             ACME BUSINESS
           </h1>
           
           {/* Animated GIF placeholder */}
-          <div className="bg-gray-300 w-[468px] h-[60px] mx-auto mb-4 flex items-center justify-center border-2 border-black">
-            <span className="text-sm">[ ANIMATED BANNER AD SPACE ]</span>
+          <div className="bg-stone-200 w-[468px] h-[60px] mx-auto mb-4 flex items-center justify-center border-2 border-stone-400">
+            <span className="text-sm text-stone-600">[ ANIMATED BANNER AD SPACE ]</span>
           </div>
 
           {/* Under construction notice */}
-          <div className="bg-orange-500 text-black p-2 mb-4 inline-block animate-pulse">
+          <div className="bg-amber-400 text-amber-900 p-2 mb-4 inline-block animate-pulse">
             <h2 className="font-['Comic_Sans_MS',cursive] text-xl">
               🚧 SITE UNDER CONSTRUCTION 🚧
             </h2>
@@ -47,26 +47,26 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
 
           {/* Navigation with broken styling */}
           <div className="mb-4">
-            <table className="mx-auto border-4 border-double border-purple-600 bg-lime-300">
+            <table className="mx-auto border-4 border-double border-stone-500 bg-amber-200">
               <tbody>
                 <tr>
-                  <td className="p-2 border-r-2 border-purple-600">
-                    <a href="#" className="text-blue-800 underline font-bold hover:text-red-600">
+                  <td className="p-2 border-r-2 border-stone-500">
+                    <a href="#" className="text-stone-700 underline font-bold hover:text-amber-700">
                       HOME
                     </a>
                   </td>
-                  <td className="p-2 border-r-2 border-purple-600">
-                    <a href="#" className="text-blue-800 underline font-bold hover:text-red-600">
+                  <td className="p-2 border-r-2 border-stone-500">
+                    <a href="#" className="text-stone-700 underline font-bold hover:text-amber-700">
                       ABOUT US
                     </a>
                   </td>
-                  <td className="p-2 border-r-2 border-purple-600">
-                    <a href="#" className="text-blue-800 underline font-bold hover:text-red-600">
+                  <td className="p-2 border-r-2 border-stone-500">
+                    <a href="#" className="text-stone-700 underline font-bold hover:text-amber-700">
                       SERVICES
                     </a>
                   </td>
                   <td className="p-2">
-                    <a href="#" className="text-blue-800 underline font-bold hover:text-red-600">
+                    <a href="#" className="text-stone-700 underline font-bold hover:text-amber-700">
                       CONTACT
                     </a>
                   </td>
@@ -76,17 +76,17 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
           </div>
 
           {/* Content area with broken images */}
-          <div className="bg-white border-4 border-gray-400 p-4 max-w-[600px] mx-auto mb-4">
-            <h3 className="font-['Times_New_Roman',serif] text-2xl text-purple-800 mb-2">
+          <div className="bg-stone-50 border-4 border-stone-400 p-4 max-w-[600px] mx-auto mb-4">
+            <h3 className="font-['Times_New_Roman',serif] text-2xl text-amber-800 mb-2">
               Welcome to the Future of Business!
             </h3>
             
             <div className="flex justify-center gap-4 mb-4">
-              <div className="w-[100px] h-[100px] bg-gray-200 border-2 border-gray-400 flex items-center justify-center">
-                <span className="text-xs text-gray-600">IMG_0134.JPG</span>
+              <div className="w-[100px] h-[100px] bg-stone-200 border-2 border-stone-400 flex items-center justify-center">
+                <span className="text-xs text-stone-600">IMG_0134.JPG</span>
               </div>
-              <div className="w-[100px] h-[100px] bg-gray-200 border-2 border-gray-400 flex items-center justify-center">
-                <span className="text-xs text-gray-600">PHOTO23.BMP</span>
+              <div className="w-[100px] h-[100px] bg-stone-200 border-2 border-stone-400 flex items-center justify-center">
+                <span className="text-xs text-stone-600">PHOTO23.BMP</span>
               </div>
             </div>
 
@@ -94,20 +94,20 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
               We offer cutting-edge solutions for all your business needs!!!
             </p>
             
-            <ul className="text-left list-disc list-inside text-green-700 font-bold mb-4">
+            <ul className="text-left list-disc list-inside text-amber-700 font-bold mb-4">
               <li>Web Design (HTML 4.0 Compatible!)</li>
               <li>Y2K Compliance Consulting</li>
               <li>Fax Machine Integration</li>
               <li>CD-ROM Production</li>
             </ul>
 
-            <p className="text-red-600 font-bold animate-pulse">
+            <p className="text-amber-800 font-bold animate-pulse">
               Call NOW! 1-800-ACME-BIZ
             </p>
           </div>
 
           {/* Footer with outdated links */}
-          <div className="text-sm text-blue-800">
+          <div className="text-sm text-stone-600">
             <p>Best viewed in Internet Explorer 5.0 at 800x600</p>
             <p className="mt-2">
               <a href="#" className="underline">Webmaster</a> | 

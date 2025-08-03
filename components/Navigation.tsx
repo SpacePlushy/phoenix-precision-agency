@@ -44,7 +44,7 @@ export default function Navigation() {
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-200"></span>
                 </Link>
               ))}
-              <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Button asChild variant="outline" className="border-muted-foreground/20 text-primary hover:bg-muted hover:text-accent hover:border-accent/30 transition-all">
                 <Link href="/contact">Get Started</Link>
               </Button>
             </div>
@@ -73,7 +73,7 @@ export default function Navigation() {
                     {link.label}
                   </Link>
                 ))}
-                <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground w-full">
+                <Button asChild variant="outline" className="border-muted-foreground/20 text-primary hover:bg-muted hover:text-accent hover:border-accent/30 transition-all w-full">
                   <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
                     Get Started
                   </Link>

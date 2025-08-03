@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-accent py-24">
+      <section className="relative overflow-hidden aerospace-gradient py-24">
         {/* Background pattern for aerospace precision feel */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-background/10 to-transparent transform rotate-45 translate-x-[-50%] translate-y-[-50%]"></div>
@@ -72,11 +72,11 @@ export default function Home() {
       <PerformanceMetrics />
 
       {/* Features Section */}
-      <section className="py-24 aerospace-gradient-subtle relative">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-400 rounded-full blur-3xl"></div>
+      <section className="py-24 aerospace-gradient-soft relative">
+        {/* Background pattern - softer */}
+        <div className="absolute inset-0 opacity-3">
+          <div className="absolute top-0 left-1/4 w-64 h-64 bg-sage rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-cool-gray rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -152,11 +152,11 @@ export default function Home() {
       </section>
 
       {/* Enhanced CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-primary to-accent relative overflow-hidden">
-        {/* Background patterns for aerospace feel */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-background rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-gold rounded-full blur-3xl"></div>
+      <section className="py-24 aerospace-gradient relative overflow-hidden">
+        {/* Background patterns for aerospace feel - softer */}
+        <div className="absolute inset-0 opacity-8">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-warm-gray rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-sage rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">

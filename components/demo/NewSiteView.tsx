@@ -10,7 +10,7 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
   return (
     <div className={`${className} bg-[var(--color-background)] min-h-[600px] overflow-hidden`}>
       {/* Modern Navigation Bar */}
-      <nav className="bg-white shadow-sm border-b border-[var(--color-border)]">
+      <nav className="bg-[var(--color-card)] shadow-sm border-b border-[var(--color-border)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
@@ -37,7 +37,7 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
               </div>
             </div>
             <div className="hidden md:block">
-              <button className="bg-[var(--color-accent)] text-white px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
+              <button className="border border-[var(--color-border)] text-[var(--color-primary)] px-4 py-2 rounded-lg text-sm font-medium hover:bg-[var(--color-muted)] hover:text-[var(--color-accent)] transition-all">
                 Get Started
               </button>
             </div>
@@ -46,7 +46,7 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] text-white">
+      <section className="relative bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-primary)] to-[var(--color-accent)] text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
@@ -84,7 +84,7 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
       </section>
 
       {/* Social Proof Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-[var(--color-background)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
