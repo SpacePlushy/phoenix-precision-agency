@@ -17,12 +17,12 @@ export default function PortfolioPage() {
   return (
     <div className="container mx-auto px-4 py-16">
       <h1 className="text-4xl font-bold mb-8">Our Work</h1>
-      <p className="text-lg text-gray-600 mb-8">
+      <p className="text-lg text-muted-foreground mb-8">
         Showcasing our latest projects and success stories
       </p>
       {/* Portfolio grid will be implemented here */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <p className="text-gray-500 col-span-full text-center">
+        <p className="text-muted-foreground col-span-full text-center">
           Portfolio projects coming soon...
         </p>
       </div>

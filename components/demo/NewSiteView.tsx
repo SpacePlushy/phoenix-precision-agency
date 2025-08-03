@@ -15,16 +15,16 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
       style={{ willChange: 'transform' }}
     >
       {/* Browser Chrome */}
-      <div className="bg-gray-100 px-4 py-2 flex items-center gap-2 border-b border-gray-300">
+      <div className="bg-muted px-4 py-2 flex items-center gap-2 border-b border-border">
         <div className="flex gap-1.5">
           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
         </div>
-        <div className="flex-1 mx-4 bg-white rounded px-3 py-1 text-xs text-gray-700 font-mono border border-gray-200">
+        <div className="flex-1 mx-4 bg-card rounded px-3 py-1 text-xs text-card-foreground font-mono border border-border">
           https://phoenixprecision.com
         </div>
-        <div className="text-xs text-gray-500">🔒</div>
+        <div className="text-xs text-muted-foreground">🔒</div>
       </div>
       
       {/* Modern Navigation Bar */}

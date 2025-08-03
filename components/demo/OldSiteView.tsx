@@ -21,7 +21,7 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
         </div>
-        <div className="flex-1 mx-4 bg-gray-200 rounded px-3 py-1 text-xs text-gray-600 font-mono">
+        <div className="flex-1 mx-4 bg-gray-200 rounded px-3 py-1 text-xs text-gray-700 font-mono">
           http://www.acmebusiness.com/index.html
         </div>
       </div>

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* Tailwind CSS v4 Theme Configuration */
 @theme {
@@ -35,68 +36,68 @@
   --radius: 0.5rem;
   
   /* Phoenix Precision Aerospace Color Palette - HSL format */
-  /* Sophisticated aerospace theme with rich navy and vibrant blues */
-  --background: 0 0% 100%;
-  --foreground: 224 71% 4%;
+  /* Ultra-modern dark theme with sophisticated contrast */
+  --background: 222 47% 11%;  /* Dark blue-grey background */
+  --foreground: 210 40% 96%;  /* Very light grey text for excellent contrast */
   
-  --card: 0 0% 100%;
-  --card-foreground: 224 71% 4%;
+  --card: 222 47% 13%;  /* Slightly lighter than background */
+  --card-foreground: 210 40% 96%;  /* Light text on cards */
   
-  --popover: 0 0% 100%;
-  --popover-foreground: 224 71% 4%;
+  --popover: 222 47% 13%;
+  --popover-foreground: 210 40% 96%;
   
-  /* Deep navy blue primary */
-  --primary: 224 71% 15%;
-  --primary-foreground: 0 0% 100%;
+  /* Electric blue primary */
+  --primary: 222 47% 11%;  /* Dark blue primary */
+  --primary-foreground: 210 40% 96%;  /* Light text on primary */
   
-  /* Lighter blue secondary */
-  --secondary: 217 91% 60%;
-  --secondary-foreground: 0 0% 100%;
+  /* Cyan accent for contrast */
+  --secondary: 199 89% 48%;  /* Cyan blue */
+  --secondary-foreground: 222 47% 11%;  /* Dark text on secondary */
   
-  --muted: 220 14% 96%;
-  --muted-foreground: 220 9% 46%;
+  --muted: 217 33% 17%;  /* Muted dark blue */
+  --muted-foreground: 215 20% 65%;  /* Muted text */
   
-  /* Vibrant blue accent */
-  --accent: 217 91% 60%;
-  --accent-foreground: 224 71% 15%;
+  /* Bright accent */
+  --accent: 210 100% 56%;  /* Electric blue accent */
+  --accent-foreground: 222 47% 11%;  /* Dark text on accent */
   
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
   
-  --border: 220 13% 91%;
-  --input: 220 13% 91%;
-  --ring: 217 91% 60%;
+  --border: 217 33% 17%;  /* Subtle borders */
+  --input: 217 33% 17%;
+  --ring: 210 100% 56%;
 }
 
 .dark {
-  /* Deep space navy background */
-  --background: 224 71% 4%;
-  --foreground: 0 0% 98%;
+  /* Ultra dark background */
+  --background: 222 84% 5%;  /* Near black with blue tint */
+  --foreground: 210 40% 96%;  /* Almost white */
   
-  --card: 224 71% 8%;
-  --card-foreground: 0 0% 98%;
+  --card: 222 47% 11%;  /* Dark blue-grey */
+  --card-foreground: 210 40% 96%;
   
-  --popover: 224 71% 8%;
-  --popover-foreground: 0 0% 98%;
+  --popover: 222 47% 11%;
+  --popover-foreground: 210 40% 96%;
   
-  /* Bright blue primary for dark mode */
-  --primary: 217 91% 60%;
-  --primary-foreground: 224 71% 4%;
+  /* Vibrant blue primary for dark mode */
+  --primary: 217 91% 60%;  /* Bright blue */
+  --primary-foreground: 222 84% 5%;
   
-  --secondary: 224 71% 15%;
-  --secondary-foreground: 0 0% 98%;
+  --secondary: 199 89% 48%;  /* Cyan */
+  --secondary-foreground: 222 84% 5%;
   
-  --muted: 224 71% 12%;
-  --muted-foreground: 220 9% 65%;
+  --muted: 215 25% 27%;  /* Muted blue-grey */
+  --muted-foreground: 217 10% 64%;
   
-  --accent: 217 91% 60%;
-  --accent-foreground: 224 71% 4%;
+  --accent: 199 89% 48%;
+  --accent-foreground: 222 84% 5%;
   
   --destructive: 0 62% 30%;
   --destructive-foreground: 0 0% 98%;
   
-  --border: 224 71% 15%;
-  --input: 224 71% 15%;
+  --border: 215 25% 27%;
+  --input: 215 25% 27%;
   --ring: 217 91% 60%;
 }
 
@@ -109,61 +110,71 @@
   
   body {
     @apply bg-background text-foreground;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss02" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
   }
   
-  /* Aerospace precision typography */
+  /* Modern precision typography */
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
-    letter-spacing: -0.025em;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    color: hsl(var(--foreground));
   }
   
   h1 {
-    font-size: 2.25rem;
-    line-height: 2.5rem;
+    font-size: 2.5rem;
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 1rem;
   }
   
   @media (min-width: 1024px) {
     h1 {
-      font-size: 3rem;
-      line-height: 1;
+      font-size: 3.75rem;
+      line-height: 1.05;
     }
   }
   
   h2 {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 0.875rem;
   }
   
   @media (min-width: 1024px) {
     h2 {
-      font-size: 2.25rem;
-      line-height: 2.5rem;
+      font-size: 2.75rem;
+      line-height: 1.15;
     }
   }
   
   h3 {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.625rem;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
   }
   
   @media (min-width: 1024px) {
     h3 {
-      font-size: 1.875rem;
-      line-height: 2.25rem;
+      font-size: 2rem;
+      line-height: 1.25;
     }
   }
   
   h4 {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    font-size: 1.375rem;
+    line-height: 1.4;
+    margin-bottom: 0.625rem;
   }
   
   @media (min-width: 1024px) {
     h4 {
-      font-size: 1.5rem;
-      line-height: 2rem;
+      font-size: 1.625rem;
+      line-height: 1.35;
     }
   }
   
@@ -214,11 +225,11 @@
 @keyframes pulse-glow {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 15px hsl(217 91% 60% / 0.5);
+    box-shadow: 0 0 15px hsl(210 100% 56% / 0.5);
   }
   50% {
     opacity: 0.8;
-    box-shadow: 0 0 30px hsl(217 91% 60% / 0.8);
+    box-shadow: 0 0 30px hsl(210 100% 56% / 0.8);
   }
 }
 
@@ -236,9 +247,9 @@
     animation: pulse-glow 2s ease-in-out infinite;
   }
   
-  /* Aerospace gradient backgrounds - sophisticated and vibrant */
+  /* Modern gradient backgrounds - sophisticated and premium */
   .aerospace-gradient {
-    background: linear-gradient(135deg, hsl(224 71% 15%) 0%, hsl(217 91% 60%) 100%);
+    background: linear-gradient(135deg, hsl(222 47% 11%) 0%, hsl(210 100% 56%) 100%);
   }
   
   .aerospace-gradient-subtle {
@@ -249,24 +260,24 @@
     background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(220 14% 96%) 50%, hsl(var(--background)) 100%);
   }
   
-  /* Hero gradient - rich and dynamic */
+  /* Hero gradient - dark and sophisticated */
   .hero-gradient {
-    background: linear-gradient(135deg, hsl(224 71% 15%) 0%, hsl(224 71% 20%) 50%, hsl(217 91% 60%) 100%);
+    background: linear-gradient(135deg, hsl(222 84% 5%) 0%, hsl(222 47% 11%) 50%, hsl(210 100% 56%) 100%);
   }
   
   /* Card gradient overlay */
   .card-gradient {
-    background: linear-gradient(135deg, hsl(224 71% 15% / 0.05) 0%, hsl(217 91% 60% / 0.1) 100%);
+    background: linear-gradient(135deg, hsl(222 47% 11% / 0.05) 0%, hsl(210 100% 56% / 0.1) 100%);
   }
   
   /* Button gradient */
   .button-gradient {
-    background: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(217 91% 50%) 100%);
+    background: linear-gradient(135deg, hsl(210 100% 56%) 0%, hsl(199 89% 48%) 100%);
   }
   
   /* Custom utilities using CSS variables for consistency */
   .text-gradient {
-    background: linear-gradient(to right, hsl(217 91% 60%), hsl(224 71% 15%));
+    background: linear-gradient(to right, hsl(210 100% 56%), hsl(199 89% 48%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -274,7 +285,7 @@
   
   /* Glowing effect for important elements */
   .glow-blue {
-    box-shadow: 0 0 20px hsl(217 91% 60% / 0.3), 0 0 40px hsl(217 91% 60% / 0.2);
+    box-shadow: 0 0 20px hsl(210 100% 56% / 0.3), 0 0 40px hsl(210 100% 56% / 0.2);
   }
   
   /* Subtle gradient borders */
@@ -292,7 +303,7 @@
     z-index: -1;
     margin: -1px;
     border-radius: inherit;
-    background: linear-gradient(135deg, hsl(224 71% 15%), hsl(217 91% 60%));
+    background: linear-gradient(135deg, hsl(222 47% 11%), hsl(210 100% 56%));
   }
   
   /* Focus and hover states */
@@ -413,5 +424,45 @@
   /* Focus states for better accessibility */
   .focus-visible-ring {
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  }
+  
+  /* Premium shadow effects */
+  .shadow-premium {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .shadow-premium-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .shadow-premium-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Dark mode shadow with blue glow */
+  .dark .shadow-premium {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dark .shadow-premium-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dark .shadow-premium-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Smooth transitions */
+  .transition-premium {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Premium borders */
+  .border-premium {
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+  
+  .dark .border-premium {
+    border: 1px solid hsl(var(--border) / 0.3);
   }
 }
