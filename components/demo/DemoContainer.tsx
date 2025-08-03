@@ -1,79 +1,47 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import OldSiteView from './OldSiteView';
 import NewSiteView from './NewSiteView';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
-import { useAnimationObserver, usePerformanceMonitor } from '@/hooks/useAnimationObserver';
 
 export default function DemoContainer() {
   const [activeView, setActiveView] = useState<'old' | 'new'>('old');
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  
-  // Performance monitoring for Chrome DevTools
-  usePerformanceMonitor('DemoContainer');
-  
-  // Animation observer for optimal performance
-  const { ref: sectionRef, shouldAnimate } = useAnimationObserver({
-    threshold: 0.3,
-    rootMargin: '50px',
-  });
 
   useEffect(() => {
-    if (isPaused || !shouldAnimate) return;
+    if (isPaused) return;
 
-    let rafId: number;
-    let lastTime = performance.now();
-    const duration = 3000; // 3 seconds
-    let elapsed = 0;
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          setActiveView((current) => current === 'old' ? 'new' : 'old');
+          return 0;
+        }
+        return prev + (100 / 30); // 30 steps for 3 seconds
+      });
+    }, 100); // Update every 100ms
 
-    const animate = (currentTime: number) => {
-      const deltaTime = currentTime - lastTime;
-      lastTime = currentTime;
-      elapsed += deltaTime;
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
-      const newProgress = Math.min((elapsed / duration) * 100, 100);
-      setProgress(newProgress);
-
-      if (newProgress >= 100) {
-        setActiveView((current) => current === 'old' ? 'new' : 'old');
-        elapsed = 0;
-      }
-
-      rafId = requestAnimationFrame(animate);
-    };
-
-    rafId = requestAnimationFrame(animate);
-
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, [isPaused, shouldAnimate]);
-
-  const handleViewClick = useCallback((view: 'old' | 'new') => {
-    // Use requestAnimationFrame for smooth state updates
-    requestAnimationFrame(() => {
-      setActiveView(view);
-      setProgress(0);
-      setIsPaused(true);
-      setTimeout(() => setIsPaused(false), 1000); // Resume after 1 second
-    });
-  }, []);
+  const handleViewClick = (view: 'old' | 'new') => {
+    setActiveView(view);
+    setProgress(0);
+    setIsPaused(true);
+    setTimeout(() => setIsPaused(false), 1000); // Resume after 1 second
+  };
 
   return (
-    <section 
-      ref={sectionRef}
-      className="py-24 bg-gradient-to-br from-muted/20 via-background to-muted/30 relative overflow-hidden demo-section"
-      style={{ contain: 'layout style paint' }} // CSS containment for performance
-    >
-      {/* Subtle background pattern - optimized for Chrome */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-        <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-accent rounded-full blur-2xl gpu-accelerated"></div>
-        <div className="absolute bottom-1/3 right-1/3 w-96 h-96 bg-primary rounded-full blur-2xl gpu-accelerated"></div>
+    <section className="py-24 bg-gradient-to-br from-muted/20 via-background to-muted/30 relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/3 right-1/3 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -97,22 +65,22 @@ export default function DemoContainer() {
               variant={activeView === 'old' ? 'default' : 'outline'}
               onClick={() => handleViewClick('old')}
               size="lg"
-              className={`transition-transform transition-opacity duration-300 gpu-accelerated ${activeView === 'old' ? 'shadow-lg scale-optimized-active' : 'scale-optimized scale-optimized-hover'}`}
+              className={`transition-all duration-300 ${activeView === 'old' ? 'shadow-lg scale-105' : 'hover:scale-105'}`}
             >
               <div className={`w-3 h-3 rounded-full mr-3 ${activeView === 'old' ? 'bg-destructive animate-pulse' : 'bg-muted-foreground'}`}></div>
               <span className="font-semibold">2005 Website</span>
             </Button>
             <div className="relative flex-1 mx-6 h-2 bg-muted rounded-full overflow-hidden shadow-inner">
               <div 
-                className="progress-bar-fill absolute left-0 top-0 h-full bg-gradient-to-r from-destructive to-success shadow-sm"
-                style={{ '--progress': progress / 100 } as React.CSSProperties}
+                className="absolute left-0 top-0 h-full bg-gradient-to-r from-destructive to-success transition-all duration-100 ease-linear shadow-sm"
+                style={{ width: `${progress}%` }}
               />
             </div>
             <Button
               variant={activeView === 'new' ? 'default' : 'outline'}
               onClick={() => handleViewClick('new')}
               size="lg"
-              className={`transition-transform transition-opacity duration-300 gpu-accelerated ${activeView === 'new' ? 'shadow-lg scale-optimized-active' : 'scale-optimized scale-optimized-hover'}`}
+              className={`transition-all duration-300 ${activeView === 'new' ? 'shadow-lg scale-105' : 'hover:scale-105'}`}
             >
               <div className={`w-3 h-3 rounded-full mr-3 ${activeView === 'new' ? 'bg-success animate-pulse' : 'bg-muted-foreground'}`}></div>
               <span className="font-semibold">Modern Website</span>
@@ -129,12 +97,12 @@ export default function DemoContainer() {
           <div className="hidden lg:grid grid-cols-2 gap-12">
             {/* Before Card */}
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-destructive/20 to-orange-500/20 rounded-2xl blur opacity-25 group-hover:opacity-75 transition-opacity duration-1000 group-hover:duration-200 gpu-accelerated"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-destructive/20 to-orange-500/20 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
               <Card 
-                className={`relative overflow-hidden transition-transform transition-shadow duration-500 cursor-pointer rounded-xl chrome-optimized ${
+                className={`relative overflow-hidden transition-all duration-500 cursor-pointer rounded-xl ${
                   activeView === 'old' 
-                    ? 'shadow-2xl border-destructive/30 ring-2 ring-destructive/20 scale-optimized-active' 
-                    : 'shadow-xl border-border hover:shadow-2xl hover:border-destructive/20 scale-optimized scale-optimized-hover'
+                    ? 'shadow-2xl border-destructive/30 ring-2 ring-destructive/20 scale-105' 
+                    : 'shadow-xl border-border hover:shadow-2xl hover:border-destructive/20 hover:scale-105'
                 }`}
                 onClick={() => handleViewClick('old')}
               >
@@ -152,12 +120,12 @@ export default function DemoContainer() {
             
             {/* After Card */}
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-success/20 to-accent/20 rounded-2xl blur opacity-25 group-hover:opacity-75 transition-opacity duration-1000 group-hover:duration-200 gpu-accelerated"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-success/20 to-accent/20 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
               <Card 
-                className={`relative overflow-hidden transition-transform transition-shadow duration-500 cursor-pointer rounded-xl chrome-optimized ${
+                className={`relative overflow-hidden transition-all duration-500 cursor-pointer rounded-xl ${
                   activeView === 'new' 
-                    ? 'shadow-2xl border-success/30 ring-2 ring-success/20 scale-optimized-active' 
-                    : 'shadow-xl border-border hover:shadow-2xl hover:border-success/20 scale-optimized scale-optimized-hover'
+                    ? 'shadow-2xl border-success/30 ring-2 ring-success/20 scale-105' 
+                    : 'shadow-xl border-border hover:shadow-2xl hover:border-success/20 hover:scale-105'
                 }`}
                 onClick={() => handleViewClick('new')}
               >
@@ -191,18 +159,16 @@ export default function DemoContainer() {
               
               <div className="relative h-[500px] overflow-hidden">
                 <div 
-                  className={`absolute inset-0 mobile-view-transition transition-transform transition-opacity duration-700 ease-in-out ${
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
                     activeView === 'old' ? 'opacity-100' : 'opacity-0 transform translate-x-full'
                   }`}
-                  style={{ contain: 'layout style paint' }}
                 >
                   <OldSiteView className="w-full" />
                 </div>
                 <div 
-                  className={`absolute inset-0 mobile-view-transition transition-transform transition-opacity duration-700 ease-in-out ${
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
                     activeView === 'new' ? 'opacity-100' : 'opacity-0 transform -translate-x-full'
                   }`}
-                  style={{ contain: 'layout style paint' }}
                 >
                   <NewSiteView className="w-full" />
                 </div>
@@ -224,12 +190,12 @@ export default function DemoContainer() {
               Transform your outdated website into a modern, high-converting digital experience
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-colors transition-shadow transition-transform gpu-accelerated scale-optimized scale-optimized-hover">
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105">
                 <Link href="/contact">
                   Get Your Free Transformation Plan
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-accent/20 hover:border-accent/40 hover:bg-accent/5 transition-colors transition-border transition-transform gpu-accelerated scale-optimized scale-optimized-hover">
+              <Button asChild variant="outline" size="lg" className="border-accent/20 hover:border-accent/40 hover:bg-accent/5 transition-all hover:scale-105">
                 <Link href="/portfolio">
                   See More Transformations
                 </Link>
