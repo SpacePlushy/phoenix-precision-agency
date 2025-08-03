@@ -359,7 +359,7 @@ git push          # Deploy via Vercel
 - `CLAUDE.md` - AI assistant instructions
 
 ### Contact Information
-- **Production Email**: contact@phoenixprecision.dev
+- **Production Email**: fmp321@gmail.com
 - **Developer Email**: fmp321@gmail.com
 - **Phone**: (602) 531-4111
 

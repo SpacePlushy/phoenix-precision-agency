@@ -32,7 +32,7 @@ export default function MarketingLayout({
             <div>
               <h4 className="font-semibold mb-4">Contact</h4>
               <p className="text-sm opacity-90">
-                Email: contact@phoenixprecision.dev<br />
+                Email: fmp321@gmail.com<br />
                 Phone: (602) 531-4111
               </p>
               <div className="mt-4 flex gap-4">
