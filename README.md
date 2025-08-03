@@ -16,7 +16,7 @@ Phoenix Precision Agency specializes in transforming outdated websites into mode
 
 ## Contact Information
 
-- **Email**: fmp3212@gmail.com
+- **Email**: fmp321@gmail.com
 - **Phone**: (602) 531-4111
 
 ## Getting Started
@@ -48,7 +48,7 @@ cp .env.example .env.local
    - `UPSTASH_REDIS_REST_URL` - For lead storage
    - `UPSTASH_REDIS_REST_TOKEN` - Redis authentication
    - `RESEND_API_KEY` - For email notifications
-   - `CONTACT_EMAIL_TO` - Where to send form submissions (default: fmp3212@gmail.com)
+   - `CONTACT_EMAIL_TO` - Where to send form submissions (default: fmp321@gmail.com)
 
 5. Run the development server:
 ```bash

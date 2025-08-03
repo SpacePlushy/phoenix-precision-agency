@@ -52,7 +52,7 @@ describe('MarketingLayout', () => {
       // Contact section - use getAllByText since there are multiple
       const contactHeaders = screen.getAllByText('Contact');
       expect(contactHeaders.length).toBeGreaterThan(0);
-      expect(screen.getByText(/fmp3212@gmail.com/i)).toBeInTheDocument();
+      expect(screen.getByText(/fmp321@gmail.com/i)).toBeInTheDocument();
       expect(screen.getByText(/\(602\) 531-4111/i)).toBeInTheDocument();
     });
 

@@ -55,7 +55,7 @@ export default function GlobalError({
                 </button>
                 
                 <a
-                  href="mailto:fmp3212@gmail.com"
+                  href="mailto:fmp321@gmail.com"
                   className="flex items-center justify-center gap-2 border border-blue-600 text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors"
                 >
                   Contact Support
@@ -70,7 +70,7 @@ export default function GlobalError({
                 </p>
                 <p>
                   Phone: (602) 531-4111<br />
-                  Email: fmp3212@gmail.com
+                  Email: fmp321@gmail.com
                 </p>
               </div>
             </div>
