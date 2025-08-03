@@ -72,155 +72,123 @@ export default function Home() {
       <PerformanceMetrics />
 
       {/* Features Section */}
-      <section className="py-24 aerospace-gradient-soft relative">
-        {/* Background pattern - softer */}
-        <div className="absolute inset-0 opacity-3">
-          <div className="absolute top-0 left-1/4 w-64 h-64 bg-sage rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-cool-gray rounded-full blur-3xl"></div>
+      <section className="py-24 bg-background relative">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-[0.02]">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-accent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <Badge variant="secondary" className="mb-4">
+          <div className="text-center mb-12">
+            <Badge variant="secondary" className="mb-4 px-4 py-1.5">
               Our Approach
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Why Choose Phoenix Precision?
             </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              We deliver more than just websites. We create digital experiences that elevate your brand
-              with the same precision and attention to detail used in aerospace engineering.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              We deliver more than just websites – we create digital experiences with aerospace precision
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/20 hover:-translate-y-1 shadow-md bg-card">
-              <CardContent className="p-10">
-                <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-full blur-lg group-hover:blur-xl transition-all"></div>
-                  <div className="relative w-24 h-24 bg-gradient-to-br from-accent to-accent/80 rounded-full flex items-center justify-center mx-auto shadow-xl group-hover:shadow-2xl transition-all group-hover:scale-110">
-                    <svg className="w-12 h-12 text-white transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="group text-center hover:shadow-lg transition-all duration-300 border-border hover:border-accent/20">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-accent group-hover:text-accent-foreground transition-all">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-4 group-hover:text-accent transition-colors">Data-Driven Design</h3>
-                <p className="text-muted-foreground leading-relaxed group-hover:text-foreground/90 transition-colors">
-                  Every decision backed by analytics and user research to maximize your ROI and user engagement.
+                <h3 className="text-xl font-semibold mb-3">Data-Driven Design</h3>
+                <p className="text-muted-foreground">
+                  Every decision backed by analytics and user research to maximize your ROI
                 </p>
-                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-accent to-primary rounded-full mx-auto opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all"></div>
               </CardContent>
             </Card>
 
-            <Card className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/20 hover:-translate-y-1 shadow-md bg-card">
-              <CardContent className="p-10">
-                <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-gold/20 rounded-full blur-lg group-hover:blur-xl transition-all"></div>
-                  <div className="relative w-24 h-24 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center mx-auto shadow-xl group-hover:shadow-2xl transition-all group-hover:scale-110">
-                    <svg className="w-12 h-12 text-white transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                    </svg>
-                  </div>
+            <Card className="group text-center hover:shadow-lg transition-all duration-300 border-border hover:border-accent/20">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-accent group-hover:text-accent-foreground transition-all">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                  </svg>
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-4 group-hover:text-accent transition-colors">Custom Solutions</h3>
-                <p className="text-muted-foreground leading-relaxed group-hover:text-foreground/90 transition-colors">
-                  Tailored to your unique business needs and goals, not one-size-fits-all templates.
+                <h3 className="text-xl font-semibold mb-3">Custom Solutions</h3>
+                <p className="text-muted-foreground">
+                  Tailored to your unique business needs, not one-size-fits-all templates
                 </p>
-                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all"></div>
               </CardContent>
             </Card>
 
-            <Card className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/20 hover:-translate-y-1 shadow-md bg-card">
-              <CardContent className="p-10">
-                <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-gradient-to-br from-gold/20 to-accent/20 rounded-full blur-lg group-hover:blur-xl transition-all"></div>
-                  <div className="relative w-24 h-24 bg-gradient-to-br from-gold to-gold-dark rounded-full flex items-center justify-center mx-auto shadow-xl group-hover:shadow-2xl transition-all group-hover:scale-110">
-                    <svg className="w-12 h-12 text-white transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                  </div>
+            <Card className="group text-center hover:shadow-lg transition-all duration-300 border-border hover:border-accent/20">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-accent group-hover:text-accent-foreground transition-all">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-4 group-hover:text-accent transition-colors">Proven Results</h3>
-                <p className="text-muted-foreground leading-relaxed group-hover:text-foreground/90 transition-colors">
-                  Track record of increasing conversions and engagement for businesses like yours.
+                <h3 className="text-xl font-semibold mb-3">Proven Results</h3>
+                <p className="text-muted-foreground">
+                  Track record of increasing conversions and engagement for businesses
                 </p>
-                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-gold to-accent rounded-full mx-auto opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all"></div>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Enhanced CTA Section */}
+      {/* CTA Section */}
       <section className="py-24 aerospace-gradient relative overflow-hidden">
-        {/* Background patterns for aerospace feel - softer */}
-        <div className="absolute inset-0 opacity-8">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-warm-gray rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-sage rounded-full blur-3xl"></div>
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-background/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-background/20 rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <Card className="bg-background/10 border-background/20 backdrop-blur-sm hover:bg-background/15 hover:border-background/30 shadow-xl hover:shadow-2xl transition-all duration-300">
+          <Card className="bg-background/10 border-background/20 backdrop-blur-sm shadow-xl">
             <CardContent className="p-12">
-              {/* Premium badge */}
-              <Badge variant="secondary" className="bg-gold/20 text-primary-foreground border-gold/30 hover:bg-gold/30 transition-all mb-6 px-4 py-2">
-                <span className="font-medium">Premium Digital Transformation</span>
-              </Badge>
-              
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight text-primary-foreground">
-                Ready to Leave Your 
-                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-accent-foreground to-background">Competition Behind?</span>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary-foreground">
+                Ready to Transform Your Business?
               </h2>
-              <p className="text-xl mb-12 text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
-                Let&apos;s discuss how we can transform your digital presence and drive real business results
-                with aerospace-grade precision and reliability.
+              <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
+                Let&apos;s discuss how we can elevate your digital presence with aerospace-grade precision
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-                <Button asChild size="lg" variant="default" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg h-14 px-10 shadow-lg hover:shadow-xl transition-all hover:scale-105">
-                  <Link href="/contact" className="group">
-                    <span className="flex items-center gap-2">
-                      Get Your Free Consultation
-                      <svg className="size-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </span>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+                  <Link href="/contact">
+                    Get Your Free Consultation
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="border-background/20 text-primary-foreground hover:bg-background/10 hover:border-background/30 backdrop-blur-sm text-lg h-14 px-10 transition-all hover:scale-105">
+                <Button asChild variant="outline" size="lg" className="border-background/20 text-primary-foreground hover:bg-background/10">
                   <Link href="tel:+1-555-0123">
-                    Call Now: (555) 012-3456
+                    Call: (555) 012-3456
                   </Link>
                 </Button>
               </div>
               
-              {/* Enhanced urgency and trust indicators */}
-              <div className="space-y-4">
-                <div className="flex items-center justify-center gap-3 text-sm text-primary-foreground">
-                  <div className="size-3 bg-gold rounded-full animate-pulse"></div>
-                  <span className="font-medium">Limited spots available this month</span>
-                </div>
-                
-                <div className="flex items-center justify-center gap-6 text-sm flex-wrap">
-                  <Badge variant="secondary" className="bg-success/20 text-primary-foreground border-success/30 hover:bg-success/30 transition-all px-3 py-2">
-                    <svg className="size-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span className="font-medium">No-risk consultation</span>
-                  </Badge>
-                  <Badge variant="secondary" className="bg-success/20 text-primary-foreground border-success/30 hover:bg-success/30 transition-all px-3 py-2">
-                    <svg className="size-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span className="font-medium">30-day guarantee</span>
-                  </Badge>
-                  <Badge variant="secondary" className="bg-success/20 text-primary-foreground border-success/30 hover:bg-success/30 transition-all px-3 py-2">
-                    <svg className="size-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span className="font-medium">NASA-certified team</span>
-                  </Badge>
-                </div>
+              {/* Trust indicators */}
+              <div className="flex items-center justify-center gap-6 text-sm flex-wrap">
+                <Badge variant="secondary" className="bg-background/20 text-primary-foreground border-background/30">
+                  <svg className="size-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  Free Consultation
+                </Badge>
+                <Badge variant="secondary" className="bg-background/20 text-primary-foreground border-background/30">
+                  <svg className="size-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  30-Day Guarantee
+                </Badge>
+                <Badge variant="secondary" className="bg-background/20 text-primary-foreground border-background/30">
+                  <svg className="size-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  NASA Engineer
+                </Badge>
               </div>
             </CardContent>
           </Card>

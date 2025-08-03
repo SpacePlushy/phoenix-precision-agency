@@ -103,68 +103,56 @@ function AnimatedCounter({ value, suffix, duration = 2000 }: AnimatedCounterProp
 
 export default function PerformanceMetrics() {
   return (
-    <section className="py-20 bg-background relative">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-5">
+    <section className="py-24 bg-muted/30 relative">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
       </div>
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            Performance Analytics
+        <div className="text-center mb-12">
+          <Badge variant="secondary" className="mb-4 px-4 py-1.5">
+            Performance Metrics
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-            Performance That Speaks for Itself
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Built for Speed & Reliability
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Real metrics from our optimized websites, delivering exceptional user experiences
-            with aerospace-grade reliability.
+            Real metrics from our optimized websites, delivering exceptional results
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {metrics.map((metric, index) => (
-            <Card key={index} className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/20 hover:-translate-y-1 shadow-md bg-card">
-              <CardContent className="p-10">
-                {/* Icon with gradient background */}
-                <div className="relative mb-6">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-lg group-hover:blur-xl transition-all"></div>
-                  <div className={`relative size-20 mx-auto rounded-full flex items-center justify-center ${metric.colorClass} bg-gradient-to-br from-card to-muted shadow-md border border-border group-hover:shadow-lg transition-all group-hover:scale-110`}>
-                    <div className="transition-transform group-hover:scale-110">
-                      {metric.icon}
-                    </div>
-                  </div>
+            <Card key={index} className="group text-center hover:shadow-lg transition-all duration-300 border-border hover:border-accent/20">
+              <CardContent className="p-8">
+                {/* Icon */}
+                <div className={`${metric.colorClass} mb-6`}>
+                  {metric.icon}
                 </div>
                 
                 {/* Animated counter */}
-                <div className={`${metric.colorClass} mb-4 transition-transform group-hover:scale-105`}>
+                <div className={`${metric.colorClass} mb-4`}>
                   <AnimatedCounter value={metric.value} suffix={metric.suffix} />
                 </div>
                 
                 {/* Label and description */}
-                <CardTitle className="text-xl mb-3 group-hover:text-accent transition-colors font-bold">
+                <CardTitle className="text-xl mb-2 font-semibold">
                   {metric.label}
                 </CardTitle>
-                <CardDescription className="font-medium text-muted-foreground group-hover:text-foreground/80 transition-colors">
+                <CardDescription className="text-sm">
                   {metric.description}
                 </CardDescription>
-                
-                {/* Bottom accent line */}
-                <div className="mt-6 mx-auto w-12 h-1 bg-gradient-to-r from-accent to-primary rounded-full opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all"></div>
               </CardContent>
             </Card>
           ))}
         </div>
 
-        {/* Enhanced footer with certification badges */}
-        <div className="mt-16 text-center">
-          <Badge variant="outline" className="inline-flex items-center gap-3 px-6 py-3">
-            <div className="size-2 bg-success rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium">
-              Metrics measured with industry-standard tools: Google PageSpeed Insights, GTmetrix, and Pingdom
-            </span>
-          </Badge>
+        {/* Footer note */}
+        <div className="mt-12 text-center">
+          <p className="text-sm text-muted-foreground">
+            Metrics verified with Google PageSpeed Insights, GTmetrix, and Pingdom
+          </p>
         </div>
       </div>
     </section>

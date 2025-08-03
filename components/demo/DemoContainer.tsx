@@ -37,117 +37,116 @@ export default function DemoContainer() {
   };
 
   return (
-    <section className="py-20 aerospace-gradient-subtle relative overflow-hidden">
-      {/* Background elements for depth */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+    <section className="py-24 bg-muted/30 relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/3 right-1/3 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+      </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Enhanced Header */}
-        <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">
-            Before & After Showcase
+        {/* Header with improved spacing */}
+        <div className="text-center mb-12">
+          <Badge variant="secondary" className="mb-4 px-4 py-1.5">
+            Live Demo
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             See the Transformation
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Watch how we transform outdated websites into modern, high-performing digital experiences
-            that drive real business results
           </p>
         </div>
 
-        {/* Enhanced Progress Bar */}
-        <Card className="mb-12 max-w-4xl mx-auto shadow-lg hover:shadow-xl transition-all duration-300">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <Button
-                variant={activeView === 'old' ? 'default' : 'ghost'}
-                onClick={() => handleViewClick('old')}
-                className="flex items-center gap-2 transition-all hover:scale-105"
-              >
-                <div className={`w-3 h-3 rounded-full transition-all ${activeView === 'old' ? 'bg-red-500 shadow-lg shadow-red-500/30' : 'bg-muted-foreground/30'}`}></div>
-                <span className="font-medium">Before</span>
-              </Button>
-              <Button
-                variant={activeView === 'new' ? 'default' : 'ghost'}
-                onClick={() => handleViewClick('new')}
-                className="flex items-center gap-2 transition-all hover:scale-105"
-              >
-                <div className={`w-3 h-3 rounded-full transition-all ${activeView === 'new' ? 'bg-emerald-500 shadow-lg shadow-emerald-500/30' : 'bg-muted-foreground/30'}`}></div>
-                <span className="font-medium">After</span>
-              </Button>
-            </div>
-            <div className="relative h-3 bg-muted rounded-full overflow-hidden shadow-inner">
+        {/* Simplified Progress Bar */}
+        <div className="mb-12 max-w-xl mx-auto">
+          <div className="flex items-center justify-between mb-4">
+            <Button
+              variant={activeView === 'old' ? 'default' : 'outline'}
+              onClick={() => handleViewClick('old')}
+              size="sm"
+              className="transition-all"
+            >
+              <div className={`w-2 h-2 rounded-full mr-2 ${activeView === 'old' ? 'bg-destructive' : 'bg-muted-foreground'}`}></div>
+              Before
+            </Button>
+            <div className="relative flex-1 mx-4 h-1 bg-muted rounded-full overflow-hidden">
               <div 
-                className="absolute left-0 top-0 h-full bg-gradient-to-r from-accent to-accent/80 transition-all duration-100 ease-linear rounded-full shadow-sm"
+                className="absolute left-0 top-0 h-full bg-accent transition-all duration-100 ease-linear"
                 style={{ width: `${progress}%` }}
               />
             </div>
-          </CardContent>
-        </Card>
+            <Button
+              variant={activeView === 'new' ? 'default' : 'outline'}
+              onClick={() => handleViewClick('new')}
+              size="sm"
+              className="transition-all"
+            >
+              <div className={`w-2 h-2 rounded-full mr-2 ${activeView === 'new' ? 'bg-success' : 'bg-muted-foreground'}`}></div>
+              After
+            </Button>
+          </div>
+        </div>
 
         {/* Demo Views Container */}
         <div className="relative">
           {/* Desktop: Side by side */}
           <div className="hidden lg:grid grid-cols-2 gap-8">
             <Card 
-              className={`relative overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer group ${
+              className={`relative overflow-hidden transition-all duration-300 cursor-pointer ${
                 activeView === 'old' 
-                  ? 'border-accent shadow-accent/20 scale-[1.02] ring-2 ring-accent/30' 
-                  : 'border-border opacity-70 hover:opacity-85 hover:border-accent/30 hover:shadow-accent/10 hover:scale-[1.01]'
+                  ? 'shadow-2xl border-destructive/20 ring-2 ring-destructive/10' 
+                  : 'shadow-lg border-border hover:shadow-xl hover:border-muted-foreground/30'
               }`}
               onClick={() => handleViewClick('old')}
             >
-              <div className="absolute top-6 left-6 z-10">
-                <Badge variant="destructive" className="shadow-lg">
+              <div className="absolute top-4 left-4 z-10">
+                <Badge variant="destructive" className="font-semibold">
                   Before
                 </Badge>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <OldSiteView className="w-full" />
             </Card>
             
             <Card 
-              className={`relative overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer group ${
+              className={`relative overflow-hidden transition-all duration-300 cursor-pointer ${
                 activeView === 'new' 
-                  ? 'border-accent shadow-accent/20 scale-[1.02] ring-2 ring-accent/30' 
-                  : 'border-border opacity-70 hover:opacity-85 hover:border-accent/30 hover:shadow-accent/10 hover:scale-[1.01]'
+                  ? 'shadow-2xl border-success/20 ring-2 ring-success/10' 
+                  : 'shadow-lg border-border hover:shadow-xl hover:border-muted-foreground/30'
               }`}
               onClick={() => handleViewClick('new')}
             >
-              <div className="absolute top-6 left-6 z-10">
-                <Badge className="bg-emerald-600 hover:bg-emerald-600 shadow-lg">
+              <div className="absolute top-4 left-4 z-10">
+                <Badge className="bg-success hover:bg-success text-white font-semibold">
                   After
                 </Badge>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <NewSiteView className="w-full" />
             </Card>
           </div>
 
-          {/* Mobile: Single view with transition */}
-          <Card className="lg:hidden relative overflow-hidden shadow-2xl border-border hover:border-accent/30 transition-all duration-300">
+          {/* Mobile: Single view with fade transition */}
+          <Card className="lg:hidden relative overflow-hidden shadow-xl">
             <div className="absolute top-4 left-4 z-10">
               <Badge 
                 variant={activeView === 'old' ? 'destructive' : 'default'} 
-                className={`shadow-lg ${activeView === 'new' ? 'bg-emerald-600 hover:bg-emerald-600' : ''}`}
+                className={`font-semibold ${activeView === 'new' ? 'bg-success hover:bg-success text-white' : ''}`}
               >
                 {activeView === 'old' ? 'Before' : 'After'}
               </Badge>
             </div>
             
-            <div className="relative h-[600px] overflow-hidden">
+            <div className="relative h-[500px] overflow-hidden">
               <div 
-                className={`absolute inset-0 transition-transform duration-500 ${
-                  activeView === 'old' ? 'translate-x-0' : '-translate-x-full'
+                className={`absolute inset-0 transition-opacity duration-500 ${
+                  activeView === 'old' ? 'opacity-100' : 'opacity-0'
                 }`}
               >
                 <OldSiteView className="w-full h-full" />
               </div>
               <div 
-                className={`absolute inset-0 transition-transform duration-500 ${
-                  activeView === 'new' ? 'translate-x-0' : 'translate-x-full'
+                className={`absolute inset-0 transition-opacity duration-500 ${
+                  activeView === 'new' ? 'opacity-100' : 'opacity-0'
                 }`}
               >
                 <NewSiteView className="w-full h-full" />
@@ -156,31 +155,24 @@ export default function DemoContainer() {
           </Card>
         </div>
 
-        {/* Enhanced Call to Action */}
-        <Card className="mt-16 max-w-2xl mx-auto shadow-lg hover:shadow-xl transition-all duration-300 border-border hover:border-accent/30">
-          <CardContent className="text-center p-8">
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed font-medium">
-              Ready to transform your digital presence with aerospace precision?
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 shadow-lg hover:shadow-accent/20 transition-all hover:scale-105">
-                <Link href="/contact">
-                  Get Your Free Consultation
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="border-border hover:border-accent/50 transition-all hover:scale-105">
-                <Link href="/portfolio">
-                  View More Examples
-                </Link>
-              </Button>
-            </div>
-            
-            {/* Gold accent line */}
-            <div className="mt-8 flex items-center justify-center">
-              <div className="w-16 h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full shadow-sm"></div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Simplified Call to Action */}
+        <div className="mt-16 text-center">
+          <p className="text-lg text-muted-foreground mb-8">
+            Ready to transform your digital presence?
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg">
+              <Link href="/contact">
+                Get Your Free Consultation
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/portfolio">
+                View More Examples
+              </Link>
+            </Button>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -35,3 +35,6 @@
 - `pnpm build` - Build for production
 - `pnpm test` - Run test suite
 - `git push` - Deploy to production
+
+## Agent Usage
+- Remember how we have been using our agents to generate and refine website content
