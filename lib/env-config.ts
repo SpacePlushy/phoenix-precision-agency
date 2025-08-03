@@ -41,22 +41,23 @@ export function checkClerkConfig(): ServiceConfig {
  * Check if Upstash Redis is properly configured
  */
 export function checkRedisConfig(): ServiceConfig {
-  const url = process.env.UPSTASH_REDIS_REST_URL
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN
+  // Support both Vercel KV and Upstash Redis environment variables
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN
   
   const missingKeys = []
   
   if (!url || url.includes('your-redis-instance') || !url.startsWith('https://')) {
-    missingKeys.push('UPSTASH_REDIS_REST_URL')
+    missingKeys.push('KV_REST_API_URL or UPSTASH_REDIS_REST_URL')
   }
   
   if (!token || token === 'your_upstash_redis_rest_token_here') {
-    missingKeys.push('UPSTASH_REDIS_REST_TOKEN')
+    missingKeys.push('KV_REST_API_TOKEN or UPSTASH_REDIS_REST_TOKEN')
   }
   
   return {
     isConfigured: missingKeys.length === 0,
-    service: 'Upstash Redis',
+    service: 'Redis/KV Storage',
     missingKeys: missingKeys.length > 0 ? missingKeys : undefined
   }
 }
