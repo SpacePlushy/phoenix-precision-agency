@@ -20,7 +20,33 @@ const customJestConfig = {
     '!**/*.d.ts',
     '!**/node_modules/**',
     '!**/__tests__/**',
+    '!**/*.test.{ts,tsx}',
+    '!**/test-*.{ts,tsx}',
+    '!app/layout.tsx',
+    '!app/global-error.tsx',
   ],
+  coverageThreshold: {
+    global: {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+    './components/theme-*.tsx': {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+    './app/api/user/preferences/route.ts': {
+      branches: 85,
+      functions: 85,
+      lines: 85,
+      statements: 85,
+    },
+  },
+  coverageReporters: ['text', 'lcov', 'html', 'json-summary'],
+  coverageDirectory: 'coverage',
   transformIgnorePatterns: [
     'node_modules/(?!(uncrypto|@upstash)/)',
   ],

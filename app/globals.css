@@ -154,6 +154,7 @@
     @apply bg-background text-foreground;
     font-family: theme(--font-family-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
+    transition: color 150ms ease, background-color 150ms ease;
   }
   
   /* Aerospace precision typography */
