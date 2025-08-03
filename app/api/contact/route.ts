@@ -9,7 +9,7 @@ import { ContactFormData } from '@/components/forms/ContactForm';
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Helper function to get resend instance (for testing)
-export const getResendInstance = () => {
+const getResendInstance = () => {
   if (!process.env.RESEND_API_KEY) return null;
   return resend || new Resend(process.env.RESEND_API_KEY);
 };

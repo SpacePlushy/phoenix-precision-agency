@@ -10,28 +10,28 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="aerospace-gradient py-24 relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-accent py-24">
         {/* Background pattern for aerospace precision feel */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent transform rotate-45 translate-x-[-50%] translate-y-[-50%]"></div>
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-background/10 to-transparent transform rotate-45 translate-x-[-50%] translate-y-[-50%]"></div>
         </div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="text-white space-y-8">
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+          <div className="space-y-8">
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight text-primary-foreground">
               Transform Your Business with
-              <span className="block text-accent mt-2">Aerospace Precision</span>
+              <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-accent-foreground to-background">Aerospace Precision</span>
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
               We turn outdated websites into modern digital experiences that drive growth, 
               engage customers, and deliver results with the same precision used in space missions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+              <Button asChild size="lg" variant="default" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105">
                 <Link href="/contact">
                   Start Your Transformation
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary">
+              <Button asChild variant="outline" size="lg" className="border-background/20 text-primary-foreground hover:bg-background/10 hover:border-background/30 backdrop-blur-sm transition-all hover:scale-105">
                 <Link href="/portfolio">
                   View Our Work
                 </Link>
@@ -39,20 +39,20 @@ export default function Home() {
             </div>
             
             {/* Trust Indicators */}
-            <Card className="mt-16 bg-white/10 border-white/20 backdrop-blur-sm hover:bg-white/15 hover:border-white/30 shadow-lg hover:shadow-xl">
+            <Card className="mt-16 bg-background/10 border-background/20 backdrop-blur-sm hover:bg-background/15 hover:border-background/30 shadow-lg hover:shadow-xl transition-all">
               <CardContent className="pt-6">
-                <p className="text-sm text-white/80 mb-6 font-medium tracking-wide">Trusted by businesses worldwide</p>
-                <div className="flex items-center justify-center gap-6 text-sm text-white/90 flex-wrap">
-                  <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-100 border-emerald-400/30 hover:bg-emerald-500/30 transition-all px-4 py-2">
-                    <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse-glow mr-2"></div>
+                <p className="text-sm text-primary-foreground/80 mb-6 font-medium tracking-wide uppercase">Trusted by businesses worldwide</p>
+                <div className="flex items-center justify-center gap-6 text-sm flex-wrap">
+                  <Badge variant="secondary" className="bg-success/20 text-primary-foreground border-success/30 hover:bg-success/30 transition-all px-4 py-2">
+                    <div className="size-2 bg-success rounded-full animate-pulse mr-2"></div>
                     <span className="font-medium">99.9% Uptime</span>
                   </Badge>
-                  <Badge variant="secondary" className="bg-gold/20 text-gold-light border-gold/30 hover:bg-gold/30 transition-all px-4 py-2">
-                    <div className="w-2 h-2 bg-gold rounded-full mr-2"></div>
+                  <Badge variant="secondary" className="bg-gold/20 text-primary-foreground border-gold/30 hover:bg-gold/30 transition-all px-4 py-2">
+                    <div className="size-2 bg-gold rounded-full mr-2"></div>
                     <span className="font-medium">NASA-Grade Security</span>
                   </Badge>
-                  <Badge variant="secondary" className="bg-blue-500/20 text-blue-100 border-blue-400/30 hover:bg-blue-500/30 transition-all px-4 py-2">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                  <Badge variant="secondary" className="bg-accent/20 text-primary-foreground border-accent/30 hover:bg-accent/30 transition-all px-4 py-2">
+                    <div className="size-2 bg-accent rounded-full mr-2"></div>
                     <span className="font-medium">24/7 Support</span>
                   </Badge>
                 </div>
@@ -94,7 +94,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/50 hover:-translate-y-1 shadow-lg">
+            <Card className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/20 hover:-translate-y-1 shadow-md bg-card">
               <CardContent className="p-10">
                 <div className="relative mb-8">
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-full blur-lg group-hover:blur-xl transition-all"></div>
@@ -108,11 +108,11 @@ export default function Home() {
                 <p className="text-muted-foreground leading-relaxed group-hover:text-foreground/90 transition-colors">
                   Every decision backed by analytics and user research to maximize your ROI and user engagement.
                 </p>
-                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-accent to-gold rounded-full mx-auto opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all"></div>
+                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-accent to-primary rounded-full mx-auto opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all"></div>
               </CardContent>
             </Card>
 
-            <Card className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/50 hover:-translate-y-1 shadow-lg">
+            <Card className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/20 hover:-translate-y-1 shadow-md bg-card">
               <CardContent className="p-10">
                 <div className="relative mb-8">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-gold/20 rounded-full blur-lg group-hover:blur-xl transition-all"></div>
@@ -130,7 +130,7 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/50 hover:-translate-y-1 shadow-lg">
+            <Card className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/20 hover:-translate-y-1 shadow-md bg-card">
               <CardContent className="p-10">
                 <div className="relative mb-8">
                   <div className="absolute inset-0 bg-gradient-to-br from-gold/20 to-accent/20 rounded-full blur-lg group-hover:blur-xl transition-all"></div>
@@ -152,42 +152,42 @@ export default function Home() {
       </section>
 
       {/* Enhanced CTA Section */}
-      <section className="py-24 aerospace-gradient text-white relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-primary to-accent relative overflow-hidden">
         {/* Background patterns for aerospace feel */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-background rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-gold rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <Card className="bg-white/10 border-white/20 backdrop-blur-sm hover:bg-white/15 hover:border-white/30 shadow-xl hover:shadow-2xl transition-all duration-300">
+          <Card className="bg-background/10 border-background/20 backdrop-blur-sm hover:bg-background/15 hover:border-background/30 shadow-xl hover:shadow-2xl transition-all duration-300">
             <CardContent className="p-12">
               {/* Premium badge */}
-              <Badge variant="secondary" className="bg-gold/20 text-gold-light border-gold/30 hover:bg-gold/30 transition-all mb-6 px-4 py-2">
+              <Badge variant="secondary" className="bg-gold/20 text-primary-foreground border-gold/30 hover:bg-gold/30 transition-all mb-6 px-4 py-2">
                 <span className="font-medium">Premium Digital Transformation</span>
               </Badge>
               
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight text-primary-foreground">
                 Ready to Leave Your 
-                <span className="block text-accent mt-2">Competition Behind?</span>
+                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-accent-foreground to-background">Competition Behind?</span>
               </h2>
-              <p className="text-xl mb-12 opacity-90 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl mb-12 text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
                 Let&apos;s discuss how we can transform your digital presence and drive real business results
                 with aerospace-grade precision and reliability.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg h-14 px-10 shadow-lg hover:shadow-accent/20 transition-all hover:scale-105">
+                <Button asChild size="lg" variant="default" className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg h-14 px-10 shadow-lg hover:shadow-xl transition-all hover:scale-105">
                   <Link href="/contact" className="group">
                     <span className="flex items-center gap-2">
                       Get Your Free Consultation
-                      <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="size-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
                     </span>
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary text-lg h-14 px-10 transition-all hover:scale-105">
+                <Button asChild variant="outline" size="lg" className="border-background/20 text-primary-foreground hover:bg-background/10 hover:border-background/30 backdrop-blur-sm text-lg h-14 px-10 transition-all hover:scale-105">
                   <Link href="tel:+1-555-0123">
                     Call Now: (555) 012-3456
                   </Link>
@@ -196,26 +196,26 @@ export default function Home() {
               
               {/* Enhanced urgency and trust indicators */}
               <div className="space-y-4">
-                <div className="flex items-center justify-center gap-3 text-sm">
-                  <div className="w-3 h-3 bg-gold rounded-full animate-pulse-glow"></div>
+                <div className="flex items-center justify-center gap-3 text-sm text-primary-foreground">
+                  <div className="size-3 bg-gold rounded-full animate-pulse"></div>
                   <span className="font-medium">Limited spots available this month</span>
                 </div>
                 
-                <div className="flex items-center justify-center gap-6 text-sm opacity-90 flex-wrap">
-                  <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-100 border-emerald-400/30 hover:bg-emerald-500/30 transition-all px-3 py-2">
-                    <svg className="w-4 h-4 text-emerald-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <div className="flex items-center justify-center gap-6 text-sm flex-wrap">
+                  <Badge variant="secondary" className="bg-success/20 text-primary-foreground border-success/30 hover:bg-success/30 transition-all px-3 py-2">
+                    <svg className="size-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                     <span className="font-medium">No-risk consultation</span>
                   </Badge>
-                  <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-100 border-emerald-400/30 hover:bg-emerald-500/30 transition-all px-3 py-2">
-                    <svg className="w-4 h-4 text-emerald-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <Badge variant="secondary" className="bg-success/20 text-primary-foreground border-success/30 hover:bg-success/30 transition-all px-3 py-2">
+                    <svg className="size-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                     <span className="font-medium">30-day guarantee</span>
                   </Badge>
-                  <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-100 border-emerald-400/30 hover:bg-emerald-500/30 transition-all px-3 py-2">
-                    <svg className="w-4 h-4 text-emerald-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <Badge variant="secondary" className="bg-success/20 text-primary-foreground border-success/30 hover:bg-success/30 transition-all px-3 py-2">
+                    <svg className="size-4 text-success mr-2" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                     <span className="font-medium">NASA-certified team</span>

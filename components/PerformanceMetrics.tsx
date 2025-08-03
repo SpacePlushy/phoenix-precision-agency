@@ -16,28 +16,28 @@ interface Metric {
 
 const metrics: Metric[] = [
   {
-    icon: <TrendingUp className="w-8 h-8" />,
+    icon: <TrendingUp className="size-8" />,
     value: 97,
     suffix: "%",
     label: "PageSpeed Score",
     description: "Google Core Web Vitals",
-    colorClass: "text-emerald-600"
+    colorClass: "text-success"
   },
   {
-    icon: <Zap className="w-8 h-8" />,
+    icon: <Zap className="size-8" />,
     value: 2.1,
     suffix: "s",
     label: "Load Time",
     description: "Average first paint",
-    colorClass: "text-blue-600"
+    colorClass: "text-accent"
   },
   {
-    icon: <Server className="w-8 h-8" />,
+    icon: <Server className="size-8" />,
     value: 99.9,
     suffix: "%",
     label: "Uptime",
     description: "Monthly availability",
-    colorClass: "text-yellow-600"
+    colorClass: "text-gold"
   }
 ];
 
@@ -103,10 +103,10 @@ function AnimatedCounter({ value, suffix, duration = 2000 }: AnimatedCounterProp
 
 export default function PerformanceMetrics() {
   return (
-    <section className="py-20 aerospace-gradient-subtle relative">
+    <section className="py-20 bg-background relative">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
       </div>
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -114,7 +114,7 @@ export default function PerformanceMetrics() {
           <Badge variant="secondary" className="mb-4">
             Performance Analytics
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
             Performance That Speaks for Itself
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -125,12 +125,12 @@ export default function PerformanceMetrics() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {metrics.map((metric, index) => (
-            <Card key={index} className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/50 hover:-translate-y-1 shadow-lg">
+            <Card key={index} className="group text-center hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border-border hover:border-accent/20 hover:-translate-y-1 shadow-md bg-card">
               <CardContent className="p-10">
                 {/* Icon with gradient background */}
                 <div className="relative mb-6">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-lg group-hover:blur-xl transition-all"></div>
-                  <div className={`relative w-20 h-20 mx-auto rounded-full flex items-center justify-center ${metric.colorClass} bg-gradient-to-br from-background to-muted shadow-lg border border-border group-hover:shadow-2xl transition-all group-hover:scale-110`}>
+                  <div className={`relative size-20 mx-auto rounded-full flex items-center justify-center ${metric.colorClass} bg-gradient-to-br from-card to-muted shadow-md border border-border group-hover:shadow-lg transition-all group-hover:scale-110`}>
                     <div className="transition-transform group-hover:scale-110">
                       {metric.icon}
                     </div>
@@ -151,7 +151,7 @@ export default function PerformanceMetrics() {
                 </CardDescription>
                 
                 {/* Bottom accent line */}
-                <div className="mt-6 mx-auto w-12 h-1 bg-gradient-to-r from-accent to-yellow-400 rounded-full opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all"></div>
+                <div className="mt-6 mx-auto w-12 h-1 bg-gradient-to-r from-accent to-primary rounded-full opacity-60 group-hover:opacity-100 group-hover:w-16 transition-all"></div>
               </CardContent>
             </Card>
           ))}
@@ -160,7 +160,7 @@ export default function PerformanceMetrics() {
         {/* Enhanced footer with certification badges */}
         <div className="mt-16 text-center">
           <Badge variant="outline" className="inline-flex items-center gap-3 px-6 py-3">
-            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse-glow"></div>
+            <div className="size-2 bg-success rounded-full animate-pulse"></div>
             <span className="text-sm font-medium">
               Metrics measured with industry-standard tools: Google PageSpeed Insights, GTmetrix, and Pingdom
             </span>

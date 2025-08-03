@@ -100,13 +100,13 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
           })}
           type="text"
           id="name"
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors ${
-            errors.name ? 'border-error' : 'border-border'
+          className={`w-full px-4 py-3 bg-background border rounded-md focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md focus:shadow-md ${
+            errors.name ? 'border-destructive' : 'border-input'
           }`}
           disabled={isSubmitting}
         />
         {errors.name && (
-          <p className="mt-1 text-sm text-error">{errors.name.message}</p>
+          <p className="mt-1 text-sm text-destructive">{errors.name.message}</p>
         )}
       </div>
 
@@ -125,13 +125,13 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
           })}
           type="email"
           id="email"
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors ${
-            errors.email ? 'border-error' : 'border-border'
+          className={`w-full px-4 py-3 bg-background border rounded-md focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md focus:shadow-md ${
+            errors.email ? 'border-destructive' : 'border-input'
           }`}
           disabled={isSubmitting}
         />
         {errors.email && (
-          <p className="mt-1 text-sm text-error">{errors.email.message}</p>
+          <p className="mt-1 text-sm text-destructive">{errors.email.message}</p>
         )}
       </div>
 
@@ -149,13 +149,13 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
           })}
           type="tel"
           id="phone"
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors ${
-            errors.phone ? 'border-error' : 'border-border'
+          className={`w-full px-4 py-3 bg-background border rounded-md focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md focus:shadow-md ${
+            errors.phone ? 'border-destructive' : 'border-input'
           }`}
           disabled={isSubmitting}
         />
         {errors.phone && (
-          <p className="mt-1 text-sm text-error">{errors.phone.message}</p>
+          <p className="mt-1 text-sm text-destructive">{errors.phone.message}</p>
         )}
       </div>
 
@@ -173,13 +173,13 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
           })}
           type="text"
           id="company"
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors ${
-            errors.company ? 'border-error' : 'border-border'
+          className={`w-full px-4 py-3 bg-background border rounded-md focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md focus:shadow-md ${
+            errors.company ? 'border-destructive' : 'border-input'
           }`}
           disabled={isSubmitting}
         />
         {errors.company && (
-          <p className="mt-1 text-sm text-error">{errors.company.message}</p>
+          <p className="mt-1 text-sm text-destructive">{errors.company.message}</p>
         )}
       </div>
 
@@ -202,23 +202,23 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
           })}
           id="message"
           rows={5}
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-accent transition-colors resize-none ${
-            errors.message ? 'border-error' : 'border-border'
+          className={`w-full px-4 py-3 bg-background border rounded-md focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200 shadow-sm hover:shadow-md focus:shadow-md resize-none ${
+            errors.message ? 'border-destructive' : 'border-input'
           }`}
           disabled={isSubmitting}
         />
         {errors.message && (
-          <p className="mt-1 text-sm text-error">{errors.message.message}</p>
+          <p className="mt-1 text-sm text-destructive">{errors.message.message}</p>
         )}
       </div>
 
       {/* Status Messages */}
       {submitStatus.type && (
         <div
-          className={`p-4 rounded-lg ${
+          className={`p-4 rounded-md ${
             submitStatus.type === 'success'
               ? 'bg-success/10 text-success border border-success/20'
-              : 'bg-error/10 text-error border border-error/20'
+              : 'bg-destructive/10 text-destructive border border-destructive/20'
           }`}
           role="alert"
         >
@@ -230,15 +230,15 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className={`w-full px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center ${
+        className={`w-full px-6 py-3 rounded-md font-medium transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md ${
           isSubmitting
-            ? 'bg-muted text-foreground/50 cursor-not-allowed'
-            : 'bg-accent text-white hover:bg-accent/90 active:scale-[0.98]'
+            ? 'bg-muted text-muted-foreground cursor-not-allowed'
+            : 'bg-accent text-accent-foreground hover:bg-accent/90 active:scale-[0.98]'
         }`}
       >
         {isSubmitting ? (
           <>
-            <Loader2 className="animate-spin mr-2 h-5 w-5" />
+            <Loader2 className="animate-spin mr-2 size-5" />
             Submitting...
           </>
         ) : (

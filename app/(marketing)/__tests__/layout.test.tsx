@@ -5,16 +5,20 @@ import MarketingLayout from '../layout';
 
 // Mock the Navigation component
 jest.mock('@/components/Navigation', () => {
-  return function MockNavigation() {
+  const MockNavigation = () => {
     return <nav data-testid="navigation">Navigation Component</nav>;
   };
+  MockNavigation.displayName = 'MockNavigation';
+  return MockNavigation;
 });
 
 // Mock Next.js Link component
 jest.mock('next/link', () => {
-  return ({ children, href, ...props }: any) => {
+  const MockLink = ({ children, href, ...props }: any) => {
     return <a href={href} {...props}>{children}</a>;
   };
+  MockLink.displayName = 'MockLink';
+  return MockLink;
 });
 
 describe('MarketingLayout', () => {

@@ -1,44 +1,124 @@
 @import "tailwindcss";
 
-/* Tailwind CSS v4 Theme Configuration */
-@theme {
-  /* Custom radius */
+/* CSS Variables following shadcn/ui pattern */
+:root {
+  /* Base radius */
   --radius: 0.5rem;
   
   /* Phoenix Precision Aerospace Color Palette */
-  --color-background: #ffffff;
-  --color-foreground: #020817;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
   
-  --color-card: #ffffff;
-  --color-card-foreground: #020817;
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
   
-  --color-popover: #ffffff;
-  --color-popover-foreground: #020817;
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
   
-  --color-primary: #0f172a; /* Deep aerospace navy */
-  --color-primary-foreground: #f8fafc;
+  --primary: oklch(0.205 0.034 264.665); /* Deep aerospace navy */
+  --primary-foreground: oklch(0.985 0 0);
   
-  --color-secondary: #f1f5f9;
-  --color-secondary-foreground: #0f172a;
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0.034 264.665);
   
-  --color-muted: #f1f5f9;
-  --color-muted-foreground: #64748b;
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
   
-  --color-accent: #3b82f6; /* Electric blue */
-  --color-accent-foreground: #ffffff;
+  --accent: oklch(0.552 0.238 264.055); /* Electric blue */
+  --accent-foreground: oklch(1 0 0);
   
-  --color-destructive: #ef4444;
-  --color-destructive-foreground: #ffffff;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
   
-  --color-border: #e2e8f0;
-  --color-input: #e2e8f0;
-  --color-ring: #3b82f6;
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.552 0.238 264.055);
   
   /* Custom aerospace colors */
-  --color-gold: #f59e0b;
-  --color-gold-light: #fcd34d;
-  --color-gold-dark: #d97706;
-  --color-success: #0ea5e9;
+  --gold: oklch(0.7 0.18 85);
+  --gold-light: oklch(0.85 0.15 90);
+  --gold-dark: oklch(0.55 0.2 80);
+  --success: oklch(0.65 0.2 195);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  
+  --card: oklch(0.205 0.034 264.665);
+  --card-foreground: oklch(0.985 0 0);
+  
+  --popover: oklch(0.205 0.034 264.665);
+  --popover-foreground: oklch(0.985 0 0);
+  
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0.034 264.665);
+  
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  
+  --accent: oklch(0.552 0.238 264.055);
+  --accent-foreground: oklch(0.145 0 0);
+  
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.552 0.238 264.055);
+  
+  /* Custom aerospace colors */
+  --gold: oklch(0.7 0.18 85);
+  --gold-light: oklch(0.85 0.15 90);
+  --gold-dark: oklch(0.55 0.2 80);
+  --success: oklch(0.65 0.2 195);
+}
+
+/* Tailwind CSS v4 Theme Configuration */
+@theme inline {
+  /* Map CSS variables to Tailwind theme */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  /* Custom aerospace colors */
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-success: var(--success);
+  
+  /* Radius variants */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
   
   /* Font families */
   --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
@@ -52,12 +132,11 @@
 /* Base styles */
 @layer base {
   * {
-    border-color: theme(--color-border);
+    @apply border-border;
   }
   
   body {
-    background-color: theme(--color-background);
-    color: theme(--color-foreground);
+    @apply bg-background text-foreground;
     font-family: theme(--font-family-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
@@ -194,17 +273,31 @@
     background: linear-gradient(135deg, theme(--color-background) 0%, theme(--color-background) 50%, theme(--color-muted) 100%);
   }
   
-  /* Custom color utilities */
-  .bg-gold { background-color: theme(--color-gold); }
-  .bg-gold-light { background-color: theme(--color-gold-light); }
-  .bg-gold-dark { background-color: theme(--color-gold-dark); }
-  .text-gold { color: theme(--color-gold); }
-  .text-gold-light { color: theme(--color-gold-light); }
-  .text-gold-dark { color: theme(--color-gold-dark); }
-  .border-gold { border-color: theme(--color-gold); }
+  /* Custom utilities using CSS variables for consistency */
+  .text-gradient {
+    background: linear-gradient(to right, theme(--color-accent), theme(--color-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   
-  /* Gold opacity variants */
-  .bg-gold\/20 { background-color: rgb(245 158 11 / 0.2); }
-  .bg-gold\/30 { background-color: rgb(245 158 11 / 0.3); }
-  .border-gold\/30 { border-color: rgb(245 158 11 / 0.3); }
+  /* Focus and hover states */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;
+  }
+  
+  /* Animation utilities */
+  .animate-in {
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+  }
+  
+  .fade-in {
+    animation-name: fadeIn;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 }

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Menu, X } from "lucide-react";
 
 export default function Navigation() {
@@ -16,8 +15,8 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-border">
-      <Card className="rounded-none border-0 shadow-sm">
+    <nav className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border">
+      <div className="bg-card shadow-sm">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -83,7 +82,7 @@ export default function Navigation() {
             </div>
           )}
         </div>
-      </Card>
+      </div>
     </nav>
   );
 }
