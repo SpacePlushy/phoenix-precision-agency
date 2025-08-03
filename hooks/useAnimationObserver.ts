@@ -23,7 +23,7 @@ export function useAnimationObserver(
   const [isVisible, setIsVisible] = useState(false);
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const hasAnimated = useRef(false);
-  const rafId = useRef<number>();
+  const rafId = useRef<number | undefined>(undefined);
 
   // Callback to handle intersection changes
   const handleIntersection = useCallback((entries: IntersectionObserverEntry[]) => {

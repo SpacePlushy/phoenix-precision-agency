@@ -78,7 +78,7 @@ export function useRenderPerformance(componentName: string) {
         if (measure && measure.duration > 16.67) { // More than one frame
           console.warn(`${componentName} render took ${measure.duration.toFixed(2)}ms`);
         }
-      } catch (e) {
+      } catch {
         // Ignore if marks don't exist
       }
     };
