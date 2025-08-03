@@ -163,8 +163,8 @@ export default function Home() {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="border-background/20 text-primary-foreground hover:bg-background/10">
-                  <Link href="tel:+1-555-0123">
-                    Call: (555) 012-3456
+                  <Link href="tel:+16025314111">
+                    Call: (602) 531-4111
                   </Link>
                 </Button>
               </div>

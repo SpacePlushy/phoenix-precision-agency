@@ -55,7 +55,7 @@ export default function GlobalError({
                 </button>
                 
                 <a
-                  href="mailto:support@phoenixprecision.agency"
+                  href="mailto:fmp3212@gmail.com"
                   className="flex items-center justify-center gap-2 border border-blue-600 text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors"
                 >
                   Contact Support
@@ -69,8 +69,8 @@ export default function GlobalError({
                   Professional Web Development & Digital Solutions
                 </p>
                 <p>
-                  Phone: +1-555-0123<br />
-                  Email: support@phoenixprecision.agency
+                  Phone: (602) 531-4111<br />
+                  Email: fmp3212@gmail.com
                 </p>
               </div>
             </div>

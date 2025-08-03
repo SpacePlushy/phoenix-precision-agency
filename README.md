@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Phoenix Precision Agency
+
+Transform your business with aerospace-grade precision and modern web solutions.
+
+## Overview
+
+Phoenix Precision Agency specializes in transforming outdated websites into modern, high-performing digital experiences that drive results. With NASA-grade engineering precision, we deliver exceptional web solutions for Phoenix businesses.
+
+## Features
+
+- **Modern Design**: Clean, professional layouts optimized for conversions
+- **Performance**: Lightning-fast load times with 99.9% uptime guarantee
+- **SEO Optimized**: Built-in SEO best practices for better visibility
+- **Responsive**: Perfect display on all devices
+- **Contact Management**: Integrated contact form with rate limiting and storage
+
+## Contact Information
+
+- **Email**: fmp3212@gmail.com
+- **Phone**: (602) 531-4111
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- pnpm (recommended) or npm
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/SpacePlushy/phoenix-precision-agency.git
+cd phoenix-precision-agency
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Copy environment variables:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Configure environment variables (all optional):
+   - `UPSTASH_REDIS_REST_URL` - For lead storage
+   - `UPSTASH_REDIS_REST_TOKEN` - Redis authentication
+   - `RESEND_API_KEY` - For email notifications
+   - `CONTACT_EMAIL_TO` - Where to send form submissions (default: fmp3212@gmail.com)
 
-## Learn More
+5. Run the development server:
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) to see the site.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **UI Components**: shadcn/ui
+- **Animations**: Framer Motion
+- **Database**: Upstash Redis (optional)
+- **Email**: Resend (optional)
+- **Authentication**: Clerk (optional)
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The site is automatically deployed via Vercel's GitHub integration. Simply push to the main branch:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+git push origin main
+```
+
+## Testing
+
+Run the test suite:
+```bash
+pnpm test
+```
+
+Run tests in watch mode:
+```bash
+pnpm test:watch
+```
+
+## License
+
+© 2024 Phoenix Precision Agency. All rights reserved.

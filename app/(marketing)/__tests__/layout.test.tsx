@@ -52,8 +52,8 @@ describe('MarketingLayout', () => {
       // Contact section - use getAllByText since there are multiple
       const contactHeaders = screen.getAllByText('Contact');
       expect(contactHeaders.length).toBeGreaterThan(0);
-      expect(screen.getByText(/info@phoenixprecision.agency/i)).toBeInTheDocument();
-      expect(screen.getByText(/\(555\) 012-3456/i)).toBeInTheDocument();
+      expect(screen.getByText(/fmp3212@gmail.com/i)).toBeInTheDocument();
+      expect(screen.getByText(/\(602\) 531-4111/i)).toBeInTheDocument();
     });
 
     it('renders all navigation links in footer', () => {

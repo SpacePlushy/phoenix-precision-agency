@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
     if (resendInstance && process.env.CONTACT_EMAIL_TO) {
       try {
         await resendInstance.emails.send({
-          from: process.env.CONTACT_EMAIL_FROM || 'Phoenix Precision <noreply@phoenixprecision.agency>',
+          from: process.env.CONTACT_EMAIL_FROM || 'Phoenix Precision <fmp3212@gmail.com>',
           to: process.env.CONTACT_EMAIL_TO,
           subject: `New Contact Form Submission from ${lead.name}`,
           html: `

@@ -72,10 +72,10 @@ export default function Error({
           <p className="text-sm text-gray-500">
             Need help? Contact us at{' '}
             <a 
-              href="mailto:support@phoenixprecision.agency"
+              href="mailto:fmp3212@gmail.com"
               className="text-blue-600 hover:text-blue-700"
             >
-              support@phoenixprecision.agency
+              fmp3212@gmail.com
             </a>
           </p>
         </div>

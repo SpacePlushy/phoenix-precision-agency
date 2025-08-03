@@ -71,7 +71,7 @@ export default function NotFound() {
               </Link>
               <span className="text-gray-300">|</span>
               <a 
-                href="mailto:support@phoenixprecision.agency"
+                href="mailto:fmp3212@gmail.com"
                 className="text-blue-600 hover:text-blue-700"
               >
                 Support
