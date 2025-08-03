@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { TrendingUp, Zap, Server } from "lucide-react";
+import { TrendingUp, Zap } from "lucide-react";
 import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -17,27 +17,35 @@ interface Metric {
 const metrics: Metric[] = [
   {
     icon: <TrendingUp className="size-8" />,
-    value: 97,
-    suffix: "%",
-    label: "PageSpeed Score",
+    value: 100,
+    suffix: "",
+    label: "Performance Score",
     description: "Google Core Web Vitals",
     colorClass: "text-success"
   },
   {
     icon: <Zap className="size-8" />,
-    value: 2.1,
+    value: 0.8,
     suffix: "s",
     label: "Load Time",
-    description: "Average first paint",
+    description: "Average page load speed",
     colorClass: "text-accent"
   },
   {
-    icon: <Server className="size-8" />,
-    value: 99.9,
-    suffix: "%",
-    label: "Uptime",
-    description: "Monthly availability",
+    icon: <Zap className="size-8" />,
+    value: 1.2,
+    suffix: "s",
+    label: "Time to Interactive",
+    description: "When page becomes interactive",
     colorClass: "text-gold"
+  },
+  {
+    icon: <Zap className="size-8" />,
+    value: 0.5,
+    suffix: "s",
+    label: "First Contentful Paint",
+    description: "Initial content display",
+    colorClass: "text-primary"
   }
 ];
 
@@ -115,14 +123,14 @@ export default function PerformanceMetrics() {
             Performance Metrics
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Built for Speed & Reliability
+            Lightning-Fast Performance
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Real metrics from our optimized websites, delivering exceptional results
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {metrics.map((metric, index) => (
             <Card key={index} className="group text-center hover:shadow-lg transition-all duration-300 border-border hover:border-accent/20">
               <CardContent className="p-8">

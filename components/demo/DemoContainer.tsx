@@ -132,6 +132,8 @@ export default function DemoContainer() {
               onClick={() => handleViewClick('old')}
               size="lg"
               className={`transition-all duration-300 ${activeView === 'old' ? 'shadow-lg scale-105' : 'hover:scale-105'}`}
+              aria-pressed={activeView === 'old'}
+              aria-label="2005 Website"
             >
               <div className={`w-3 h-3 rounded-full mr-3 ${activeView === 'old' ? 'bg-destructive animate-pulse' : 'bg-muted-foreground'}`}></div>
               <span className="font-semibold">2005 Website</span>
@@ -155,6 +157,8 @@ export default function DemoContainer() {
               onClick={() => handleViewClick('new')}
               size="lg"
               className={`transition-all duration-300 ${activeView === 'new' ? 'shadow-lg scale-105' : 'hover:scale-105'}`}
+              aria-pressed={activeView === 'new'}
+              aria-label="Modern Website"
             >
               <div className={`w-3 h-3 rounded-full mr-3 ${activeView === 'new' ? 'bg-success animate-pulse' : 'bg-muted-foreground'}`}></div>
               <span className="font-semibold">Modern Website</span>
@@ -326,12 +330,12 @@ export default function DemoContainer() {
               Transform your outdated website into a modern, high-converting digital experience
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105">
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                 <Link href="/contact">
                   Get Your Free Transformation Plan
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-accent/20 hover:border-accent/40 hover:bg-accent/5 transition-all hover:scale-105">
+              <Button asChild variant="outline" size="lg" className="border-accent/20 hover:border-accent/40 hover:bg-accent/5 transition-all hover:scale-105 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                 <Link href="/portfolio">
                   See More Transformations
                 </Link>
@@ -340,7 +344,7 @@ export default function DemoContainer() {
             <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-success rounded-full"></div>
-                <span>Free consultation</span>
+                <span>Expert guidance</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-success rounded-full"></div>

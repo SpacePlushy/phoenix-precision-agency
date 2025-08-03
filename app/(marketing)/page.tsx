@@ -26,12 +26,12 @@ export default function Home() {
               engage customers, and deliver results with the same precision used in space missions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" variant="default" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105">
+              <Button asChild size="lg" variant="default" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                 <Link href="/contact">
                   Start Your Transformation
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-background/20 text-primary-foreground hover:bg-background/10 hover:border-background/30 backdrop-blur-sm transition-all hover:scale-105">
+              <Button asChild variant="outline" size="lg" className="border-background/20 text-primary-foreground hover:bg-background/10 hover:border-background/30 backdrop-blur-sm transition-all hover:scale-105 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                 <Link href="/portfolio">
                   View Our Work
                 </Link>
@@ -43,15 +43,15 @@ export default function Home() {
               <CardContent className="pt-6">
                 <p className="text-sm text-primary-foreground/80 mb-6 font-medium tracking-wide uppercase">Trusted by businesses worldwide</p>
                 <div className="flex items-center justify-center gap-6 text-sm flex-wrap">
-                  <Badge variant="secondary" className="bg-success/20 text-primary-foreground border-success/30 hover:bg-success/30 transition-all px-4 py-2">
+                  <Badge variant="secondary" className="bg-success/20 text-primary-foreground border-success/30 hover:bg-success/30 transition-all px-4 py-2" data-testid="hero-uptime-badge">
                     <div className="size-2 bg-success rounded-full animate-pulse mr-2"></div>
                     <span className="font-medium">99.9% Uptime</span>
                   </Badge>
-                  <Badge variant="secondary" className="bg-gold/20 text-primary-foreground border-gold/30 hover:bg-gold/30 transition-all px-4 py-2">
+                  <Badge variant="secondary" className="bg-gold/20 text-primary-foreground border-gold/30 hover:bg-gold/30 transition-all px-4 py-2" data-testid="hero-security-badge">
                     <div className="size-2 bg-gold rounded-full mr-2"></div>
                     <span className="font-medium">NASA-Grade Security</span>
                   </Badge>
-                  <Badge variant="secondary" className="bg-accent/20 text-primary-foreground border-accent/30 hover:bg-accent/30 transition-all px-4 py-2">
+                  <Badge variant="secondary" className="bg-accent/20 text-primary-foreground border-accent/30 hover:bg-accent/30 transition-all px-4 py-2" data-testid="hero-support-badge">
                     <div className="size-2 bg-accent rounded-full mr-2"></div>
                     <span className="font-medium">24/7 Support</span>
                   </Badge>
@@ -157,12 +157,12 @@ export default function Home() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg">
+                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                   <Link href="/contact">
                     Get Your Free Consultation
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="border-background/20 text-primary-foreground hover:bg-background/10">
+                <Button asChild variant="outline" size="lg" className="border-background/20 text-primary-foreground hover:bg-background/10 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                   <Link href="tel:+16025314111">
                     Call: (602) 531-4111
                   </Link>

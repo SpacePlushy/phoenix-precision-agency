@@ -1,53 +1,161 @@
 # Phoenix Precision Agency - Comprehensive Project Context
 
-## Project Overview
+## 1. Project Overview
 
-### Mission Statement
-Phoenix Precision Agency specializes in transforming outdated websites into modern, high-performing digital experiences. The positioning is "NASA engineer brings aerospace precision to business websites" - targeting Phoenix small businesses needing web transformation.
+### Project Goals and Objectives
+- **Primary Goal**: Create a modern, high-converting agency website for Phoenix small businesses
+- **Value Proposition**: "NASA engineer brings aerospace precision to business websites"
+- **Target Market**: Small businesses in Phoenix area needing website modernization
+- **Core Message**: Transform outdated 2005-era websites into modern, performance-driven solutions
 
-### Key Business Information
-- **Contact Email**: fmp321@gmail.com
-- **Phone**: (602) 531-4111
-- **GitHub Repository**: https://github.com/SpacePlushy/phoenix-precision-agency
-- **Live URL**: Auto-deployed via Vercel GitHub integration
+### Key Architectural Decisions
+- **Framework**: Next.js 15.4.5 with App Router (chosen for performance and SEO)
+- **Styling**: Tailwind CSS v4 with custom design system
+- **Type Safety**: Full TypeScript implementation for reliability
+- **Route Groups**: Using `(marketing)` and `(dashboard)` for logical separation
+- **Performance First**: Focus on Core Web Vitals and loading speed
 
-### Project Goals
-1. Create a compelling agency website showcasing web transformation capabilities
-2. Demonstrate the contrast between outdated and modern web design
-3. Drive conversions through trust-building and clear value proposition
-4. Optimize for performance, SEO, and user experience
+### Technology Stack
+**Core Dependencies:**
+- Next.js 15.4.5 (React 19.1.0)
+- TypeScript 5.x
+- Tailwind CSS 4.x
+- Framer Motion 12.23.12 (animations)
 
-## Technology Stack
+**UI Components:**
+- shadcn/ui components (Button, Card, Badge, Skeleton)
+- Custom components built on Radix UI primitives
+- Lucide React for icons
 
-### Core Framework
-- **Next.js 15.4.5** with App Router
-- **React 19.1.0** 
-- **TypeScript 5.x** with strict mode enabled
-- **Node.js 18+** runtime
+**Backend Services:**
+- Upstash Redis (lead storage, rate limiting)
+- Resend (email notifications)
+- Clerk (admin authentication)
 
-### Styling & UI
-- **Tailwind CSS v4** (latest version with new features)
-- **shadcn/ui** components (Button, Card, Badge, Skeleton)
-- **Framer Motion 12.23.12** for animations
-- **Custom color scheme**:
-  - Primary: Navy (#0F172A)
-  - Accent: Blue (#3B82F6)
-  - Success: Green (#10B981)
-  - Background: Light (#F8FAFC)
+**Testing:**
+- Jest for unit tests
+- Playwright for E2E tests (multi-browser support)
+- Testing Library for component tests
 
-### Data & External Services
-- **Upstash Redis** (optional) - Lead storage, rate limiting, analytics
-- **Resend** (optional) - Email notifications
-- **Clerk** (optional) - Dashboard authentication
-- **react-hook-form 7.62.0** - Form handling
+### Team Conventions and Patterns
+- **File Structure**: Feature-based organization with clear separation of concerns
+- **Component Pattern**: Functional components with TypeScript interfaces
+- **Styling**: Utility-first with Tailwind, custom CSS variables for theming
+- **State Management**: React hooks and context for local state
+- **Error Handling**: Centralized error boundaries and graceful fallbacks
+- **Performance**: Lazy loading, code splitting, optimized images
 
-### Testing Infrastructure
-- **Jest 30.0.5** with TypeScript support
-- **React Testing Library 16.3.0**
-- **Coverage tracking** enabled
-- **Custom test environment** configurations
+## 2. Current State
 
-## Architecture Decisions
+### Recently Implemented Features
+1. **Interactive Demo Section**
+   - Split-screen comparison (2005 vs modern site)
+   - Auto-switching views with smooth zoom transitions
+   - Progress indicators and animations
+   - Responsive design with mobile optimizations
+
+2. **Contact System**
+   - Form with validation (react-hook-form)
+   - Rate limiting via Upstash Redis
+   - Email notifications through Resend
+   - Lead storage in Redis
+   - Success/error handling with user feedback
+
+3. **Trust Building Elements**
+   - NASA engineer badge with experience
+   - Client testimonials section
+   - 99.9% uptime guarantee
+   - Performance metrics with animations
+   - Portfolio showcase
+
+4. **SEO & Performance**
+   - Optimized meta tags
+   - Open Graph implementation
+   - Performance monitoring
+   - Lazy loading for heavy components
+   - Responsive images
+
+### Work in Progress
+**E2E Test Failures (189/280 failing):**
+
+**Critical Issues:**
+1. **Duplicate Elements** - Multiple elements with same text causing test failures
+2. **Missing Content Sections** - "Lightning-Fast Performance" section not found
+3. **Touch Target Sizes** - Mobile buttons/links too small (< 48x48px)
+4. **Responsive Issues** - Layout problems on mobile viewports
+
+**Current Todo List:**
+1. ✅ Create missing /contact and /portfolio pages - DONE (pages exist in `(marketing)` group)
+2. 🔄 Fix duplicate elements causing strict mode violations (in_progress)
+3. ⏳ Add missing content sections like Lightning-Fast Performance (pending)
+4. ⏳ Fix touch target sizes and mobile test issues (pending)
+5. ⏳ Run E2E tests to verify fixes (pending)
+
+### Known Issues and Technical Debt
+1. **Test Infrastructure**
+   - E2E tests need comprehensive update
+   - Mock implementations need review
+   - Test data needs standardization
+
+2. **Content Consistency**
+   - Contact info variations (some places show placeholder data)
+   - Footer links need verification
+   - Portfolio content needs real projects
+
+3. **Performance Optimizations**
+   - Bundle size analysis needed
+   - Image optimization opportunities
+   - Third-party script loading strategy
+
+### Performance Baselines
+- **Lighthouse Scores** (target):
+  - Performance: 95+
+  - Accessibility: 100
+  - Best Practices: 100
+  - SEO: 100
+- **Core Web Vitals**:
+  - LCP: < 2.5s
+  - FID: < 100ms
+  - CLS: < 0.1
+
+## 3. Design Decisions
+
+### Architectural Choices and Rationale
+1. **App Router over Pages Router**
+   - Better performance with React Server Components
+   - Improved data fetching patterns
+   - Built-in layouts and error handling
+
+2. **Route Groups Strategy**
+   - `(marketing)`: Public-facing pages with shared layout
+   - `(dashboard)`: Admin area with authentication
+   - Clear separation of concerns
+
+3. **Component Architecture**
+   - Atomic design principles
+   - Reusable UI components via shadcn
+   - Clear props interfaces with TypeScript
+
+### API Design Patterns
+1. **Server Actions** for form submissions
+2. **API Routes** for external integrations
+3. **Edge Functions** for performance-critical paths
+4. **Rate Limiting** at API level
+
+### Database Schema Decisions
+**Redis Data Structure:**
+```
+leads:{email} - Contact form submissions
+analytics:{metric}:{date} - Performance metrics
+ratelimit:{ip} - Rate limiting counters
+```
+
+### Security Implementations
+1. **Input Validation** - Zod schemas for all user inputs
+2. **Rate Limiting** - IP-based with Upstash
+3. **CSRF Protection** - Built into Next.js
+4. **Content Security Policy** - Strict CSP headers
+5. **Authentication** - Clerk for admin access
 
 ### File Structure
 ```
@@ -70,230 +178,202 @@ Phoenix Precision Agency specializes in transforming outdated websites into mode
   /types.ts        # TypeScript definitions
 ```
 
-### Key Architectural Patterns
+## 4. Code Patterns
 
-1. **Environment Variable Strategy**
-   - All external services are optional
-   - Graceful fallback when services unavailable
-   - Environment detection for proper configuration
+### Coding Conventions Used
+```typescript
+// Component Structure
+interface ComponentProps {
+  // Props with JSDoc comments
+}
 
-2. **Performance Optimization**
-   - Lazy loading for demo components
-   - Chrome-specific animation workarounds
-   - Performance monitoring and reporting
-   - Skeleton loading states
+export function Component({ prop }: ComponentProps) {
+  // Hook usage at top
+  // Event handlers
+  // Render logic
+}
 
-3. **Error Handling**
-   - Comprehensive error boundaries
-   - Service-specific error catching
-   - User-friendly error messages
-   - Logging for debugging
+// Consistent naming
+- Components: PascalCase
+- Functions: camelCase
+- Constants: UPPER_SNAKE_CASE
+- Files: kebab-case or PascalCase for components
+```
 
-4. **Testing Strategy**
-   - Unit tests for utilities and components
-   - Integration tests for API routes
-   - Acceptance tests for critical user flows
-   - Mocking external dependencies
+### Common Patterns and Abstractions
+1. **Loading States**: Skeleton components for better UX
+2. **Error Boundaries**: Graceful error handling
+3. **Lazy Loading**: Dynamic imports for heavy components
+4. **Animation Patterns**: Framer Motion with consistent easing
 
-## Current Implementation Status
+### Testing Strategies
+1. **Unit Tests**: Critical business logic
+2. **Integration Tests**: API routes and forms
+3. **E2E Tests**: User journeys across browsers
+4. **Visual Regression**: Screenshot comparisons
 
-### Completed Features ✅
-1. **Homepage with Hero Section**
-   - NASA engineer positioning
-   - Clear value proposition
-   - Call-to-action buttons
+### Error Handling Approaches
+1. **Try-Catch Blocks**: Async operations
+2. **Error Boundaries**: Component-level failures
+3. **Fallback UI**: Loading and error states
+4. **User Feedback**: Toast notifications
 
-2. **Interactive Demo Section**
-   - Side-by-side comparison (2005 vs Modern)
-   - Browser chrome UI
-   - Smooth animations with performance fixes
-   - Auto-play functionality
-   - Mobile-responsive design
+## 5. Agent Coordination History
 
-3. **Contact Form**
-   - Form validation
-   - Rate limiting (5 submissions per IP per hour)
-   - Redis storage for leads
-   - Email notifications via Resend
-   - Success/error feedback
+### Which Agents Worked on What
+1. **Initial Setup Agent**: Project scaffolding, dependencies
+2. **UI/UX Agent**: Design system, component library
+3. **Backend Agent**: API routes, database integration
+4. **Testing Agent**: Test suite setup, E2E tests
+5. **Performance Agent**: Optimizations, monitoring
+6. **Context Management Agent**: Documentation, knowledge transfer
 
-4. **Trust Building Elements**
-   - NASA engineer badge
-   - Years of experience counter
-   - Uptime guarantee badge
-   - Performance metrics with animations
+### Successful Agent Combinations
+1. **UI + Backend**: Form implementations
+2. **Testing + Performance**: E2E performance tests
+3. **Context + All**: Knowledge sharing sessions
 
-5. **SEO & Performance**
-   - Meta tags optimization
-   - Structured data
+### Agent-Specific Context and Findings
+- **UI Agent**: Established Tailwind patterns, component library
+- **Backend Agent**: Redis patterns, email integration
+- **Testing Agent**: Playwright configuration, test patterns
+- **Performance Agent**: Bundle analysis, optimization opportunities
+
+### Cross-Agent Dependencies
+1. UI components → Backend APIs
+2. Tests → All features
+3. Performance → UI and Backend optimizations
+4. Context → All agents for knowledge
+
+## 6. Future Roadmap
+
+### Planned Features
+1. **Analytics Dashboard**
+   - Real-time visitor tracking
+   - Conversion metrics
    - Performance monitoring
-   - Loading states
 
-### Known Issues & Technical Debt
+2. **Enhanced Portfolio**
+   - Case studies with metrics
+   - Before/after comparisons
+   - Client testimonials
 
-1. **Test Suite Issues (30/52 tests failing)**
-   - Framer Motion mocking problems
-   - Text content mismatches
-   - Redis connection errors in tests
-   - Type safety issues in analytics
-   - Animation state test failures
+3. **Blog/Resources**
+   - SEO-focused content
+   - Technical guides
+   - Industry insights
 
-2. **Performance Considerations**
-   - Chrome animation performance addressed with workarounds
-   - Demo section uses lazy loading
-   - Further optimization opportunities identified
+4. **Client Portal**
+   - Project status tracking
+   - Document sharing
+   - Communication hub
 
-3. **Type Safety**
-   - Some analytics functions need stricter typing
-   - Test mock types could be improved
+### Identified Improvements
+1. **Performance**
+   - Implement service worker
+   - Add resource hints
+   - Optimize third-party scripts
 
-## Code Patterns & Conventions
+2. **SEO**
+   - Schema markup
+   - XML sitemap
+   - Robots.txt optimization
 
-### Component Structure
-```typescript
-// Standard component pattern
-export function ComponentName({ prop1, prop2 }: ComponentProps) {
-  // Hooks first
-  const [state, setState] = useState();
-  
-  // Effects next
-  useEffect(() => {}, []);
-  
-  // Handlers
-  const handleAction = () => {};
-  
-  // Render
-  return <div>...</div>;
-}
-```
+3. **Accessibility**
+   - ARIA improvements
+   - Keyboard navigation
+   - Screen reader testing
 
-### Error Handling Pattern
-```typescript
-try {
-  // Operation
-  await riskyOperation();
-} catch (error) {
-  console.error('Context-specific error:', error);
-  // Graceful fallback
-  return defaultValue;
-}
-```
+### Technical Debt to Address
+1. **Code Quality**
+   - Refactor duplicate code
+   - Improve type coverage
+   - Update dependencies
 
-### Testing Patterns
-- Mock external dependencies
-- Test user interactions over implementation
-- Use data-testid for reliable element selection
-- Group related tests in describe blocks
+2. **Testing**
+   - Increase test coverage
+   - Add visual regression tests
+   - Performance benchmarks
 
-## Agent Coordination History
+3. **Documentation**
+   - API documentation
+   - Component storybook
+   - Deployment guides
 
-### Recent Agent Sessions
+### Performance Optimization Opportunities
+1. **Bundle Size**
+   - Tree shaking improvements
+   - Dynamic imports strategy
+   - Dependency analysis
 
-1. **Test Fixing Session (Most Recent)**
-   - Fixed 22 out of 52 failing tests
-   - Identified Framer Motion mocking as major issue
-   - Updated test expectations to match implementations
-   - Left Redis-dependent tests for later resolution
+2. **Runtime Performance**
+   - React component memoization
+   - Virtual scrolling for lists
+   - Web worker utilization
 
-2. **Performance Optimization**
-   - Added skeleton components
-   - Enhanced performance monitoring
-   - Fixed Chrome-specific animation issues
-   - Implemented lazy loading for demo
-
-3. **UI Enhancement Session**
-   - Added professional browser chrome to demo
-   - Enhanced visual polish
-   - Fixed Tailwind CSS v4 class issues
-   - Improved responsive design
-
-### Agent Best Practices Discovered
-- Always check for environment variables before using services
-- Test both success and failure paths
-- Consider mobile experience in all features
-- Maintain graceful degradation
-- Document decisions in CLAUDE.md
-
-## Future Roadmap
-
-### Immediate Priorities
-1. Fix remaining 30 test failures
-2. Implement analytics dashboard
-3. Add portfolio/case studies page
-4. Enhance mobile experience
-
-### Feature Enhancements
-1. A/B testing for demo versions
-2. Advanced analytics visualization
-3. CMS integration for portfolio
-4. Client testimonials section
-5. Blog/resources section
-
-### Technical Improvements
-1. Implement proper Framer Motion test mocks
-2. Add E2E testing with Playwright
-3. Optimize bundle size
-4. Implement proper caching strategy
-5. Add monitoring and alerting
+3. **Network Optimization**
+   - HTTP/3 adoption
+   - CDN strategy
+   - Caching improvements
 
 ## Deployment & Operations
 
-### Deployment Process
-1. Push to main branch: `git push origin main`
-2. Vercel automatically deploys via GitHub integration
-3. No manual deployment commands needed
-4. User verifies deployment and reports back
+### Deployment Strategy
+- **Platform**: Vercel (auto-deploy from GitHub)
+- **Branch Strategy**: 
+  - `main`: Production
+  - `develop`: Staging
+  - Feature branches for development
 
 ### Monitoring
-- Performance metrics tracked in-app
-- Analytics stored in Redis (when available)
-- Error logging to console
-- Future: Add proper monitoring service
+- **Performance**: Vercel Analytics
+- **Errors**: Built-in Next.js error reporting
+- **Uptime**: External monitoring service
 
-## Environment Configuration
-
-### Required Variables (All Optional)
-```env
-UPSTASH_REDIS_REST_URL=     # Redis connection
-UPSTASH_REDIS_REST_TOKEN=   # Redis auth
-RESEND_API_KEY=             # Email service
-CLERK_SECRET_KEY=           # Auth service
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY= # Clerk public
-CONTACT_EMAIL_TO=           # Email recipient
+### Environment Variables
+```
+UPSTASH_REDIS_REST_URL
+UPSTASH_REDIS_REST_TOKEN
+RESEND_API_KEY
+CLERK_SECRET_KEY
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+CONTACT_EMAIL_TO (default: fmp321@gmail.com)
 ```
 
-### Service Fallbacks
-- No Redis: Forms work but no persistence
-- No Resend: No email notifications
-- No Clerk: Dashboard inaccessible
-- All features degrade gracefully
+## Quick Reference
 
-## Testing Status Summary
+### Key Commands
+```bash
+pnpm dev          # Development server
+pnpm build        # Production build
+pnpm test         # Run tests
+pnpm test:e2e     # E2E tests
+git push          # Deploy via Vercel
+```
 
-### Current Test Results
-- **Total Test Suites**: 16
-- **Passing**: 11 suites, 163 tests
-- **Failing**: 5 suites, 31 tests
-- **Main Issues**:
-  - Framer Motion animation mocking
-  - Redis connection in test environment
-  - Text content synchronization
-  - Type assertions in analytics
+### Important Files
+- `/app/(marketing)/*` - Public pages
+- `/components/*` - Reusable components
+- `/lib/*` - Utilities and helpers
+- `/e2e/*` - E2E test suites
+- `CLAUDE.md` - AI assistant instructions
 
-### Test Categories
-1. **Unit Tests**: Components, utilities
-2. **Integration Tests**: API routes, services
-3. **Acceptance Tests**: User flows
-4. **Missing**: E2E tests
+### Contact Information
+- **Production Email**: contact@phoenixprecision.dev
+- **Developer Email**: fmp321@gmail.com
+- **Phone**: (602) 531-4111
 
-## Key Decisions Log
-
-1. **Tailwind CSS v4**: Adopted latest version despite being new
-2. **Optional Services**: All external services optional for easier development
-3. **Animation Strategy**: Chrome-specific workarounds for performance
-4. **Testing Approach**: Focus on user behavior over implementation
-5. **Error Handling**: Always fail gracefully with user-friendly messages
+### GitHub Integration with E2E Tests
+- **Workflow**: `.github/workflows/e2e-tests.yml`
+- **Triggers**: Push to main/develop, pull requests
+- **Test Matrix**: 
+  - Browsers: Chromium, Firefox, WebKit
+  - Mobile: Pixel 5, iPhone 12
+  - Runs in parallel for efficiency
+- **Artifacts**: Test reports and screenshots on failure
 
 ---
 
-This context should be used to maintain continuity across agent sessions and ensure consistent development practices.
+**Last Updated**: 2025-08-03
+**Version**: 1.0.0
+**Status**: Active Development

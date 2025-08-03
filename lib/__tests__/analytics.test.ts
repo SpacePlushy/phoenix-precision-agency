@@ -724,7 +724,7 @@ describe('Analytics Module', () => {
       });
 
       it('handles missing required fields gracefully', async () => {
-        // @ts-ignore - Testing runtime behavior with missing fields
+        // @ts-expect-error - Testing runtime behavior with missing fields
         mockUpstash.getAnalyticsRange.mockResolvedValue([{
           date: '2025-08-01',
           totalViews: 100,
@@ -743,7 +743,7 @@ describe('Analytics Module', () => {
       });
 
       it('handles malformed data with type mismatches', async () => {
-        // @ts-ignore - Testing runtime behavior with wrong types
+        // @ts-expect-error - Testing runtime behavior with wrong types
         mockUpstash.getAnalyticsRange.mockResolvedValue([{
           date: '2025-08-01',
           totalViews: '100', // String instead of number

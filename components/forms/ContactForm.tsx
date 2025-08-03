@@ -230,7 +230,7 @@ export default function ContactForm({ onSuccess }: ContactFormProps) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className={`w-full px-6 py-3 rounded-md font-medium transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md ${
+        className={`w-full px-6 py-3 rounded-md font-medium transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${
           isSubmitting
             ? 'bg-muted text-muted-foreground cursor-not-allowed'
             : 'bg-accent text-accent-foreground hover:bg-accent/90 active:scale-[0.98]'
