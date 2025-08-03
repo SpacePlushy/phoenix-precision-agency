@@ -31,7 +31,7 @@ export async function trackDemoStart(
     };
     
     await storeDemoAnalytics(analytics);
-  } catch (error) {
+  } catch {
     // Silently fail if Redis is unavailable
   }
 }
@@ -46,7 +46,7 @@ export async function trackDemoEnd(sessionId: string): Promise<void> {
     await updateDemoAnalytics(sessionId, {
       endTime: Date.now(),
     });
-  } catch (error) {
+  } catch {
     // Silently fail if Redis is unavailable
   }
 }
@@ -65,7 +65,7 @@ export async function trackDemoInteraction(sessionId: string): Promise<void> {
         interactions: existing.interactions + 1,
       });
     }
-  } catch (error) {
+  } catch {
     // Silently fail if Redis is unavailable
   }
 }
@@ -83,7 +83,7 @@ export async function trackViewportTime(
     await updateDemoAnalytics(sessionId, {
       viewportTime,
     });
-  } catch (error) {
+  } catch {
     // Silently fail if Redis is unavailable
   }
 }

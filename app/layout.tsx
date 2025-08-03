@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+// Font configurations with fallbacks
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
   preload: true,
+  fallback: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
 });
 
 const geistMono = Geist_Mono({
@@ -14,6 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
   preload: false,
+  fallback: ["Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"],
 });
 
 export const metadata: Metadata = {

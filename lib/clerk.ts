@@ -26,7 +26,7 @@ export async function getUserId() {
   try {
     const { userId } = await auth()
     return userId
-  } catch (error) {
+  } catch {
     // Silently return null if Clerk is not configured
     return null
   }
@@ -44,7 +44,7 @@ export async function getCurrentUser() {
   try {
     const user = await currentUser()
     return user || null
-  } catch (error) {
+  } catch {
     // Silently return null if Clerk is not configured
     return null
   }
@@ -105,7 +105,7 @@ export async function getOrganizationId() {
   try {
     const { orgId } = await auth()
     return orgId
-  } catch (error) {
+  } catch {
     // Silently return null if Clerk is not configured
     return null
   }

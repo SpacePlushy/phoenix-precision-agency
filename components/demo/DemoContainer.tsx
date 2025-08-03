@@ -52,7 +52,7 @@ export default function DemoContainer() {
       trackDemoStart(sessionId, activeView).catch(() => {
         // Silently fail - analytics should not break the UI
       });
-    } catch (error) {
+    } catch {
       // Extra safety - ensure analytics never break the demo
     }
     
