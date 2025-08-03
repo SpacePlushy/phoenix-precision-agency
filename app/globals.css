@@ -1,139 +1,187 @@
 @import "tailwindcss";
 
-/* shadcn/ui CSS Variables with Phoenix Precision Aerospace Theme */
-@layer base {
-  :root {
-    /* shadcn/ui theming system with aerospace precision theme */
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-    --primary: 220 90% 25%; /* Deep aerospace navy */
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 214 59% 65%; /* Electric blue accent */
-    --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 214 59% 65%;
-    --radius: 0.5rem;
-    
-    /* Custom aerospace colors (keeping for backward compatibility) */
-    --color-gold: #F59E0B;
-    --color-gold-light: #FCD34D;
-    --color-gold-dark: #D97706;
-    --color-success: #0EA5E9;
-  }
-
-  .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 214 59% 65%;
-    --primary-foreground: 220.9 39.3% 11%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 214 59% 65%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 214 59% 65%;
-    
-    /* Custom aerospace colors for dark mode */
-    --color-gold: #FCD34D;
-  }
+/* Tailwind CSS v4 Theme Configuration */
+@theme {
+  /* Custom radius */
+  --radius: 0.5rem;
+  
+  /* Phoenix Precision Aerospace Color Palette */
+  --color-background: #ffffff;
+  --color-foreground: #020817;
+  
+  --color-card: #ffffff;
+  --color-card-foreground: #020817;
+  
+  --color-popover: #ffffff;
+  --color-popover-foreground: #020817;
+  
+  --color-primary: #0f172a; /* Deep aerospace navy */
+  --color-primary-foreground: #f8fafc;
+  
+  --color-secondary: #f1f5f9;
+  --color-secondary-foreground: #0f172a;
+  
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  
+  --color-accent: #3b82f6; /* Electric blue */
+  --color-accent-foreground: #ffffff;
+  
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: #3b82f6;
+  
+  /* Custom aerospace colors */
+  --color-gold: #f59e0b;
+  --color-gold-light: #fcd34d;
+  --color-gold-dark: #d97706;
+  --color-success: #0ea5e9;
+  
+  /* Font families */
+  --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
 }
 
+/* Base styles */
 @layer base {
   * {
-    @apply border-border;
+    border-color: theme(--color-border);
   }
   
   body {
-    @apply bg-background text-foreground;
+    background-color: theme(--color-background);
+    color: theme(--color-foreground);
+    font-family: theme(--font-family-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-}
-
-/* Aerospace precision typography */
-@layer base {
+  
+  /* Aerospace precision typography */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight;
+    font-weight: 700;
+    letter-spacing: -0.025em;
   }
   
   h1 {
-    @apply text-4xl lg:text-5xl;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    h1 {
+      font-size: 3rem;
+      line-height: 1;
+    }
   }
   
   h2 {
-    @apply text-3xl lg:text-4xl;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+  
+  @media (min-width: 1024px) {
+    h2 {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
   }
   
   h3 {
-    @apply text-2xl lg:text-3xl;
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  
+  @media (min-width: 1024px) {
+    h3 {
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+    }
   }
   
   h4 {
-    @apply text-xl lg:text-2xl;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+  
+  @media (min-width: 1024px) {
+    h4 {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
   }
   
   h5 {
-    @apply text-lg lg:text-xl;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+  
+  @media (min-width: 1024px) {
+    h5 {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
   }
   
   h6 {
-    @apply text-base lg:text-lg;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    h6 {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
   }
 }
 
-/* Custom aerospace animations */
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
+/* Custom animations */
+@keyframes accordion-down {
+  from {
+    height: 0;
   }
-  100% {
-    transform: translateX(-100%);
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
   }
 }
 
 @keyframes pulse-glow {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 5px hsl(var(--accent));
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
   }
   50% {
-    opacity: 0.7;
-    box-shadow: 0 0 20px hsl(var(--accent));
+    opacity: 0.8;
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
   }
 }
 
-.animate-marquee {
-  animation: marquee 15s linear infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-/* Aerospace gradient backgrounds */
-.aerospace-gradient {
-  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
-}
-
-.aerospace-gradient-subtle {
-  background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+/* Utility classes for shadcn components */
+@layer utilities {
+  .animate-accordion-down {
+    animation: var(--animate-accordion-down);
+  }
+  
+  .animate-accordion-up {
+    animation: var(--animate-accordion-up);
+  }
+  
+  .animate-pulse-glow {
+    animation: var(--animate-pulse-glow);
+  }
 }
