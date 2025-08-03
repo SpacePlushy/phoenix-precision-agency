@@ -1,4 +1,6 @@
 import { Award, Clock, Shield } from "lucide-react";
+import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface TrustBadge {
   icon: React.ReactNode;
@@ -26,42 +28,44 @@ const badges: TrustBadge[] = [
 
 export default function TrustBadges() {
   return (
-    <section className="py-16 bg-[var(--color-gray-50)] relative">
+    <section className="py-16 bg-muted/50 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--color-primary)] mb-4">
+          <Badge variant="secondary" className="mb-4">
             Aerospace-Grade Excellence
+          </Badge>
+          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">
+            Bringing Space Mission Precision
           </h2>
-          <p className="text-lg text-[var(--color-muted)] max-w-2xl mx-auto">
-            Bringing space mission precision to your digital transformation
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            To your digital transformation with proven expertise and reliability
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {badges.map((badge, index) => (
-            <div
-              key={index}
-              className="group flex items-center gap-6 p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-[var(--color-border)] hover:border-[var(--color-accent)]/30 hover:transform hover:scale-105"
-            >
-              <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)] rounded-full flex items-center justify-center text-white shadow-lg group-hover:shadow-xl transition-all">
-                {badge.icon}
-              </div>
-              <div>
-                <h3 className="font-bold text-lg text-[var(--color-primary)] mb-1 group-hover:text-[var(--color-accent)] transition-colors">
-                  {badge.title}
-                </h3>
-                <p className="text-[var(--color-muted)] font-medium">
-                  {badge.subtitle}
-                </p>
-              </div>
-            </div>
+            <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:scale-105 border-border hover:border-accent/50">
+              <CardContent className="flex items-center gap-6 p-8">
+                <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-primary-foreground shadow-lg group-hover:shadow-xl transition-all">
+                  {badge.icon}
+                </div>
+                <div>
+                  <CardTitle className="text-lg mb-1 group-hover:text-accent transition-colors">
+                    {badge.title}
+                  </CardTitle>
+                  <CardDescription className="font-medium">
+                    {badge.subtitle}
+                  </CardDescription>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
         
         {/* Gold accent divider */}
         <div className="mt-12 flex items-center justify-center">
-          <div className="w-24 h-1 bg-gradient-to-r from-[var(--color-gold)] to-[var(--color-gold-light)] rounded-full shadow-sm"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full shadow-sm"></div>
         </div>
       </div>
     </section>

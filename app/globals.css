@@ -1,179 +1,106 @@
 @import "tailwindcss";
 
-/* Sophisticated Navy Color Scheme - Phoenix Precision Agency */
-:root {
-  /* Primary deep navy - conveys trust and aerospace precision */
-  --color-primary: #01257D;
-  --color-primary-light: #00303F;
-  --color-primary-dark: #001B5C;
-  
-  /* Electric blue accent - for CTAs and highlights */
-  --color-accent: #4A8BDF;
-  --color-accent-light: #6BA3E8;
-  --color-accent-dark: #2E6FCC;
-  
-  /* Professional supporting colors */
-  --color-success: #0EA5E9;
-  --color-background: #FFFFFF;
-  --color-foreground: #01257D;
-  --color-muted: #475569;
-  --color-border: #CBD5E1;
-  --color-error: #DC2626;
-  --color-warning: #D97706;
-  
-  /* Premium gold accents for aerospace feel */
-  --color-gold: #F59E0B;
-  --color-gold-light: #FCD34D;
-  --color-gold-dark: #D97706;
-  
-  /* High contrast grays */
-  --color-gray-50: #F8FAFC;
-  --color-gray-100: #F1F5F9;
-  --color-gray-200: #E2E8F0;
-  --color-gray-300: #CBD5E1;
-  --color-gray-400: #94A3B8;
-  --color-gray-500: #64748B;
-  --color-gray-600: #475569;
-  --color-gray-700: #334155;
-  --color-gray-800: #1E293B;
-  --color-gray-900: #0F172A;
-}
-
-/* Tailwind v4 theme configuration */
-@theme inline {
-  /* Primary navy colors */
-  --color-primary: var(--color-primary);
-  --color-primary-light: var(--color-primary-light);
-  --color-primary-dark: var(--color-primary-dark);
-  
-  /* Electric blue accent colors */
-  --color-accent: var(--color-accent);
-  --color-accent-light: var(--color-accent-light);
-  --color-accent-dark: var(--color-accent-dark);
-  
-  /* Supporting colors */
-  --color-success: var(--color-success);
-  --color-background: var(--color-background);
-  --color-foreground: var(--color-foreground);
-  --color-muted: var(--color-muted);
-  --color-border: var(--color-border);
-  --color-error: var(--color-error);
-  --color-warning: var(--color-warning);
-  
-  /* Premium gold accents */
-  --color-gold: var(--color-gold);
-  --color-gold-light: var(--color-gold-light);
-  --color-gold-dark: var(--color-gold-dark);
-  
-  /* High contrast grays */
-  --color-gray-50: var(--color-gray-50);
-  --color-gray-100: var(--color-gray-100);
-  --color-gray-200: var(--color-gray-200);
-  --color-gray-300: var(--color-gray-300);
-  --color-gray-400: var(--color-gray-400);
-  --color-gray-500: var(--color-gray-500);
-  --color-gray-600: var(--color-gray-600);
-  --color-gray-700: var(--color-gray-700);
-  --color-gray-800: var(--color-gray-800);
-  --color-gray-900: var(--color-gray-900);
-  
-  /* System font stack */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
-}
-
-/* Dark mode adjustments - Enhanced navy theme */
-@media (prefers-color-scheme: dark) {
+/* shadcn/ui CSS Variables with Phoenix Precision Aerospace Theme */
+@layer base {
   :root {
-    /* Maintain navy branding even in dark mode */
-    --color-primary: #4A8BDF;
-    --color-accent: #6BA3E8;
-    --color-success: #22D3EE;
-    --color-background: #0F172A;
-    --color-foreground: #F8FAFC;
-    --color-muted: #94A3B8;
-    --color-border: #334155;
-    --color-error: #F87171;
-    --color-warning: #FCD34D;
+    /* shadcn/ui theming system with aerospace precision theme */
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 220 90% 25%; /* Deep aerospace navy */
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 214 59% 65%; /* Electric blue accent */
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 214 59% 65%;
+    --radius: 0.5rem;
+    
+    /* Custom aerospace colors (keeping for backward compatibility) */
+    --color-gold: #F59E0B;
+    --color-gold-light: #FCD34D;
+    --color-gold-dark: #D97706;
+    --color-success: #0EA5E9;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 214 59% 65%;
+    --primary-foreground: 220.9 39.3% 11%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 214 59% 65%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 214 59% 65%;
+    
+    /* Custom aerospace colors for dark mode */
     --color-gold: #FCD34D;
   }
 }
 
-/* Base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  -webkit-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans);
-  line-height: 1.6;
-  font-size: 16px;
-  min-height: 100vh;
-}
-
-/* Typography base styles */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 0.5em;
-}
-
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.75rem; }
-h4 { font-size: 1.5rem; }
-h5 { font-size: 1.25rem; }
-h6 { font-size: 1rem; }
-
-p {
-  margin-bottom: 1em;
-}
-
-a {
-  color: var(--color-accent);
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-a:hover {
-  opacity: 0.8;
-}
-
-/* Focus styles for accessibility */
-:focus {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-:focus:not(:focus-visible) {
-  outline: none;
-}
-
-/* Selection styles */
-::selection {
-  background-color: var(--color-accent);
-  color: white;
-}
-
-/* Responsive font sizes */
-@media (max-width: 768px) {
-  html {
-    font-size: 14px;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
-/* Custom animations */
+/* Aerospace precision typography */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  h1 {
+    @apply text-4xl lg:text-5xl;
+  }
+  
+  h2 {
+    @apply text-3xl lg:text-4xl;
+  }
+  
+  h3 {
+    @apply text-2xl lg:text-3xl;
+  }
+  
+  h4 {
+    @apply text-xl lg:text-2xl;
+  }
+  
+  h5 {
+    @apply text-lg lg:text-xl;
+  }
+  
+  h6 {
+    @apply text-base lg:text-lg;
+  }
+}
+
+/* Custom aerospace animations */
 @keyframes marquee {
   0% {
     transform: translateX(100%);
@@ -183,6 +110,30 @@ a:hover {
   }
 }
 
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 5px hsl(var(--accent));
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 20px hsl(var(--accent));
+  }
+}
+
 .animate-marquee {
   animation: marquee 15s linear infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Aerospace gradient backgrounds */
+.aerospace-gradient {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+}
+
+.aerospace-gradient-subtle {
+  background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
 }

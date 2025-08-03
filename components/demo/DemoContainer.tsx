@@ -3,6 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import OldSiteView from './OldSiteView';
 import NewSiteView from './NewSiteView';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
 export default function DemoContainer() {
   const [activeView, setActiveView] = useState<'old' | 'new'>('old');
@@ -33,107 +37,99 @@ export default function DemoContainer() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-[var(--color-gray-50)] via-white to-[var(--color-gray-50)] relative overflow-hidden">
+    <section className="py-20 aerospace-gradient-subtle relative overflow-hidden">
       {/* Background elements for depth */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-[var(--color-accent)]/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[var(--color-primary)]/5 rounded-full blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Enhanced Header */}
         <div className="text-center mb-16">
-          <div className="inline-block bg-[var(--color-accent)]/10 text-[var(--color-accent)] px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          <Badge variant="secondary" className="mb-4">
             Before & After Showcase
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-primary)] mb-6">
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
             See the Transformation
           </h2>
-          <p className="text-lg text-[var(--color-muted)] max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Watch how we transform outdated websites into modern, high-performing digital experiences
             that drive real business results
           </p>
         </div>
 
         {/* Enhanced Progress Bar */}
-        <div className="mb-12 max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-4">
-            <button
-              onClick={() => handleViewClick('old')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${
-                activeView === 'old' 
-                  ? 'text-[var(--color-accent)] bg-[var(--color-accent)]/10 shadow-sm' 
-                  : 'text-[var(--color-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-gray-100)]'
-              }`}
-            >
-              <div className={`w-3 h-3 rounded-full ${activeView === 'old' ? 'bg-red-500' : 'bg-[var(--color-gray-300)]'}`}></div>
-              Before
-            </button>
-            <button
-              onClick={() => handleViewClick('new')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${
-                activeView === 'new' 
-                  ? 'text-[var(--color-accent)] bg-[var(--color-accent)]/10 shadow-sm' 
-                  : 'text-[var(--color-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-gray-100)]'
-              }`}
-            >
-              <div className={`w-3 h-3 rounded-full ${activeView === 'new' ? 'bg-[var(--color-success)]' : 'bg-[var(--color-gray-300)]'}`}></div>
-              After
-            </button>
-          </div>
-          <div className="relative h-3 bg-[var(--color-gray-200)] rounded-full overflow-hidden shadow-inner">
-            <div 
-              className="absolute left-0 top-0 h-full bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-light)] transition-all duration-100 ease-linear rounded-full shadow-sm"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        </div>
+        <Card className="mb-12 max-w-4xl mx-auto">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <Button
+                variant={activeView === 'old' ? 'default' : 'ghost'}
+                onClick={() => handleViewClick('old')}
+                className="flex items-center gap-2"
+              >
+                <div className={`w-3 h-3 rounded-full ${activeView === 'old' ? 'bg-red-500' : 'bg-muted-foreground/30'}`}></div>
+                Before
+              </Button>
+              <Button
+                variant={activeView === 'new' ? 'default' : 'ghost'}
+                onClick={() => handleViewClick('new')}
+                className="flex items-center gap-2"
+              >
+                <div className={`w-3 h-3 rounded-full ${activeView === 'new' ? 'bg-emerald-500' : 'bg-muted-foreground/30'}`}></div>
+                After
+              </Button>
+            </div>
+            <div className="relative h-3 bg-muted rounded-full overflow-hidden">
+              <div 
+                className="absolute left-0 top-0 h-full bg-gradient-to-r from-accent to-accent/80 transition-all duration-100 ease-linear rounded-full"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Demo Views Container */}
         <div className="relative">
           {/* Desktop: Side by side */}
           <div className="hidden lg:grid grid-cols-2 gap-8">
-            <div 
-              className={`relative rounded-xl overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer border-2 ${
+            <Card 
+              className={`relative overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer ${
                 activeView === 'old' 
-                  ? 'border-[var(--color-accent)] shadow-[var(--color-accent)]/20 scale-[1.02]' 
-                  : 'border-[var(--color-border)] opacity-70 hover:opacity-85 hover:border-[var(--color-accent)]/30'
+                  ? 'border-accent shadow-accent/20 scale-[1.02]' 
+                  : 'border-border opacity-70 hover:opacity-85 hover:border-accent/30'
               }`}
               onClick={() => handleViewClick('old')}
             >
               <div className="absolute top-6 left-6 z-10">
-                <span className="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                <Badge variant="destructive">
                   Before
-                </span>
+                </Badge>
               </div>
               <OldSiteView className="w-full" />
-            </div>
+            </Card>
             
-            <div 
-              className={`relative rounded-xl overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer border-2 ${
+            <Card 
+              className={`relative overflow-hidden shadow-2xl transition-all duration-500 cursor-pointer ${
                 activeView === 'new' 
-                  ? 'border-[var(--color-accent)] shadow-[var(--color-accent)]/20 scale-[1.02]' 
-                  : 'border-[var(--color-border)] opacity-70 hover:opacity-85 hover:border-[var(--color-accent)]/30'
+                  ? 'border-accent shadow-accent/20 scale-[1.02]' 
+                  : 'border-border opacity-70 hover:opacity-85 hover:border-accent/30'
               }`}
               onClick={() => handleViewClick('new')}
             >
               <div className="absolute top-6 left-6 z-10">
-                <span className="bg-gradient-to-r from-[var(--color-success)] to-[var(--color-success)] text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                <Badge className="bg-emerald-600 hover:bg-emerald-600">
                   After
-                </span>
+                </Badge>
               </div>
               <NewSiteView className="w-full" />
-            </div>
+            </Card>
           </div>
 
           {/* Mobile: Single view with transition */}
-          <div className="lg:hidden relative rounded-lg overflow-hidden shadow-2xl">
+          <Card className="lg:hidden relative overflow-hidden shadow-2xl">
             <div className="absolute top-4 left-4 z-10">
-              <span className={`${
-                activeView === 'old' 
-                  ? 'bg-red-600' 
-                  : 'bg-[var(--color-success)]'
-              } text-white px-3 py-1 rounded-full text-sm font-medium transition-colors`}>
+              <Badge variant={activeView === 'old' ? 'destructive' : 'default'} className={activeView === 'new' ? 'bg-emerald-600 hover:bg-emerald-600' : ''}>
                 {activeView === 'old' ? 'Before' : 'After'}
-              </span>
+              </Badge>
             </div>
             
             <div className="relative h-[600px] overflow-hidden">
@@ -152,30 +148,34 @@ export default function DemoContainer() {
                 <NewSiteView className="w-full h-full" />
               </div>
             </div>
-          </div>
+          </Card>
         </div>
 
         {/* Enhanced Call to Action */}
-        <div className="text-center mt-16">
-          <div className="max-w-2xl mx-auto">
-            <p className="text-lg text-[var(--color-muted)] mb-8 leading-relaxed">
+        <Card className="mt-16 max-w-2xl mx-auto">
+          <CardContent className="text-center p-8">
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               Ready to transform your digital presence with aerospace precision?
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-light)] text-white px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all transform hover:scale-105 border border-[var(--color-accent)]">
-                Get Your Free Consultation
-              </button>
-              <button className="border-2 border-[var(--color-primary)] text-[var(--color-primary)] px-8 py-4 rounded-lg font-semibold hover:bg-[var(--color-primary)] hover:text-white transition-all transform hover:scale-105">
-                View More Examples
-              </button>
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90">
+                <Link href="/contact">
+                  Get Your Free Consultation
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link href="/portfolio">
+                  View More Examples
+                </Link>
+              </Button>
             </div>
-          </div>
-          
-          {/* Gold accent line */}
-          <div className="mt-8 flex items-center justify-center">
-            <div className="w-16 h-1 bg-gradient-to-r from-[var(--color-gold)] to-[var(--color-gold-light)] rounded-full"></div>
-          </div>
-        </div>
+            
+            {/* Gold accent line */}
+            <div className="mt-8 flex items-center justify-center">
+              <div className="w-16 h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full"></div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );
