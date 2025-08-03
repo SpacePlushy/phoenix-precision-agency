@@ -3,7 +3,7 @@
  * Tracks usage, performance, and errors for the dark mode feature
  */
 
-import { analytics } from '../analytics';
+import { analytics } from '../analytics-service';
 
 export interface ThemeChangeEvent {
   theme: 'light' | 'dark' | 'system';
