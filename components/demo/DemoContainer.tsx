@@ -37,7 +37,7 @@ export default function DemoContainer() {
   };
 
   return (
-    <section className="py-24 bg-muted/30 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-br from-muted/20 via-background to-muted/30 relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
@@ -46,135 +46,175 @@ export default function DemoContainer() {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header with improved spacing */}
-        <div className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4 px-4 py-1.5">
-            Live Demo
+        <div className="text-center mb-16">
+          <Badge variant="secondary" className="mb-6 px-6 py-2 text-sm font-medium bg-accent/10 text-accent border-accent/20">
+            ⚡ Interactive Demo
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            See the Transformation
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 tracking-tight">
+            See the <span className="text-gradient">Transformation</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Watch how we transform outdated websites into modern, high-performing digital experiences
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Experience firsthand how we transform outdated websites into modern, high-performing digital experiences that drive results
           </p>
         </div>
 
-        {/* Simplified Progress Bar */}
-        <div className="mb-12 max-w-xl mx-auto">
-          <div className="flex items-center justify-between mb-4">
+        {/* Enhanced Progress Bar */}
+        <div className="mb-16 max-w-2xl mx-auto">
+          <div className="flex items-center justify-between mb-6">
             <Button
               variant={activeView === 'old' ? 'default' : 'outline'}
               onClick={() => handleViewClick('old')}
-              size="sm"
-              className="transition-all"
+              size="lg"
+              className={`transition-all duration-300 ${activeView === 'old' ? 'shadow-lg scale-105' : 'hover:scale-105'}`}
             >
-              <div className={`w-2 h-2 rounded-full mr-2 ${activeView === 'old' ? 'bg-destructive' : 'bg-muted-foreground'}`}></div>
-              Before
+              <div className={`w-3 h-3 rounded-full mr-3 ${activeView === 'old' ? 'bg-destructive animate-pulse' : 'bg-muted-foreground'}`}></div>
+              <span className="font-semibold">2005 Website</span>
             </Button>
-            <div className="relative flex-1 mx-4 h-1 bg-muted rounded-full overflow-hidden">
+            <div className="relative flex-1 mx-6 h-2 bg-muted rounded-full overflow-hidden shadow-inner">
               <div 
-                className="absolute left-0 top-0 h-full bg-accent transition-all duration-100 ease-linear"
+                className="absolute left-0 top-0 h-full bg-gradient-to-r from-destructive to-success transition-all duration-100 ease-linear shadow-sm"
                 style={{ width: `${progress}%` }}
               />
             </div>
             <Button
               variant={activeView === 'new' ? 'default' : 'outline'}
               onClick={() => handleViewClick('new')}
-              size="sm"
-              className="transition-all"
+              size="lg"
+              className={`transition-all duration-300 ${activeView === 'new' ? 'shadow-lg scale-105' : 'hover:scale-105'}`}
             >
-              <div className={`w-2 h-2 rounded-full mr-2 ${activeView === 'new' ? 'bg-success' : 'bg-muted-foreground'}`}></div>
-              After
+              <div className={`w-3 h-3 rounded-full mr-3 ${activeView === 'new' ? 'bg-success animate-pulse' : 'bg-muted-foreground'}`}></div>
+              <span className="font-semibold">Modern Website</span>
             </Button>
           </div>
+          <p className="text-center text-sm text-muted-foreground">
+            Click to compare or watch the automatic demonstration
+          </p>
         </div>
 
         {/* Demo Views Container */}
         <div className="relative">
-          {/* Desktop: Side by side */}
-          <div className="hidden lg:grid grid-cols-2 gap-8">
-            <Card 
-              className={`relative overflow-hidden transition-all duration-300 cursor-pointer ${
-                activeView === 'old' 
-                  ? 'shadow-2xl border-destructive/20 ring-2 ring-destructive/10' 
-                  : 'shadow-lg border-border hover:shadow-xl hover:border-muted-foreground/30'
-              }`}
-              onClick={() => handleViewClick('old')}
-            >
-              <div className="absolute top-4 left-4 z-10">
-                <Badge variant="destructive" className="font-semibold">
-                  Before
-                </Badge>
-              </div>
-              <CardContent className="p-0">
-                <OldSiteView className="w-full" />
-              </CardContent>
-            </Card>
+          {/* Desktop: Side by side with enhanced styling */}
+          <div className="hidden lg:grid grid-cols-2 gap-12">
+            {/* Before Card */}
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-destructive/20 to-orange-500/20 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+              <Card 
+                className={`relative overflow-hidden transition-all duration-500 cursor-pointer rounded-xl ${
+                  activeView === 'old' 
+                    ? 'shadow-2xl border-destructive/30 ring-2 ring-destructive/20 scale-105' 
+                    : 'shadow-xl border-border hover:shadow-2xl hover:border-destructive/20 hover:scale-102'
+                }`}
+                onClick={() => handleViewClick('old')}
+              >
+                <div className="absolute top-6 left-6 z-20">
+                  <Badge variant="destructive" className="font-bold text-sm px-4 py-2 shadow-lg">
+                    ❌ BEFORE (2005)
+                  </Badge>
+                </div>
+                <CardContent className="p-0">
+                  <OldSiteView className="w-full" />
+                </CardContent>
+                <div className="absolute inset-0 bg-gradient-to-t from-destructive/5 to-transparent pointer-events-none"></div>
+              </Card>
+            </div>
             
-            <Card 
-              className={`relative overflow-hidden transition-all duration-300 cursor-pointer ${
-                activeView === 'new' 
-                  ? 'shadow-2xl border-success/20 ring-2 ring-success/10' 
-                  : 'shadow-lg border-border hover:shadow-xl hover:border-muted-foreground/30'
-              }`}
-              onClick={() => handleViewClick('new')}
-            >
-              <div className="absolute top-4 left-4 z-10">
-                <Badge className="bg-success hover:bg-success text-white font-semibold">
-                  After
-                </Badge>
-              </div>
-              <CardContent className="p-0">
-                <NewSiteView className="w-full" />
-              </CardContent>
-            </Card>
+            {/* After Card */}
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-success/20 to-accent/20 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+              <Card 
+                className={`relative overflow-hidden transition-all duration-500 cursor-pointer rounded-xl ${
+                  activeView === 'new' 
+                    ? 'shadow-2xl border-success/30 ring-2 ring-success/20 scale-105' 
+                    : 'shadow-xl border-border hover:shadow-2xl hover:border-success/20 hover:scale-102'
+                }`}
+                onClick={() => handleViewClick('new')}
+              >
+                <div className="absolute top-6 left-6 z-20">
+                  <Badge className="bg-success hover:bg-success text-white font-bold text-sm px-4 py-2 shadow-lg">
+                    ✅ AFTER (2024)
+                  </Badge>
+                </div>
+                <CardContent className="p-0">
+                  <NewSiteView className="w-full" />
+                </CardContent>
+                <div className="absolute inset-0 bg-gradient-to-t from-success/5 to-transparent pointer-events-none"></div>
+              </Card>
+            </div>
           </div>
 
-          {/* Mobile: Single view with fade transition */}
-          <Card className="lg:hidden relative overflow-hidden shadow-xl">
-            <div className="absolute top-4 left-4 z-10">
-              <Badge 
-                variant={activeView === 'old' ? 'destructive' : 'default'} 
-                className={`font-semibold ${activeView === 'new' ? 'bg-success hover:bg-success text-white' : ''}`}
-              >
-                {activeView === 'old' ? 'Before' : 'After'}
-              </Badge>
-            </div>
-            
-            <div className="relative h-[500px] overflow-hidden">
-              <div 
-                className={`absolute inset-0 transition-opacity duration-500 ${
-                  activeView === 'old' ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                <OldSiteView className="w-full" />
+          {/* Mobile: Enhanced single view with improved transitions */}
+          <div className="lg:hidden relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-primary/20 rounded-2xl blur opacity-25"></div>
+            <Card className="relative overflow-hidden shadow-2xl rounded-xl">
+              <div className="absolute top-6 left-6 z-20">
+                <Badge 
+                  variant={activeView === 'old' ? 'destructive' : 'default'} 
+                  className={`font-bold text-sm px-4 py-2 shadow-lg ${
+                    activeView === 'new' ? 'bg-success hover:bg-success text-white' : ''
+                  }`}
+                >
+                  {activeView === 'old' ? '❌ BEFORE (2005)' : '✅ AFTER (2024)'}
+                </Badge>
               </div>
-              <div 
-                className={`absolute inset-0 transition-opacity duration-500 ${
-                  activeView === 'new' ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                <NewSiteView className="w-full" />
+              
+              <div className="relative h-[500px] overflow-hidden">
+                <div 
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                    activeView === 'old' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                  }`}
+                >
+                  <OldSiteView className="w-full" />
+                </div>
+                <div 
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                    activeView === 'new' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                  }`}
+                >
+                  <NewSiteView className="w-full" />
+                </div>
               </div>
-            </div>
-          </Card>
+              <div className={`absolute inset-0 bg-gradient-to-t pointer-events-none ${
+                activeView === 'old' ? 'from-destructive/5 to-transparent' : 'from-success/5 to-transparent'
+              }`}></div>
+            </Card>
+          </div>
         </div>
 
-        {/* Simplified Call to Action */}
-        <div className="mt-16 text-center">
-          <p className="text-lg text-muted-foreground mb-8">
-            Ready to transform your digital presence?
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg">
-              <Link href="/contact">
-                Get Your Free Consultation
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link href="/portfolio">
-                View More Examples
-              </Link>
-            </Button>
+        {/* Enhanced Call to Action */}
+        <div className="mt-24 text-center">
+          <div className="bg-gradient-to-r from-accent/5 via-primary/5 to-accent/5 rounded-2xl p-12 border border-border/50 shadow-lg">
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              Ready to Leave 2005 Behind?
+            </h3>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Transform your outdated website into a modern, high-converting digital experience
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all hover:scale-105">
+                <Link href="/contact">
+                  Get Your Free Transformation Plan
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="border-accent/20 hover:border-accent/40 hover:bg-accent/5 transition-all hover:scale-105">
+                <Link href="/portfolio">
+                  See More Transformations
+                </Link>
+              </Button>
+            </div>
+            <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-success rounded-full"></div>
+                <span>Free consultation</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-success rounded-full"></div>
+                <span>30-day guarantee</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-success rounded-full"></div>
+                <span>NASA-grade precision</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

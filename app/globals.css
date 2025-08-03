@@ -332,4 +332,21 @@
   .animate-marquee {
     animation: marquee 15s linear infinite;
   }
+  
+  /* Enhanced hover and interaction states */
+  .hover\\:scale-102:hover {
+    transform: scale(1.02);
+  }
+  
+  .hover\\:scale-105:hover {
+    transform: scale(1.05);
+  }
+  
+  .scale-102 {
+    transform: scale(1.02);
+  }
+  
+  .scale-105 {
+    transform: scale(1.05);
+  }
 }
