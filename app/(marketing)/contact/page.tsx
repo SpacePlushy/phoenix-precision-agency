@@ -26,7 +26,7 @@ export default function ContactPage() {
           </p>
         </div>
         
-        <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-border hover:border-accent/30">
+        <Card className="shadow-lg hover:shadow-xl transition-all duration-300 border-border/50 hover:border-accent/30 bg-card/50 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-2xl">Get Your Free Consultation</CardTitle>
             <CardDescription className="text-base">
@@ -39,17 +39,17 @@ export default function ContactPage() {
         </Card>
         
         <div className="mt-12 grid md:grid-cols-2 gap-6">
-          <Card className="text-center md:text-left p-6 shadow-sm hover:shadow-md transition-all duration-300">
+          <Card className="text-center md:text-left p-6 shadow-sm hover:shadow-md transition-all duration-300 bg-card/50 backdrop-blur-sm border-border/50">
             <CardContent className="p-0">
-              <h3 className="font-semibold text-lg mb-2 text-primary">Response Time</h3>
+              <h3 className="font-semibold text-lg mb-2 text-foreground">Response Time</h3>
               <p className="text-muted-foreground">
                 We typically respond within 24 business hours
               </p>
             </CardContent>
           </Card>
-          <Card className="text-center md:text-left p-6 shadow-sm hover:shadow-md transition-all duration-300">
+          <Card className="text-center md:text-left p-6 shadow-sm hover:shadow-md transition-all duration-300 bg-card/50 backdrop-blur-sm border-border/50">
             <CardContent className="p-0">
-              <h3 className="font-semibold text-lg mb-2 text-primary">Business Hours</h3>
+              <h3 className="font-semibold text-lg mb-2 text-foreground">Business Hours</h3>
               <p className="text-muted-foreground">
                 Monday - Friday: 9:00 AM - 6:00 PM EST
               </p>

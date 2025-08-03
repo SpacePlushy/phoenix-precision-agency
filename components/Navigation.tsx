@@ -15,8 +15,8 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border" aria-label="Main navigation">
-      <div className="bg-card shadow-sm">
+    <nav className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur-md border-b border-border/50" aria-label="Main navigation">
+      <div className="bg-card/80 shadow-lg">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -27,7 +27,7 @@ export default function Navigation() {
                   <span className="text-white font-bold text-xl">P</span>
                 </div>
               </div>
-              <span className="font-bold text-xl text-primary">
+              <span className="font-bold text-xl text-foreground">
                 Phoenix <span className="text-accent">Precision</span>
               </span>
             </Link>
@@ -38,13 +38,13 @@ export default function Navigation() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-muted-foreground hover:text-primary font-medium transition-colors duration-200 relative group min-h-[44px] px-3 py-2 flex items-center"
+                  className="text-foreground/70 hover:text-foreground font-medium transition-colors duration-200 relative group min-h-[44px] px-3 py-2 flex items-center"
                 >
                   {link.label}
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-200"></span>
                 </Link>
               ))}
-              <Button asChild variant="outline" className="border-muted-foreground/20 text-primary hover:bg-muted hover:text-accent hover:border-accent/30 transition-all">
+              <Button asChild variant="outline" className="border-accent/30 text-accent hover:bg-accent/10 hover:text-accent hover:border-accent transition-all">
                 <Link href="/contact">Get Started</Link>
               </Button>
             </div>
@@ -52,7 +52,7 @@ export default function Navigation() {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-primary hover:text-accent transition-colors p-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              className="md:hidden text-foreground hover:text-accent transition-colors p-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
               aria-label="Toggle menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -68,12 +68,12 @@ export default function Navigation() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-muted-foreground hover:text-primary font-medium transition-colors duration-200 py-3 px-4 block min-h-[44px] min-w-[44px] flex items-center rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                    className="text-foreground/70 hover:text-foreground font-medium transition-colors duration-200 py-3 px-4 block min-h-[44px] min-w-[44px] flex items-center rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                   >
                     {link.label}
                   </Link>
                 ))}
-                <Button asChild variant="outline" className="border-muted-foreground/20 text-primary hover:bg-muted hover:text-accent hover:border-accent/30 transition-all w-full min-h-[44px]">
+                <Button asChild variant="outline" className="border-accent/30 text-accent hover:bg-accent/10 hover:text-accent hover:border-accent transition-all w-full min-h-[44px]">
                   <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
                     Get Started
                   </Link>
