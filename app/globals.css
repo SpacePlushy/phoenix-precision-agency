@@ -184,4 +184,27 @@
   .animate-pulse-glow {
     animation: var(--animate-pulse-glow);
   }
+  
+  /* Aerospace gradient backgrounds */
+  .aerospace-gradient {
+    background: linear-gradient(135deg, theme(--color-primary) 0%, theme(--color-primary) 50%, theme(--color-accent) 100%);
+  }
+  
+  .aerospace-gradient-subtle {
+    background: linear-gradient(135deg, theme(--color-background) 0%, theme(--color-background) 50%, theme(--color-muted) 100%);
+  }
+  
+  /* Custom color utilities */
+  .bg-gold { background-color: theme(--color-gold); }
+  .bg-gold-light { background-color: theme(--color-gold-light); }
+  .bg-gold-dark { background-color: theme(--color-gold-dark); }
+  .text-gold { color: theme(--color-gold); }
+  .text-gold-light { color: theme(--color-gold-light); }
+  .text-gold-dark { color: theme(--color-gold-dark); }
+  .border-gold { border-color: theme(--color-gold); }
+  
+  /* Gold opacity variants */
+  .bg-gold\/20 { background-color: rgb(245 158 11 / 0.2); }
+  .bg-gold\/30 { background-color: rgb(245 158 11 / 0.3); }
+  .border-gold\/30 { border-color: rgb(245 158 11 / 0.3); }
 }

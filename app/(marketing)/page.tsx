@@ -19,7 +19,7 @@ export default function Home() {
           <div className="text-white space-y-8">
             <h1 className="text-5xl md:text-6xl font-bold leading-tight">
               Transform Your Business with
-              <span className="block text-yellow-300 mt-2">Aerospace Precision</span>
+              <span className="block text-accent mt-2">Aerospace Precision</span>
             </h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
               We turn outdated websites into modern digital experiences that drive growth, 
@@ -47,8 +47,8 @@ export default function Home() {
                     <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse-glow mr-2"></div>
                     99.9% Uptime
                   </Badge>
-                  <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-100 border-yellow-400/30">
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></div>
+                  <Badge variant="secondary" className="bg-gold/20 text-gold-light border-gold/30">
+                    <div className="w-2 h-2 bg-gold rounded-full mr-2"></div>
                     NASA-Grade Security
                   </Badge>
                   <Badge variant="secondary" className="bg-blue-500/20 text-blue-100 border-blue-400/30">
@@ -75,7 +75,7 @@ export default function Home() {
       <section className="py-24 aerospace-gradient-subtle relative">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-1/4 w-64 h-64 bg-yellow-400 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-400 rounded-full blur-3xl"></div>
         </div>
         
@@ -108,14 +108,14 @@ export default function Home() {
                 <p className="text-muted-foreground leading-relaxed">
                   Every decision backed by analytics and user research to maximize your ROI and user engagement.
                 </p>
-                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-accent to-yellow-400 rounded-full mx-auto opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-accent to-gold rounded-full mx-auto opacity-60 group-hover:opacity-100 transition-opacity"></div>
               </CardContent>
             </Card>
 
             <Card className="group text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border-border hover:border-accent/50">
               <CardContent className="p-10">
                 <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-yellow-400/20 rounded-full blur-lg"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-gold/20 rounded-full blur-lg"></div>
                   <div className="relative w-24 h-24 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center mx-auto shadow-xl">
                     <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
@@ -133,8 +133,8 @@ export default function Home() {
             <Card className="group text-center hover:shadow-xl transition-all duration-300 hover:scale-105 border-border hover:border-accent/50">
               <CardContent className="p-10">
                 <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-accent/20 rounded-full blur-lg"></div>
-                  <div className="relative w-24 h-24 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto shadow-xl">
+                  <div className="absolute inset-0 bg-gradient-to-br from-gold/20 to-accent/20 rounded-full blur-lg"></div>
+                  <div className="relative w-24 h-24 bg-gradient-to-br from-gold to-gold-dark rounded-full flex items-center justify-center mx-auto shadow-xl">
                     <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                     </svg>
@@ -144,7 +144,7 @@ export default function Home() {
                 <p className="text-muted-foreground leading-relaxed">
                   Track record of increasing conversions and engagement for businesses like yours.
                 </p>
-                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-yellow-400 to-accent rounded-full mx-auto opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                <div className="mt-6 w-12 h-1 bg-gradient-to-r from-gold to-accent rounded-full mx-auto opacity-60 group-hover:opacity-100 transition-opacity"></div>
               </CardContent>
             </Card>
           </div>
@@ -156,20 +156,20 @@ export default function Home() {
         {/* Background patterns for aerospace feel */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-yellow-400 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-gold rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
             <CardContent className="p-12">
               {/* Premium badge */}
-              <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-100 border-yellow-400/30 mb-6">
+              <Badge variant="secondary" className="bg-gold/20 text-gold-light border-gold/30 mb-6">
                 Premium Digital Transformation
               </Badge>
               
               <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
                 Ready to Leave Your 
-                <span className="block text-yellow-300 mt-2">Competition Behind?</span>
+                <span className="block text-accent mt-2">Competition Behind?</span>
               </h2>
               <p className="text-xl mb-12 opacity-90 max-w-3xl mx-auto leading-relaxed">
                 Let&apos;s discuss how we can transform your digital presence and drive real business results
@@ -197,7 +197,7 @@ export default function Home() {
               {/* Enhanced urgency and trust indicators */}
               <div className="space-y-4">
                 <div className="flex items-center justify-center gap-3 text-sm">
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse-glow"></div>
+                  <div className="w-3 h-3 bg-gold rounded-full animate-pulse-glow"></div>
                   <span className="font-medium">Limited spots available this month</span>
                 </div>
                 
