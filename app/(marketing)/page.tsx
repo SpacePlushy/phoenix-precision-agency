@@ -19,7 +19,7 @@ export default function Home() {
           <div className="space-y-8">
             <h1 className="text-5xl md:text-6xl font-bold leading-tight text-primary-foreground">
               Transform Your Business with
-              <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-accent-foreground to-background">Aerospace Precision</span>
+              <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-500 to-purple-600">Aerospace Precision</span>
             </h1>
             <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto leading-relaxed">
               We turn outdated websites into modern digital experiences that drive growth, 
