@@ -48,6 +48,20 @@ export default function DemoContainer() {
 
     if (isPaused) return;
 
+    let isViewSwitched = false;
+
+    // Monitor progress value and switch views when it reaches 100
+    const unsubscribe = progress.on("change", (latest) => {
+      if (latest >= 99 && !isViewSwitched && !isPaused) {
+        isViewSwitched = true;
+        setActiveView((current) => current === 'old' ? 'new' : 'old');
+      }
+      // Reset flag when animation restarts
+      if (latest < 10) {
+        isViewSwitched = false;
+      }
+    });
+
     // Create the animation
     const runAnimation = () => {
       // Reset progress to 0
@@ -58,11 +72,7 @@ export default function DemoContainer() {
         duration: 3,
         ease: [0, 0, 1, 1], // linear cubic-bezier
         repeat: Infinity,
-        repeatType: "loop",
-        onRepeat: () => {
-          // Switch view when animation repeats
-          setActiveView((current) => current === 'old' ? 'new' : 'old');
-        }
+        repeatType: "loop"
       });
     };
 
@@ -73,8 +83,10 @@ export default function DemoContainer() {
       if (animationRef.current) {
         animationRef.current.stop();
       }
+      unsubscribe();
     };
-  }, [isPaused, progress]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPaused]);
 
   const handleViewClick = (view: 'old' | 'new') => {
     setActiveView(view);
