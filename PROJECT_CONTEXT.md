@@ -222,11 +222,11 @@ export function Component({ prop }: ComponentProps) {
 
 ### Which Agents Worked on What
 1. **Initial Setup Agent**: Project scaffolding, dependencies
-2. **UI/UX Agent**: Design system, component library
-3. **Backend Agent**: API routes, database integration
-4. **Testing Agent**: Test suite setup, E2E tests
-5. **Performance Agent**: Optimizations, monitoring
-6. **Context Management Agent**: Documentation, knowledge transfer
+2. **UI/UX Agent**: Design system, component library, dark mode implementation
+3. **Backend Agent**: API routes, database integration, theme persistence API
+4. **Testing Agent**: Test suite setup, E2E tests, GitHub Actions workflow
+5. **Performance Agent**: Optimizations, monitoring, bundle analysis
+6. **Context Management Agent**: Documentation, knowledge transfer, project state tracking
 
 ### Successful Agent Combinations
 1. **UI + Backend**: Form implementations
@@ -354,9 +354,11 @@ git push          # Deploy via Vercel
 ### Important Files
 - `/app/(marketing)/*` - Public pages
 - `/components/*` - Reusable components
+- `/components/providers/*` - Theme and other providers
 - `/lib/*` - Utilities and helpers
 - `/e2e/*` - E2E test suites
 - `CLAUDE.md` - AI assistant instructions
+- `.github/workflows/e2e-tests.yml` - CI/CD E2E test configuration
 
 ### Contact Information
 - **Production Email**: fmp321@gmail.com
@@ -375,5 +377,5 @@ git push          # Deploy via Vercel
 ---
 
 **Last Updated**: 2025-08-03
-**Version**: 1.0.0
+**Version**: 1.1.0
 **Status**: Active Development
