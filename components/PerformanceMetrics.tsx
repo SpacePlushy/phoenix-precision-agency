@@ -45,7 +45,7 @@ const metrics: Metric[] = [
     suffix: "s",
     label: "First Contentful Paint",
     description: "Initial content display",
-    colorClass: "text-primary"
+    colorClass: "text-blue-400"
   }
 ];
 
