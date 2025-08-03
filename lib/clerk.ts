@@ -27,7 +27,7 @@ export async function getUserId() {
     const { userId } = await auth()
     return userId
   } catch (error) {
-    console.warn('Clerk not configured properly:', error)
+    // Silently return null if Clerk is not configured
     return null
   }
 }
@@ -45,7 +45,7 @@ export async function getCurrentUser() {
     const user = await currentUser()
     return user || null
   } catch (error) {
-    console.warn('Clerk not configured properly:', error)
+    // Silently return null if Clerk is not configured
     return null
   }
 }
@@ -106,7 +106,7 @@ export async function getOrganizationId() {
     const { orgId } = await auth()
     return orgId
   } catch (error) {
-    console.warn('Clerk not configured properly:', error)
+    // Silently return null if Clerk is not configured
     return null
   }
 }

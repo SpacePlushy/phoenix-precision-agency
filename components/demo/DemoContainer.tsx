@@ -19,6 +19,7 @@ export default function DemoContainer() {
   const [sessionId] = useState(() => generateSessionId());
   const viewStartTime = useRef<number>(Date.now());
   const interactionCount = useRef<number>(0);
+  const isComponentMounted = useRef<boolean>(true);
 
   // Zoom animation variants with proper TypeScript typing
   const zoomVariants: Variants = {
@@ -46,14 +47,27 @@ export default function DemoContainer() {
 
   // Track initial demo view
   useEffect(() => {
-    trackDemoStart(sessionId, activeView).catch(console.error);
+    // Wrap in try-catch to prevent breaking the component
+    try {
+      trackDemoStart(sessionId, activeView).catch(() => {
+        // Silently fail - analytics should not break the UI
+      });
+    } catch (error) {
+      // Extra safety - ensure analytics never break the demo
+    }
     
     // Track viewport time when component unmounts
     return () => {
+      isComponentMounted.current = false;
       const startTime = viewStartTime.current;
       const viewportTime = Date.now() - startTime;
-      trackViewportTime(sessionId, viewportTime).catch(console.error);
-      trackDemoEnd(sessionId).catch(console.error);
+      // Ensure analytics don't break on unmount
+      Promise.all([
+        trackViewportTime(sessionId, viewportTime),
+        trackDemoEnd(sessionId)
+      ]).catch(() => {
+        // Silently fail - analytics should not break the UI
+      });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId]); // Only run once on mount
@@ -70,6 +84,9 @@ export default function DemoContainer() {
 
     // Monitor progress value and switch views when it reaches 100
     const unsubscribe = progress.on("change", (latest) => {
+      // Check if component is still mounted
+      if (!isComponentMounted.current) return;
+      
       if (latest >= 99 && !isViewSwitched && !isPaused) {
         isViewSwitched = true;
         setActiveView((current) => current === 'old' ? 'new' : 'old');
@@ -113,7 +130,10 @@ export default function DemoContainer() {
     
     // Track interaction
     interactionCount.current++;
-    trackDemoInteraction(sessionId).catch(console.error);
+    // Track interaction without breaking UI
+    trackDemoInteraction(sessionId).catch(() => {
+      // Silently fail - analytics should not break the UI
+    });
     
     // Stop any ongoing animation
     if (animationRef.current) {

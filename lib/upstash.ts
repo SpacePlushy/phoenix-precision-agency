@@ -30,7 +30,7 @@ export const STORAGE_KEYS: StorageKeys = {
 // Lead storage functions with 30-day expiration (2592000 seconds)
 export async function storeLead(lead: Lead): Promise<void> {
   if (!redis) {
-    console.warn('Redis not configured, skipping lead storage');
+    // Silently skip if Redis not configured
     return;
   }
   
@@ -59,7 +59,8 @@ export async function getLead(id: string): Promise<Lead | null> {
   
   try {
     return JSON.parse(data) as Lead;
-  } catch {
+  } catch (error) {
+    console.error('Failed to parse lead data:', error);
     return null;
   }
 }
@@ -97,7 +98,7 @@ export async function getRecentLeads(limit: number = 100): Promise<Lead[]> {
 // Analytics storage functions
 export async function storeDemoAnalytics(analytics: DemoAnalytics): Promise<void> {
   if (!redis) {
-    console.warn('Redis not configured, skipping analytics storage');
+    // Silently skip if Redis not configured
     return;
   }
   
@@ -120,7 +121,8 @@ export async function getDemoAnalytics(sessionId: string): Promise<DemoAnalytics
   
   try {
     return JSON.parse(data) as DemoAnalytics;
-  } catch {
+  } catch (error) {
+    console.error('Failed to parse analytics data:', error);
     return null;
   }
 }
@@ -130,10 +132,16 @@ export async function updateDemoAnalytics(
   sessionId: string,
   updates: Partial<DemoAnalytics>
 ): Promise<void> {
+  if (!redis) {
+    // Silently skip if Redis not configured
+    return;
+  }
+  
   const existing = await getDemoAnalytics(sessionId);
   
   if (!existing) {
-    throw new Error(`Demo analytics not found for session: ${sessionId}`);
+    // Don't throw - this can happen if Redis was unavailable during start
+    return;
   }
   
   const updated = { ...existing, ...updates };
@@ -242,7 +250,8 @@ export async function get<T>(key: string): Promise<T | null> {
   
   try {
     return JSON.parse(data) as T;
-  } catch {
+  } catch (error) {
+    console.error('Failed to parse data:', error);
     return null;
   }
 }

@@ -1,0 +1,53 @@
+# Page snapshot
+
+```yaml
+- link "Skip to main content":
+  - /url: "#main-content"
+- navigation "Main navigation":
+  - link "P Phoenix Precision":
+    - /url: /
+  - button "Toggle menu"
+- main:
+  - heading "Let's Build Something" [level=1]
+  - paragraph: Get in touch with Phoenix Precision Agency. We're here to help bring your vision to life.
+  - text: Get Your Free Consultation Tell us about your project and let's discuss how we can help transform your digital presence. Name *
+  - textbox "Name *": Test User
+  - text: Email *
+  - textbox "Email *": test@example.com
+  - text: Phone
+  - textbox "Phone"
+  - text: Company
+  - textbox "Company"
+  - text: Message *
+  - textbox "Message *": Test message
+  - alert: Internal server error
+  - button "Send Message"
+  - heading "Response Time" [level=3]
+  - paragraph: We typically respond within 24 business hours
+  - heading "Business Hours" [level=3]
+  - paragraph: "Monday - Friday: 9:00 AM - 6:00 PM EST"
+- contentinfo:
+  - heading "Phoenix Precision Agency" [level=3]
+  - paragraph: NASA engineer bringing aerospace precision to small business websites.
+  - heading "Quick Links" [level=4]
+  - list:
+    - listitem:
+      - link "Home":
+        - /url: /
+    - listitem:
+      - link "Portfolio":
+        - /url: /portfolio
+    - listitem:
+      - link "Contact":
+        - /url: /contact
+  - heading "Contact" [level=4]
+  - paragraph: "Email: fmp321@gmail.com Phone: (602) 531-4111"
+  - link "GitHub":
+    - /url: https://github.com
+    - img
+  - link "LinkedIn":
+    - /url: https://linkedin.com
+    - img
+  - paragraph: © 2024 Phoenix Precision Agency. All rights reserved.
+- alert
+```

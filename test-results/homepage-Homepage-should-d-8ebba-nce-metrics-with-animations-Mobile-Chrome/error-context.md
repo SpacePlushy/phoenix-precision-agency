@@ -1,0 +1,128 @@
+# Page snapshot
+
+```yaml
+- link "Skip to main content":
+  - /url: "#main-content"
+- navigation "Main navigation":
+  - link "P Phoenix Precision":
+    - /url: /
+  - button "Toggle menu"
+- main:
+  - heading "Transform Your Business with Aerospace Precision" [level=1]
+  - paragraph: We turn outdated websites into modern digital experiences that drive growth, engage customers, and deliver results with the same precision used in space missions.
+  - link "Start Your Transformation":
+    - /url: /contact
+  - link "View Our Work":
+    - /url: /portfolio
+  - paragraph: Trusted by businesses worldwide
+  - text: 99.9% Uptime NASA-Grade Security 24/7 Support ⚡ Interactive Demo
+  - heading "See the Transformation" [level=2]
+  - paragraph: Experience firsthand how we transform outdated websites into modern, high-performing digital experiences that drive results
+  - button "2005 Website" [pressed]
+  - button "Modern Website"
+  - paragraph: Click to compare or watch the automatic demonstration
+  - text: ❌ BEFORE (2005) http://www.acmebusiness.com/index.html 🌟 WELCOME TO ACME BUSINESS SOLUTIONS 🌟 YOUR PREMIER BUSINESS PARTNER SINCE 1995 🌟 ACME BUSINESS [ ANIMATED BANNER AD SPACE ]
+  - heading "🚧 SITE UNDER CONSTRUCTION 🚧" [level=2]
+  - img "Visitor Counter"
+  - table:
+    - rowgroup:
+      - row "HOME ABOUT US SERVICES CONTACT":
+        - cell "HOME":
+          - link "HOME":
+            - /url: "#"
+        - cell "ABOUT US":
+          - link "ABOUT US":
+            - /url: "#"
+        - cell "SERVICES":
+          - link "SERVICES":
+            - /url: "#"
+        - cell "CONTACT":
+          - link "CONTACT":
+            - /url: "#"
+  - heading "Welcome to the Future of Business!" [level=3]
+  - text: "*** NEW AND IMPROVED WEBSITE *** IMG_0134.JPG 404 Error PHOTO23.BMP File Not Found CLICK HERE! 💰💰💰"
+  - paragraph: We offer cutting-edge solutions for all your business needs!!!
+  - list:
+    - listitem: Web Design (HTML 4.0 Compatible!)
+    - listitem: Y2K Compliance Consulting
+    - listitem: Fax Machine Integration
+    - listitem: CD-ROM Production
+    - listitem: Dial-Up Optimization
+    - listitem: GeoCities Hosting
+  - text: 🔥 HOT DEALS! 🔥 CALL NOW FOR FREE CONSULTATION! 🔥 LIMITED TIME OFFER! 🔥
+  - paragraph: Call NOW! 1-800-ACME-BIZ
+  - text: Join our WebRing!
+  - paragraph: Best viewed in Internet Explorer 5.0 at 800x600
+  - paragraph:
+    - link "Webmaster":
+      - /url: "#"
+    - text: "|"
+    - link "Sign Guestbook":
+      - /url: "#"
+    - text: "|"
+    - link "WebRing":
+      - /url: "#"
+  - paragraph: © 1995-2005 ACME Business Solutions
+  - heading "Ready to Leave 2005 Behind?" [level=3]
+  - paragraph: Transform your outdated website into a modern, high-converting digital experience
+  - link "Get Your Free Transformation Plan":
+    - /url: /contact
+  - link "See More Transformations":
+    - /url: /portfolio
+  - text: Expert guidance 30-day guarantee NASA-grade precision Our Credentials
+  - heading "Why Trust Phoenix Precision" [level=2]
+  - paragraph: Aerospace-grade expertise applied to your digital transformation
+  - text: NASA Systems Engineer Space-grade precision 15+ Years Experience Proven expertise 100% Uptime Guarantee Always online Performance Metrics
+  - heading "Lightning-Fast Performance" [level=2]
+  - paragraph: Real metrics from our optimized websites, delivering exceptional results
+  - text: 100 Performance Score Google Core Web Vitals 0.8s Load Time Average page load speed 1.2s Time to Interactive When page becomes interactive 0.0s First Contentful Paint Initial content display
+  - paragraph: Metrics verified with Google PageSpeed Insights, GTmetrix, and Pingdom
+  - text: Our Approach
+  - heading "Why Choose Phoenix Precision?" [level=2]
+  - paragraph: We deliver more than just websites – we create digital experiences with aerospace precision
+  - img
+  - heading "Data-Driven Design" [level=3]
+  - paragraph: Every decision backed by analytics and user research to maximize your ROI
+  - img
+  - heading "Custom Solutions" [level=3]
+  - paragraph: Tailored to your unique business needs, not one-size-fits-all templates
+  - img
+  - heading "Proven Results" [level=3]
+  - paragraph: Track record of increasing conversions and engagement for businesses
+  - heading "Ready to Transform Your Business?" [level=2]
+  - paragraph: Let's discuss how we can elevate your digital presence with aerospace-grade precision
+  - link "Get Your Free Consultation":
+    - /url: /contact
+  - 'link "Call: (602) 531-4111"':
+    - /url: tel:+16025314111
+  - img
+  - text: Free Consultation
+  - img
+  - text: 30-Day Guarantee
+  - img
+  - text: NASA Engineer
+- contentinfo:
+  - heading "Phoenix Precision Agency" [level=3]
+  - paragraph: NASA engineer bringing aerospace precision to small business websites.
+  - heading "Quick Links" [level=4]
+  - list:
+    - listitem:
+      - link "Home":
+        - /url: /
+    - listitem:
+      - link "Portfolio":
+        - /url: /portfolio
+    - listitem:
+      - link "Contact":
+        - /url: /contact
+  - heading "Contact" [level=4]
+  - paragraph: "Email: fmp321@gmail.com Phone: (602) 531-4111"
+  - link "GitHub":
+    - /url: https://github.com
+    - img
+  - link "LinkedIn":
+    - /url: https://linkedin.com
+    - img
+  - paragraph: © 2024 Phoenix Precision Agency. All rights reserved.
+- alert
+```

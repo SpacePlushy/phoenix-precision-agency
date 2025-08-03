@@ -6,37 +6,67 @@ export function generateSessionId(): string {
   return `session_${Date.now()}_${Math.random().toString(36).substring(7)}`;
 }
 
+// Validate session ID format
+function isValidSessionId(sessionId: string | null | undefined): boolean {
+  if (!sessionId || typeof sessionId !== 'string') return false;
+  return sessionId.startsWith('session_') && sessionId.length > 10;
+}
+
 // Track when a user starts viewing the demo
 export async function trackDemoStart(
   sessionId: string,
   version: 'old' | 'new'
 ): Promise<void> {
-  const analytics: DemoAnalytics = {
-    sessionId,
-    version,
-    startTime: Date.now(),
-    interactions: 0,
-    createdAt: new Date().toISOString(),
-  };
+  if (!isValidSessionId(sessionId)) {
+    return;
+  }
   
-  await storeDemoAnalytics(analytics);
+  try {
+    const analytics: DemoAnalytics = {
+      sessionId,
+      version,
+      startTime: Date.now(),
+      interactions: 0,
+      createdAt: new Date().toISOString(),
+    };
+    
+    await storeDemoAnalytics(analytics);
+  } catch (error) {
+    // Silently fail if Redis is unavailable
+  }
 }
 
 // Track when a user stops viewing the demo
 export async function trackDemoEnd(sessionId: string): Promise<void> {
-  await updateDemoAnalytics(sessionId, {
-    endTime: Date.now(),
-  });
+  if (!isValidSessionId(sessionId)) {
+    return;
+  }
+  
+  try {
+    await updateDemoAnalytics(sessionId, {
+      endTime: Date.now(),
+    });
+  } catch (error) {
+    // Silently fail if Redis is unavailable
+  }
 }
 
 // Track user interactions with the demo
 export async function trackDemoInteraction(sessionId: string): Promise<void> {
-  const existing = await getDemoAnalytics(sessionId);
+  if (!isValidSessionId(sessionId)) {
+    return;
+  }
   
-  if (existing) {
-    await updateDemoAnalytics(sessionId, {
-      interactions: existing.interactions + 1,
-    });
+  try {
+    const existing = await getDemoAnalytics(sessionId);
+    
+    if (existing) {
+      await updateDemoAnalytics(sessionId, {
+        interactions: existing.interactions + 1,
+      });
+    }
+  } catch (error) {
+    // Silently fail if Redis is unavailable
   }
 }
 
@@ -45,9 +75,17 @@ export async function trackViewportTime(
   sessionId: string,
   viewportTime: number
 ): Promise<void> {
-  await updateDemoAnalytics(sessionId, {
-    viewportTime,
-  });
+  if (!isValidSessionId(sessionId) || viewportTime < 0) {
+    return;
+  }
+  
+  try {
+    await updateDemoAnalytics(sessionId, {
+      viewportTime,
+    });
+  } catch (error) {
+    // Silently fail if Redis is unavailable
+  }
 }
 
 // Get analytics for a specific date

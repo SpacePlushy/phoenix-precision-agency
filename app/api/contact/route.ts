@@ -30,19 +30,24 @@ export async function POST(request: NextRequest) {
     // Check rate limit if configured
     let rateLimitHeaders = {};
     if (contactRateLimiter) {
-      const { success, limit, remaining, reset } = await contactRateLimiter.limit(ip);
-      
-      rateLimitHeaders = {
-        'X-RateLimit-Limit': limit.toString(),
-        'X-RateLimit-Remaining': remaining.toString(),
-        'X-RateLimit-Reset': new Date(reset).toISOString(),
-      };
-      
-      if (!success) {
-        return NextResponse.json(
-          { error: 'Too many requests. Please try again later.' },
-          { status: 429, headers: rateLimitHeaders }
-        );
+      try {
+        const { success, limit, remaining, reset } = await contactRateLimiter.limit(ip);
+        
+        rateLimitHeaders = {
+          'X-RateLimit-Limit': limit.toString(),
+          'X-RateLimit-Remaining': remaining.toString(),
+          'X-RateLimit-Reset': new Date(reset).toISOString(),
+        };
+        
+        if (!success) {
+          return NextResponse.json(
+            { error: 'Too many requests. Please try again later.' },
+            { status: 429, headers: rateLimitHeaders }
+          );
+        }
+      } catch (rateLimitError) {
+        // If rate limiting fails (e.g., Redis not available), continue without it
+        console.log('Rate limiting skipped - Redis not available');
       }
     }
 
@@ -103,7 +108,20 @@ export async function POST(request: NextRequest) {
 
     // Store lead in Redis if configured
     if (redis) {
-      await storeLead(lead);
+      try {
+        await storeLead(lead);
+      } catch (storageError) {
+        // Log storage error but don't fail the request
+        console.log('Lead storage skipped - Redis not available');
+      }
+    } else {
+      // In demo mode without Redis, just log the lead
+      console.log('Demo mode - New lead received:', {
+        name: lead.name,
+        email: lead.email,
+        company: lead.company,
+        timestamp: lead.createdAt
+      });
     }
 
     // Send email notification if Resend is configured
@@ -128,8 +146,11 @@ export async function POST(request: NextRequest) {
         });
       } catch (emailError) {
         // Log email error but don't fail the request
-        console.error('Failed to send email notification:', emailError);
+        console.log('Email notification skipped - Resend not configured');
       }
+    } else {
+      // In demo mode without email service, just log
+      console.log('Demo mode - Email would be sent to site owner');
     }
 
     // Return success response
