@@ -3,7 +3,8 @@
  * Manages feature toggles for gradual rollouts and A/B testing
  */
 
-import { getRedis } from './upstash';
+import React, { useState, useEffect } from 'react';
+import { redis } from './upstash';
 
 export interface FeatureFlag {
   key: string;
@@ -70,10 +71,11 @@ class FeatureFlagManager {
 
       // Check Redis for dynamic overrides
       try {
-        const redis = await getRedis();
-        const override = await redis.get(`${this.redisPrefix}${flag.key}:${userId}`);
-        if (override !== null) {
-          return override === 'true';
+        if (redis) {
+          const override = await redis.get(`${this.redisPrefix}${flag.key}:${userId}`);
+          if (override !== null) {
+            return override === 'true';
+          }
         }
       } catch (error) {
         console.error('[Feature Flags] Redis error:', error);
@@ -96,12 +98,13 @@ class FeatureFlagManager {
     if (!flag) return;
 
     try {
-      const redis = await getRedis();
-      await redis.set(
-        `${this.redisPrefix}${flag.key}:${userId}`,
-        'true',
-        { ex: 30 * 24 * 60 * 60 } // 30 days
-      );
+      if (redis) {
+        await redis.set(
+          `${this.redisPrefix}${flag.key}:${userId}`,
+          'true',
+          { ex: 30 * 24 * 60 * 60 } // 30 days
+        );
+      }
     } catch (error) {
       console.error('[Feature Flags] Failed to enable for user:', error);
     }
@@ -115,12 +118,13 @@ class FeatureFlagManager {
     if (!flag) return;
 
     try {
-      const redis = await getRedis();
-      await redis.set(
-        `${this.redisPrefix}${flag.key}:${userId}`,
-        'false',
-        { ex: 30 * 24 * 60 * 60 } // 30 days
-      );
+      if (redis) {
+        await redis.set(
+          `${this.redisPrefix}${flag.key}:${userId}`,
+          'false',
+          { ex: 30 * 24 * 60 * 60 } // 30 days
+        );
+      }
     } catch (error) {
       console.error('[Feature Flags] Failed to disable for user:', error);
     }
@@ -216,5 +220,3 @@ export function withFeatureFlag<P extends object>(
   };
 }
 
-// Import React if used
-import { useState, useEffect } from 'react';

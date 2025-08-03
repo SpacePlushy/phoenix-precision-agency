@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { 
   DropdownMenu,
@@ -34,16 +35,16 @@ const TestForm = () => (
 const TestNavigation = () => (
   <nav className="bg-background border-b border-border">
     <div className="flex items-center justify-between px-4 py-3">
-      <a href="/" className="text-xl font-bold text-foreground hover:text-primary">
+      <Link href="/" className="text-xl font-bold text-foreground hover:text-primary">
         Logo
-      </a>
+      </Link>
       <div className="flex items-center space-x-4">
-        <a href="/about" className="text-muted-foreground hover:text-foreground">
+        <Link href="/about" className="text-muted-foreground hover:text-foreground">
           About
-        </a>
-        <a href="/contact" className="text-muted-foreground hover:text-foreground">
+        </Link>
+        <Link href="/contact" className="text-muted-foreground hover:text-foreground">
           Contact
-        </a>
+        </Link>
       </div>
     </div>
   </nav>
