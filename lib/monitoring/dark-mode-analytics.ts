@@ -3,7 +3,7 @@
  * Tracks usage, performance, and errors for the dark mode feature
  */
 
-import { analytics } from '../analytics-service';
+import { analytics, type AnalyticsEvent } from '../analytics-service';
 
 export interface ThemeChangeEvent {
   theme: 'light' | 'dark' | 'system';
@@ -47,7 +47,7 @@ class DarkModeAnalytics {
     };
 
     // Send to analytics
-    analytics.track('theme_changed', fullEvent);
+    analytics.track('theme_changed', fullEvent as unknown as AnalyticsEvent);
 
     // Log to console in development
     if (process.env.NODE_ENV === 'development') {
@@ -78,7 +78,7 @@ class DarkModeAnalytics {
     };
 
     // Track performance metrics
-    analytics.track('theme_performance', metrics);
+    analytics.track('theme_performance', metrics as unknown as AnalyticsEvent);
 
     // Log warning if switch took too long
     if (switchDuration > 100) {
@@ -101,7 +101,7 @@ class DarkModeAnalytics {
     };
 
     // Send to error tracking
-    analytics.track('theme_error', errorEvent);
+    analytics.track('theme_error', errorEvent as unknown as AnalyticsEvent);
 
     // Log to console
     console.error('[Theme Analytics] Error:', errorEvent);
@@ -116,7 +116,7 @@ class DarkModeAnalytics {
       success,
       duration,
       timestamp: Date.now(),
-    });
+    } as unknown as AnalyticsEvent);
   }
 
   /**
@@ -128,7 +128,7 @@ class DarkModeAnalytics {
       source,
       timestamp: Date.now(),
       sessionId: this.sessionId,
-    });
+    } as unknown as AnalyticsEvent);
   }
 
   /**

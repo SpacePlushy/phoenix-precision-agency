@@ -7,7 +7,7 @@
  */
 
 export interface AnalyticsEvent {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface AnalyticsService {
@@ -36,7 +36,7 @@ class BaseAnalyticsService implements AnalyticsService {
     if (typeof window !== 'undefined' && 'va' in window) {
       // Vercel Analytics is loaded
       try {
-        // @ts-ignore - va is injected by Vercel Analytics
+        // @ts-expect-error - va is injected by Vercel Analytics
         window.va('event', { name: event, data });
       } catch (error) {
         console.error('[Analytics] Error tracking event:', error);
@@ -57,7 +57,7 @@ class BaseAnalyticsService implements AnalyticsService {
           events.splice(0, events.length - 100);
         }
         localStorage.setItem('analytics_events', JSON.stringify(events));
-      } catch (error) {
+      } catch {
         // Ignore localStorage errors
       }
     }
@@ -78,7 +78,7 @@ class BaseAnalyticsService implements AnalyticsService {
         if (traits) {
           localStorage.setItem('analytics_user_traits', JSON.stringify(traits));
         }
-      } catch (error) {
+      } catch {
         // Ignore localStorage errors
       }
     }

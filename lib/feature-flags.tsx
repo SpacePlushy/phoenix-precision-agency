@@ -12,7 +12,7 @@ export interface FeatureFlag {
   rolloutPercentage?: number;
   enabledForUsers?: string[];
   disabledForUsers?: string[];
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface FeatureFlagConfig {
@@ -136,7 +136,7 @@ class FeatureFlagManager {
   async getAllFlags(userId?: string): Promise<Record<string, boolean>> {
     const result: Record<string, boolean> = {};
 
-    for (const [key, _] of Object.entries(this.flags)) {
+    for (const [key] of Object.entries(this.flags)) {
       result[key] = await this.isEnabled(key as keyof FeatureFlagConfig, userId);
     }
 
