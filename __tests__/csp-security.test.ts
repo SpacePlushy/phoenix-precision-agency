@@ -25,6 +25,7 @@ const getCSPHeader = (isDevelopment: boolean) => {
     'img-src': [
       "'self'",
       'data:',
+      'blob:',
       'https://img.clerk.com',
       'https://images.clerk.dev',
       'https://www.gravatar.com',
@@ -41,7 +42,11 @@ const getCSPHeader = (isDevelopment: boolean) => {
       'https://api.clerk.com',
       'https://clerk-telemetry.com',
       'https://*.clerk-telemetry.com',
-      ...(isDevelopment ? ['ws://localhost:*', 'wss://localhost:*'] : []),
+      ...(isDevelopment ? ['ws://localhost:*', 'wss://localhost:*', 'https://vercel.live'] : []),
+    ],
+    'worker-src': [
+      "'self'",
+      'blob:', // Required by Clerk for web workers
     ],
     'frame-src': [
       "'self'",

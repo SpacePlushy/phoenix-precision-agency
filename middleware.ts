@@ -25,6 +25,10 @@ const getCSPHeader = (isDevelopment: boolean) => {
       'https://challenges.cloudflare.com',
       ...(isDevelopment ? ['https://vercel.live'] : []),
     ],
+    'worker-src': [
+      "'self'",
+      'blob:', // Required by Clerk for web workers
+    ],
     'style-src': [
       "'self'",
       "'unsafe-inline'", // Required by Clerk components
@@ -33,6 +37,7 @@ const getCSPHeader = (isDevelopment: boolean) => {
     'img-src': [
       "'self'",
       'data:',
+      'blob:', // For dynamically generated images
       'https://img.clerk.com',
       'https://images.clerk.dev',
       'https://www.gravatar.com', // Common for user avatars
@@ -49,7 +54,7 @@ const getCSPHeader = (isDevelopment: boolean) => {
       'https://api.clerk.com',
       'https://clerk-telemetry.com',
       'https://*.clerk-telemetry.com',
-      ...(isDevelopment ? ['ws://localhost:*', 'wss://localhost:*'] : []),
+      ...(isDevelopment ? ['ws://localhost:*', 'wss://localhost:*', 'https://vercel.live'] : []),
     ],
     'frame-src': [
       "'self'",
