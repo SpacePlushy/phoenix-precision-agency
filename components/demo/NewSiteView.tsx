@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ChevronRight, Phone, Zap, Smartphone, Shield } from 'lucide-react';
 
 interface NewSiteViewProps {
   className?: string;
@@ -89,14 +90,10 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
               <div className="flex flex-col sm:flex-row gap-4">
                 <button className="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:shadow-2xl transition-shadow transition-transform gpu-accelerated scale-optimized scale-optimized-hover flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                   <span>View Our Work</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                  <ChevronRight className="w-4 h-4" />
                 </button>
                 <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors transition-background transition-transform gpu-accelerated scale-optimized scale-optimized-hover flex items-center justify-center gap-2 min-h-[44px] min-w-[44px] focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
+                  <Phone className="w-4 h-4" />
                   <span>Schedule a Call</span>
                 </button>
               </div>
@@ -173,27 +170,21 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow gpu-accelerated">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+                <Zap className="w-8 h-8 text-accent" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Lightning Fast</h3>
               <p className="text-muted-foreground text-sm">Optimized for speed with sub-3s load times</p>
             </div>
             <div className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow gpu-accelerated">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
+                <Smartphone className="w-8 h-8 text-accent" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Mobile First</h3>
               <p className="text-muted-foreground text-sm">Responsive design that works on all devices</p>
             </div>
             <div className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow gpu-accelerated">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+                <Shield className="w-8 h-8 text-accent" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Secure & Reliable</h3>
               <p className="text-muted-foreground text-sm">Built with security best practices</p>
