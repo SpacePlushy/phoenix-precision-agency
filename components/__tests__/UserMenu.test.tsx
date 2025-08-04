@@ -35,15 +35,18 @@ jest.mock('@clerk/nextjs', () => ({
 // Add UserButton sub-components to the mock
 const MockUserButton = (jest.requireMock('@clerk/nextjs') as any).UserButton;
 MockUserButton.MenuItems = ({ children }: any) => <div data-testid="user-button-menu">{children}</div>;
+MockUserButton.MenuItems.displayName = 'MockUserButton.MenuItems';
 MockUserButton.Link = ({ label, labelIcon, href }: any) => (
   <a href={href} data-testid={`user-button-link-${label}`}>
     {labelIcon}
     {label}
   </a>
 );
+MockUserButton.Link.displayName = 'MockUserButton.Link';
 MockUserButton.Action = ({ label }: any) => (
   <button data-testid={`user-button-action-${label}`}>{label}</button>
 );
+MockUserButton.Action.displayName = 'MockUserButton.Action';
 
 describe('UserMenu', () => {
   beforeEach(() => {

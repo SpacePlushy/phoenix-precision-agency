@@ -1,5 +1,5 @@
 // Analytics wrapper to ensure non-blocking operations
-export function nonBlockingAnalytics<T extends any[], R>(
+export function nonBlockingAnalytics<T extends unknown[], R>(
   fn: (...args: T) => Promise<R>
 ): (...args: T) => void {
   return (...args: T) => {
@@ -21,7 +21,7 @@ export function nonBlockingAnalytics<T extends any[], R>(
 }
 
 // Performance monitoring wrapper
-export function withPerformanceMonitoring<T extends any[], R>(
+export function withPerformanceMonitoring<T extends unknown[], R>(
   fn: (...args: T) => Promise<R>,
   fnName: string,
   threshold = 100 // milliseconds
@@ -49,7 +49,7 @@ export function withPerformanceMonitoring<T extends any[], R>(
 // Rate limiting for analytics calls
 const callCounts = new Map<string, { count: number; resetTime: number }>();
 
-export function rateLimitAnalytics<T extends any[], R>(
+export function rateLimitAnalytics<T extends unknown[], R>(
   fn: (...args: T) => Promise<R>,
   fnName: string,
   maxCalls = 100,

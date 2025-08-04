@@ -52,14 +52,14 @@ export default function DemoContainer() {
       trackDemoStart(sessionId, activeView).catch(() => {
         // Silently fail - analytics should not break the UI
       });
-    } catch (error) {
+    } catch (_error) {
       // Extra safety - ensure analytics never break the demo
     }
     
     // Track viewport time when component unmounts
+    const startTime = viewStartTime.current; // Capture ref value in effect scope
     return () => {
       isComponentMounted.current = false;
-      const startTime = viewStartTime.current;
       const viewportTime = Date.now() - startTime;
       // Ensure analytics don't break on unmount
       Promise.all([

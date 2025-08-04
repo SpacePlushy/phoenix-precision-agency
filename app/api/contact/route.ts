@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
             { status: 429, headers: rateLimitHeaders }
           );
         }
-      } catch (rateLimitError) {
+      } catch (_rateLimitError) {
         // If rate limiting fails (e.g., Redis not available), continue without it
         console.log('Rate limiting skipped - Redis not available');
       }
@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
     if (redis) {
       try {
         await storeLead(lead);
-      } catch (storageError) {
+      } catch (_storageError) {
         // Log storage error but don't fail the request
         console.log('Lead storage skipped - Redis not available');
       }
@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
             <p><small>Submitted at: ${new Date(lead.createdAt).toLocaleString()}</small></p>
           `,
         });
-      } catch (emailError) {
+      } catch (_emailError) {
         // Log email error but don't fail the request
         console.log('Email notification skipped - Resend not configured');
       }
