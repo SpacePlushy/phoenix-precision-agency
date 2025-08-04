@@ -9,17 +9,18 @@ const isProtectedRoute = createRouteMatcher([
 
 // Generate Content Security Policy based on environment
 const getCSPHeader = (isDevelopment: boolean) => {
-  // Get Clerk instance domain from environment or use default pattern
-  const clerkDomain = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY 
-    ? `https://${process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.split('_')[1]}.clerk.accounts.dev`
-    : 'https://*.clerk.accounts.dev';
+  // Allow all Clerk subdomains since instance domain can vary
+  const clerkDomains = [
+    'https://*.clerk.accounts.dev',
+    'https://clerk.accounts.dev'
+  ];
   
   const directives: { [key: string]: string[] } = {
     'default-src': ["'self'"],
     'script-src': [
       "'self'",
       "'unsafe-inline'", // Required by Next.js and Clerk
-      clerkDomain,
+      ...clerkDomains,
       'https://clerk.com',
       'https://challenges.cloudflare.com',
       ...(isDevelopment ? ['https://vercel.live'] : []),
@@ -27,7 +28,7 @@ const getCSPHeader = (isDevelopment: boolean) => {
     'style-src': [
       "'self'",
       "'unsafe-inline'", // Required by Clerk components
-      clerkDomain,
+      ...clerkDomains,
     ],
     'img-src': [
       "'self'",
@@ -39,11 +40,11 @@ const getCSPHeader = (isDevelopment: boolean) => {
     'font-src': [
       "'self'",
       'data:',
-      clerkDomain,
+      ...clerkDomains,
     ],
     'connect-src': [
       "'self'",
-      clerkDomain,
+      ...clerkDomains,
       'https://clerk.com',
       'https://api.clerk.com',
       'https://clerk-telemetry.com',

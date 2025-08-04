@@ -2,14 +2,17 @@ import { describe, it, expect } from '@jest/globals';
 
 // Mock middleware for testing
 const getCSPHeader = (isDevelopment: boolean) => {
-  const clerkDomain = 'https://*.clerk.accounts.dev';
+  const clerkDomains = [
+    'https://*.clerk.accounts.dev',
+    'https://clerk.accounts.dev'
+  ];
   
   const directives: { [key: string]: string[] } = {
     'default-src': ["'self'"],
     'script-src': [
       "'self'",
       "'unsafe-inline'",
-      clerkDomain,
+      ...clerkDomains,
       'https://clerk.com',
       'https://challenges.cloudflare.com',
       ...(isDevelopment ? ['https://vercel.live'] : []),
@@ -17,7 +20,7 @@ const getCSPHeader = (isDevelopment: boolean) => {
     'style-src': [
       "'self'",
       "'unsafe-inline'",
-      clerkDomain,
+      ...clerkDomains,
     ],
     'img-src': [
       "'self'",
@@ -29,11 +32,11 @@ const getCSPHeader = (isDevelopment: boolean) => {
     'font-src': [
       "'self'",
       'data:',
-      clerkDomain,
+      ...clerkDomains,
     ],
     'connect-src': [
       "'self'",
-      clerkDomain,
+      ...clerkDomains,
       'https://clerk.com',
       'https://api.clerk.com',
       'https://clerk-telemetry.com',
