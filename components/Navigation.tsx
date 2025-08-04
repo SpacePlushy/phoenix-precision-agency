@@ -4,9 +4,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { useAuth } from "@clerk/nextjs";
+import { Skeleton } from "@/components/ui/skeleton";
+import UserMenu from "@/components/UserMenu";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isLoaded, isSignedIn } = useAuth();
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -50,9 +54,26 @@ export default function Navigation() {
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-200"></span>
                 </Link>
               ))}
-              <Button asChild variant="outline" className="border-accent/30 text-accent hover:bg-accent/10 hover:text-accent hover:border-accent transition-all">
-                <Link href="/contact">Get Started</Link>
-              </Button>
+              
+              {/* Auth Section */}
+              <div className="flex items-center space-x-4">
+                {!isLoaded ? (
+                  <Skeleton className="h-10 w-24 rounded-md" />
+                ) : isSignedIn ? (
+                  <>
+                    <UserMenu />
+                  </>
+                ) : (
+                  <>
+                    <Button asChild variant="ghost" className="text-foreground/70 hover:text-foreground">
+                      <Link href="/sign-in">Sign In</Link>
+                    </Button>
+                    <Button asChild variant="outline" className="border-accent/30 text-accent hover:bg-accent/10 hover:text-accent hover:border-accent transition-all">
+                      <Link href="/sign-up">Get Started</Link>
+                    </Button>
+                  </>
+                )}
+              </div>
             </div>
 
             {/* Mobile menu button */}
@@ -79,11 +100,34 @@ export default function Navigation() {
                     {link.label}
                   </Link>
                 ))}
-                <Button asChild variant="outline" className="border-accent/30 text-accent hover:bg-accent/10 hover:text-accent hover:border-accent transition-all w-full min-h-[44px]">
-                  <Link href="/contact" onClick={() => setIsMenuOpen(false)}>
-                    Get Started
-                  </Link>
-                </Button>
+                
+                {/* Mobile Auth Section */}
+                {!isLoaded ? (
+                  <div className="px-4">
+                    <Skeleton className="h-[44px] w-full rounded-md" />
+                  </div>
+                ) : isSignedIn ? (
+                  <>
+                    <div className="px-4 py-2 border-t border-border">
+                      <UserMenu />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/sign-in"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="text-foreground/70 hover:text-foreground font-medium transition-colors duration-200 py-3 px-4 block min-h-[44px] flex items-center rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                    >
+                      Sign In
+                    </Link>
+                    <Button asChild variant="outline" className="border-accent/30 text-accent hover:bg-accent/10 hover:text-accent hover:border-accent transition-all w-full min-h-[44px]">
+                      <Link href="/sign-up" onClick={() => setIsMenuOpen(false)}>
+                        Get Started
+                      </Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           )}

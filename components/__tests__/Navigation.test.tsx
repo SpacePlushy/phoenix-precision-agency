@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Navigation from '../Navigation';
+import { useAuth } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 
 // Mock Next.js Link component
 jest.mock('next/link', () => {
@@ -12,6 +14,23 @@ jest.mock('next/link', () => {
   return MockLink;
 });
 
+// Mock next/navigation
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+}));
+
+// Mock @clerk/nextjs
+jest.mock('@clerk/nextjs', () => ({
+  useAuth: jest.fn(),
+}));
+
+// Mock UserMenu component
+jest.mock('../UserMenu', () => {
+  return function MockUserMenu() {
+    return <div data-testid="user-menu">User Menu</div>;
+  };
+});
+
 // Mock lucide-react icons
 jest.mock('lucide-react', () => ({
   Menu: ({ size }: any) => <div data-testid="menu-icon" data-size={size}>Menu</div>,
@@ -19,18 +38,21 @@ jest.mock('lucide-react', () => ({
 }));
 
 describe('Navigation', () => {
+  const mockPush = jest.fn();
+  
   beforeEach(() => {
     // Reset any mocks
     jest.clearAllMocks();
+    (useRouter as jest.Mock).mockReturnValue({
+      push: mockPush,
+    });
+    (useAuth as jest.Mock).mockReturnValue({
+      isLoaded: true,
+      isSignedIn: false,
+    });
   });
 
-  describe('Desktop View', () => {
-    beforeEach(() => {
-      // Mock desktop viewport
-      global.innerWidth = 1024;
-      global.dispatchEvent(new Event('resize'));
-    });
-
+  describe('Authentication State Tests', () => {
     it('renders navigation with all links', () => {
       render(<Navigation />);
       
@@ -42,15 +64,72 @@ describe('Navigation', () => {
       // Check navigation links
       expect(screen.getByRole('link', { name: /home/i })).toHaveAttribute('href', '/');
       expect(screen.getByRole('link', { name: /portfolio/i })).toHaveAttribute('href', '/portfolio');
-      // CTA button text is 'Get Started', not 'Contact'
       const contactLinks = screen.getAllByRole('link', { name: /contact/i });
-      expect(contactLinks).toHaveLength(1); // Only nav link, CTA has different text
+      expect(contactLinks).toHaveLength(1);
+    });
+
+    it('shows sign in and get started buttons when not authenticated', () => {
+      render(<Navigation />);
       
-      // Check CTA button
-      const ctaButton = screen.getByRole('link', { name: /get started/i });
-      expect(ctaButton).toHaveAttribute('href', '/contact');
-      // The Button component itself has the classes, not its parent
-      expect(ctaButton).toHaveClass('border-accent/30', 'text-accent');
+      expect(screen.getByText('Sign In')).toBeInTheDocument();
+      expect(screen.getByText('Get Started')).toBeInTheDocument();
+    });
+
+    it('shows user menu when authenticated', () => {
+      (useAuth as jest.Mock).mockReturnValue({
+        isLoaded: true,
+        isSignedIn: true,
+      });
+      
+      render(<Navigation />);
+      
+      expect(screen.getByTestId('user-menu')).toBeInTheDocument();
+      expect(screen.queryByText('Sign In')).not.toBeInTheDocument();
+      expect(screen.queryByText('Get Started')).not.toBeInTheDocument();
+    });
+
+    it('shows loading skeleton when auth is not loaded', () => {
+      (useAuth as jest.Mock).mockReturnValue({
+        isLoaded: false,
+        isSignedIn: false,
+      });
+      
+      render(<Navigation />);
+      
+      const skeleton = screen.getByRole('status');
+      expect(skeleton).toHaveClass('h-10', 'w-24');
+    });
+
+    it('transitions from loading to authenticated state', async () => {
+      const { rerender } = render(<Navigation />);
+      
+      // Start with loading state
+      (useAuth as jest.Mock).mockReturnValue({
+        isLoaded: false,
+        isSignedIn: false,
+      });
+      rerender(<Navigation />);
+      expect(screen.getByRole('status')).toBeInTheDocument();
+      
+      // Transition to authenticated
+      (useAuth as jest.Mock).mockReturnValue({
+        isLoaded: true,
+        isSignedIn: true,
+      });
+      rerender(<Navigation />);
+      
+      await waitFor(() => {
+        expect(screen.queryByRole('status')).not.toBeInTheDocument();
+        expect(screen.getByTestId('user-menu')).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('Desktop View', () => {
+    beforeEach(() => {
+      // Mock desktop viewport
+      global.innerWidth = 1024;
+      global.dispatchEvent(new Event('resize'));
     });
 
     it('applies correct styling classes', () => {
@@ -74,7 +153,7 @@ describe('Navigation', () => {
     });
   });
 
-  describe('Mobile View', () => {
+  describe('Mobile Navigation Tests', () => {
     beforeEach(() => {
       // Mock mobile viewport
       global.innerWidth = 375;
@@ -144,6 +223,49 @@ describe('Navigation', () => {
       // Menu should close
       expect(screen.getByTestId('menu-icon')).toBeInTheDocument();
     });
+    
+    it('shows mobile auth buttons when not signed in', () => {
+      render(<Navigation />);
+      
+      const menuButton = screen.getByLabelText('Toggle menu');
+      fireEvent.click(menuButton);
+      
+      const signInButtons = screen.getAllByText('Sign In');
+      const getStartedButtons = screen.getAllByText('Get Started');
+      
+      expect(signInButtons).toHaveLength(2); // Desktop and mobile
+      expect(getStartedButtons).toHaveLength(2); // Desktop and mobile
+    });
+
+    it('shows mobile user menu when authenticated', () => {
+      (useAuth as jest.Mock).mockReturnValue({
+        isLoaded: true,
+        isSignedIn: true,
+      });
+      
+      render(<Navigation />);
+      
+      const menuButton = screen.getByLabelText('Toggle menu');
+      fireEvent.click(menuButton);
+      
+      const userMenus = screen.getAllByTestId('user-menu');
+      expect(userMenus).toHaveLength(2); // Desktop and mobile
+    });
+
+    it('shows loading skeleton in mobile menu', () => {
+      (useAuth as jest.Mock).mockReturnValue({
+        isLoaded: false,
+        isSignedIn: false,
+      });
+      
+      render(<Navigation />);
+      
+      const menuButton = screen.getByLabelText('Toggle menu');
+      fireEvent.click(menuButton);
+      
+      const skeletons = screen.getAllByRole('status');
+      expect(skeletons).toHaveLength(2); // Desktop and mobile
+    });
 
     it('applies correct mobile menu styling', () => {
       render(<Navigation />);
@@ -163,15 +285,44 @@ describe('Navigation', () => {
     });
   });
 
-  describe('Accessibility', () => {
+  describe('Accessibility Tests', () => {
+    it('renders skip navigation link for accessibility', () => {
+      render(<Navigation />);
+      
+      const skipLink = screen.getByText('Skip to main content');
+      expect(skipLink).toBeInTheDocument();
+      expect(skipLink).toHaveClass('sr-only');
+      expect(skipLink).toHaveAttribute('href', '#main-content');
+    });
+
     it('has proper ARIA attributes', () => {
       render(<Navigation />);
       
       const nav = screen.getByRole('navigation');
       expect(nav).toBeInTheDocument();
+      expect(nav).toHaveAttribute('aria-label', 'Main navigation');
       
       const menuButton = screen.getByLabelText('Toggle menu');
       expect(menuButton).toHaveAttribute('aria-label', 'Toggle menu');
+    });
+
+    it('menu toggle button has proper accessibility', () => {
+      render(<Navigation />);
+      
+      const menuButton = screen.getByLabelText('Toggle menu');
+      expect(menuButton).toHaveAttribute('aria-label', 'Toggle menu');
+      expect(menuButton).toHaveClass('min-w-[44px]', 'min-h-[44px]');
+    });
+
+    it('links have minimum touch target size', () => {
+      render(<Navigation />);
+      
+      const links = screen.getAllByRole('link');
+      links.forEach(link => {
+        if (!link.classList.contains('sr-only')) {
+          expect(link).toHaveClass('min-h-[44px]');
+        }
+      });
     });
 
     it('maintains focus management', () => {
@@ -215,6 +366,60 @@ describe('Navigation', () => {
     });
   });
 
+  describe('Edge Cases', () => {
+    it('handles rapid menu toggling', () => {
+      render(<Navigation />);
+      
+      const menuButton = screen.getByLabelText('Toggle menu');
+      
+      // Rapidly toggle menu
+      for (let i = 0; i < 10; i++) {
+        fireEvent.click(menuButton);
+      }
+      
+      // Should end up closed (even number of clicks)
+      const homeLinks = screen.getAllByText('Home');
+      expect(homeLinks).toHaveLength(1); // Only desktop version
+    });
+
+    it('handles auth state changes while menu is open', () => {
+      const { rerender } = render(<Navigation />);
+      
+      // Open mobile menu while not authenticated
+      const menuButton = screen.getByLabelText('Toggle menu');
+      fireEvent.click(menuButton);
+      
+      expect(screen.getAllByText('Sign In')).toHaveLength(2);
+      
+      // Change to authenticated state
+      (useAuth as jest.Mock).mockReturnValue({
+        isLoaded: true,
+        isSignedIn: true,
+      });
+      rerender(<Navigation />);
+      
+      // Should show user menu instead
+      expect(screen.queryByText('Sign In')).not.toBeInTheDocument();
+      expect(screen.getAllByTestId('user-menu')).toHaveLength(2);
+    });
+
+    it('handles multiple rapid auth state changes', () => {
+      const { rerender } = render(<Navigation />);
+      
+      // Rapidly change auth states
+      for (let i = 0; i < 5; i++) {
+        (useAuth as jest.Mock).mockReturnValue({
+          isLoaded: true,
+          isSignedIn: i % 2 === 0,
+        });
+        rerender(<Navigation />);
+      }
+      
+      // Should end with signed in state (last i=4, even)
+      expect(screen.getByTestId('user-menu')).toBeInTheDocument();
+    });
+  });
+
   describe('Theme and Styling', () => {
     it('uses correct color classes', () => {
       render(<Navigation />);
@@ -244,6 +449,16 @@ describe('Navigation', () => {
       // Check gradient blur effect
       const blurElement = logoContainer?.previousElementSibling;
       expect(blurElement).toHaveClass('bg-gradient-to-br', 'from-accent', 'to-primary', 'blur-sm');
+    });
+    
+    it('applies correct button variants', () => {
+      render(<Navigation />);
+      
+      const signInButton = screen.getByText('Sign In').closest('a');
+      const getStartedButton = screen.getByText('Get Started').closest('a');
+      
+      expect(signInButton).toHaveClass('text-foreground/70', 'hover:text-foreground');
+      expect(getStartedButton).toHaveClass('border-accent/30', 'text-accent');
     });
   });
 });

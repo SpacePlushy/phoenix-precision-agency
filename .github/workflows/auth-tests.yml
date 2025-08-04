@@ -1,0 +1,271 @@
+name: Authentication Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'app/sign-in/**'
+      - 'app/sign-up/**'
+      - 'app/dashboard/**'
+      - 'components/Navigation.tsx'
+      - 'components/UserMenu.tsx'
+      - 'middleware.ts'
+      - '__tests__/**'
+      - 'e2e/auth*.spec.ts'
+      - '.github/workflows/auth-tests.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'app/sign-in/**'
+      - 'app/sign-up/**'
+      - 'app/dashboard/**'
+      - 'components/Navigation.tsx'
+      - 'components/UserMenu.tsx'
+      - 'middleware.ts'
+      - '__tests__/**'
+      - 'e2e/auth*.spec.ts'
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Unit Tests - Authentication
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+        
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        
+    - name: Setup pnpm cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+          
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Run authentication unit tests
+      run: |
+        pnpm test -- --testPathPattern="(Navigation|UserMenu|sign-in|sign-up|middleware)" --coverage
+      env:
+        CI: true
+        
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-unit
+        path: coverage/
+        
+  integration-tests:
+    runs-on: ubuntu-latest
+    name: Integration Tests - Authentication
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+        
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        
+    - name: Setup pnpm cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+          
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Run integration tests
+      run: |
+        pnpm test -- --testPathPattern="integration|acceptance" --coverage
+      env:
+        CI: true
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+        CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+        
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-integration
+        path: coverage/
+
+  e2e-tests:
+    runs-on: ubuntu-latest
+    name: E2E Tests - Authentication
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+        
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+        
+    - name: Setup pnpm cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+          
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Install Playwright Browsers
+      run: pnpm exec playwright install --with-deps chromium webkit
+      
+    - name: Build application
+      run: pnpm build
+      env:
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+        CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+        
+    - name: Run authentication E2E tests
+      run: pnpm test:e2e -- auth
+      env:
+        CI: true
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+        CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+        
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report-auth
+        path: playwright-report/
+        retention-days: 30
+        
+    - name: Upload test videos
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-videos-auth
+        path: test-results/
+        retention-days: 7
+
+  mobile-tests:
+    runs-on: ubuntu-latest
+    name: Mobile Tests - Authentication
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: 8
+        
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
+      
+    - name: Install Playwright Browsers
+      run: pnpm exec playwright install --with-deps chromium webkit
+      
+    - name: Build application
+      run: pnpm build
+      env:
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+        CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+        
+    - name: Run mobile authentication tests
+      run: |
+        pnpm test:e2e -- auth --project="Mobile Chrome" --project="Mobile Safari"
+      env:
+        CI: true
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+        CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+        
+    - name: Upload mobile test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: mobile-test-results-auth
+        path: test-results/
+        retention-days: 7
+
+  test-summary:
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, e2e-tests, mobile-tests]
+    if: always()
+    name: Test Summary
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      
+    - name: Test Summary
+      run: |
+        echo "## Authentication Test Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ needs.unit-tests.result }}" == "success" ]; then
+          echo "✅ Unit Tests: Passed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Unit Tests: Failed" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.integration-tests.result }}" == "success" ]; then
+          echo "✅ Integration Tests: Passed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Integration Tests: Failed" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.e2e-tests.result }}" == "success" ]; then
+          echo "✅ E2E Tests: Passed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ E2E Tests: Failed" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        if [ "${{ needs.mobile-tests.result }}" == "success" ]; then
+          echo "✅ Mobile Tests: Passed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Mobile Tests: Failed" >> $GITHUB_STEP_SUMMARY
+        fi
