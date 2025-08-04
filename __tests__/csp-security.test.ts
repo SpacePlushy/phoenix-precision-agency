@@ -15,7 +15,7 @@ const getCSPHeader = (isDevelopment: boolean) => {
       ...clerkDomains,
       'https://clerk.com',
       'https://challenges.cloudflare.com',
-      ...(isDevelopment ? ['https://vercel.live'] : []),
+      'https://vercel.live', // Vercel feedback widget
     ],
     'style-src': [
       "'self'",
@@ -42,7 +42,8 @@ const getCSPHeader = (isDevelopment: boolean) => {
       'https://api.clerk.com',
       'https://clerk-telemetry.com',
       'https://*.clerk-telemetry.com',
-      ...(isDevelopment ? ['ws://localhost:*', 'wss://localhost:*', 'https://vercel.live'] : []),
+      'https://vercel.live', // Vercel feedback widget
+      ...(isDevelopment ? ['ws://localhost:*', 'wss://localhost:*'] : []),
     ],
     'worker-src': [
       "'self'",
@@ -100,7 +101,10 @@ describe('Content Security Policy', () => {
     it('should NOT include development-only domains', () => {
       expect(productionCSP).not.toContain('ws://localhost');
       expect(productionCSP).not.toContain('wss://localhost');
-      expect(productionCSP).not.toContain('https://vercel.live');
+    });
+    
+    it('should include Vercel feedback widget', () => {
+      expect(productionCSP).toContain('https://vercel.live');
     });
     
     it('should include security-critical directives', () => {
@@ -128,6 +132,9 @@ describe('Content Security Policy', () => {
     it('should include development-specific domains', () => {
       expect(developmentCSP).toContain('ws://localhost:*');
       expect(developmentCSP).toContain('wss://localhost:*');
+    });
+    
+    it('should include Vercel feedback widget', () => {
       expect(developmentCSP).toContain('https://vercel.live');
     });
     

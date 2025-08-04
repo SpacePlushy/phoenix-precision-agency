@@ -23,7 +23,7 @@ const getCSPHeader = (isDevelopment: boolean) => {
       ...clerkDomains,
       'https://clerk.com',
       'https://challenges.cloudflare.com',
-      ...(isDevelopment ? ['https://vercel.live'] : []),
+      'https://vercel.live', // Vercel feedback widget
     ],
     'worker-src': [
       "'self'",
@@ -54,7 +54,8 @@ const getCSPHeader = (isDevelopment: boolean) => {
       'https://api.clerk.com',
       'https://clerk-telemetry.com',
       'https://*.clerk-telemetry.com',
-      ...(isDevelopment ? ['ws://localhost:*', 'wss://localhost:*', 'https://vercel.live'] : []),
+      'https://vercel.live', // Vercel feedback widget
+      ...(isDevelopment ? ['ws://localhost:*', 'wss://localhost:*'] : []),
     ],
     'frame-src': [
       "'self'",
