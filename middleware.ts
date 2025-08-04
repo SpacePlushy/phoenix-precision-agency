@@ -33,6 +33,7 @@ const getCSPHeader = (isDevelopment: boolean) => {
       "'self'",
       "'unsafe-inline'", // Required by Clerk components
       ...clerkDomains,
+      'https://vercel.com', // Vercel feedback widget styles
     ],
     'img-src': [
       "'self'",
@@ -41,11 +42,13 @@ const getCSPHeader = (isDevelopment: boolean) => {
       'https://img.clerk.com',
       'https://images.clerk.dev',
       'https://www.gravatar.com', // Common for user avatars
+      'https://vercel.com', // Vercel feedback widget images
     ],
     'font-src': [
       "'self'",
       'data:',
       ...clerkDomains,
+      'https://vercel.live', // Vercel feedback widget fonts
     ],
     'connect-src': [
       "'self'",
@@ -55,11 +58,14 @@ const getCSPHeader = (isDevelopment: boolean) => {
       'https://clerk-telemetry.com',
       'https://*.clerk-telemetry.com',
       'https://vercel.live', // Vercel feedback widget
+      'https://*.pusher.com', // Vercel feedback real-time updates
+      'wss://*.pusher.com', // Vercel feedback WebSocket
       ...(isDevelopment ? ['ws://localhost:*', 'wss://localhost:*'] : []),
     ],
     'frame-src': [
       "'self'",
       'https://challenges.cloudflare.com',
+      'https://vercel.live', // Vercel feedback widget iframe
     ],
     'object-src': ["'none'"],
     'base-uri': ["'self'"],

@@ -21,6 +21,7 @@ const getCSPHeader = (isDevelopment: boolean) => {
       "'self'",
       "'unsafe-inline'",
       ...clerkDomains,
+      'https://vercel.com', // Vercel feedback widget styles
     ],
     'img-src': [
       "'self'",
@@ -29,11 +30,13 @@ const getCSPHeader = (isDevelopment: boolean) => {
       'https://img.clerk.com',
       'https://images.clerk.dev',
       'https://www.gravatar.com',
+      'https://vercel.com', // Vercel feedback widget images
     ],
     'font-src': [
       "'self'",
       'data:',
       ...clerkDomains,
+      'https://vercel.live', // Vercel feedback widget fonts
     ],
     'connect-src': [
       "'self'",
@@ -43,6 +46,8 @@ const getCSPHeader = (isDevelopment: boolean) => {
       'https://clerk-telemetry.com',
       'https://*.clerk-telemetry.com',
       'https://vercel.live', // Vercel feedback widget
+      'https://*.pusher.com', // Vercel feedback real-time updates
+      'wss://*.pusher.com', // Vercel feedback WebSocket
       ...(isDevelopment ? ['ws://localhost:*', 'wss://localhost:*'] : []),
     ],
     'worker-src': [
@@ -52,6 +57,7 @@ const getCSPHeader = (isDevelopment: boolean) => {
     'frame-src': [
       "'self'",
       'https://challenges.cloudflare.com',
+      'https://vercel.live', // Vercel feedback widget iframe
     ],
     'object-src': ["'none'"],
     'base-uri': ["'self'"],
@@ -103,8 +109,27 @@ describe('Content Security Policy', () => {
       expect(productionCSP).not.toContain('wss://localhost');
     });
     
-    it('should include Vercel feedback widget', () => {
+    it('should include Vercel feedback widget domains', () => {
+      // Script and frame sources
+      expect(productionCSP).toContain('script-src');
       expect(productionCSP).toContain('https://vercel.live');
+      expect(productionCSP).toContain('frame-src');
+      expect(productionCSP.match(/frame-src[^;]*/)?.[0]).toContain('https://vercel.live');
+      
+      // Connect sources for real-time updates
+      expect(productionCSP).toContain('connect-src');
+      expect(productionCSP).toContain('https://*.pusher.com');
+      expect(productionCSP).toContain('wss://*.pusher.com');
+      
+      // Style and image sources
+      expect(productionCSP).toContain('style-src');
+      expect(productionCSP.match(/style-src[^;]*/)?.[0]).toContain('https://vercel.com');
+      expect(productionCSP).toContain('img-src');
+      expect(productionCSP.match(/img-src[^;]*/)?.[0]).toContain('https://vercel.com');
+      
+      // Font sources
+      expect(productionCSP).toContain('font-src');
+      expect(productionCSP.match(/font-src[^;]*/)?.[0]).toContain('https://vercel.live');
     });
     
     it('should include security-critical directives', () => {
