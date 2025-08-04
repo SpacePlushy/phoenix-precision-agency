@@ -17,7 +17,7 @@ export default function AnalyticsPage() {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            We're working on integrating comprehensive analytics to help you understand your website's performance, 
+            We&apos;re working on integrating comprehensive analytics to help you understand your website&apos;s performance, 
             visitor behavior, and conversion metrics.
           </p>
         </CardContent>
