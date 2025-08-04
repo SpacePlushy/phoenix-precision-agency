@@ -28,7 +28,7 @@ export default clerkMiddleware((auth, req: NextRequest) => {
   if (!pathname.startsWith('/api/')) {
     response.headers.set(
       'Content-Security-Policy',
-      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;"
+      "default-src 'self' https://*.clerk.accounts.dev https://clerk.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.clerk.accounts.dev https://clerk.com https://vercel.live; style-src 'self' 'unsafe-inline' https://*.clerk.accounts.dev; img-src 'self' data: https: https://img.clerk.com; font-src 'self' data: https://*.clerk.accounts.dev; connect-src 'self' https://*.clerk.accounts.dev https://clerk.com https://api.clerk.com ws://localhost:* wss://localhost:*;"
     )
   }
   
