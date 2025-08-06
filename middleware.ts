@@ -1,11 +1,5 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import crypto from 'crypto';
-
-// Generate nonce for inline scripts (Next.js requires some inline scripts)
-function generateNonce(): string {
-  return crypto.randomBytes(16).toString('base64');
-}
 
 export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -13,11 +7,8 @@ export default function middleware(req: NextRequest) {
   // Add security headers for all responses
   const response = NextResponse.next();
   
-  // Generate nonce for CSP
-  const nonce = generateNonce();
-  
-  // Pass nonce to the app via header for Next.js to use
-  response.headers.set('x-nonce', nonce);
+  // Note: Nonces would require server-side rendering for every request
+  // For static/ISR pages, we use a restrictive but practical CSP
 
   // Security headers based on OWASP recommendations
   response.headers.set("X-Frame-Options", "DENY");
@@ -39,22 +30,14 @@ export default function middleware(req: NextRequest) {
   // Additional security headers
   response.headers.set("X-DNS-Prefetch-Control", "off");
 
-  // CRITICAL FIX: Implement proper CSP without unsafe-inline
-  // Using nonce-based approach for necessary inline scripts/styles
+  // CSP Configuration
+  // Note: Next.js requires unsafe-inline for hydration. We mitigate with other strict policies.
   if (!pathname.startsWith("/api/")) {
-    // Development vs Production CSP
-    const isDev = process.env.NODE_ENV === 'development';
-    
-    // Base CSP directives
     const cspDirectives = [
       "default-src 'self'",
-      // Allow nonce-based inline scripts for Next.js hydration
-      // In production, we'll use strict-dynamic for better security
-      isDev 
-        ? `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https: 'unsafe-eval'`
-        : `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https:`,
-      // Style sources - using nonce for inline styles
-      `style-src 'self' 'nonce-${nonce}'`,
+      // Next.js requires unsafe-inline for proper hydration
+      "script-src 'self' 'unsafe-inline' https://vercel.live https://vitals.vercel-insights.com",
+      "style-src 'self' 'unsafe-inline'",
       // Allow data: URIs for images (commonly used for placeholders)
       "img-src 'self' data: https:",
       // Font sources
@@ -74,7 +57,9 @@ export default function middleware(req: NextRequest) {
       // Upgrade insecure requests
       "upgrade-insecure-requests",
       // Block all mixed content
-      "block-all-mixed-content"
+      "block-all-mixed-content",
+      // Report violations (optional)
+      ...(process.env.CSP_REPORT_URI ? [`report-uri ${process.env.CSP_REPORT_URI}`] : [])
     ];
     
     response.headers.set(
