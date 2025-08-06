@@ -31,12 +31,15 @@ export async function trackDemoEnd(sessionId: string): Promise<void> {
 
 // Track user interactions with the demo
 export async function trackDemoInteraction(sessionId: string): Promise<void> {
-  const existing = await getDemoAnalytics(sessionId);
-  
-  if (existing) {
+  // updateDemoAnalytics now handles fetching internally with pipeline
+  // This avoids the N+1 pattern of separate get then update
+  try {
     await updateDemoAnalytics(sessionId, {
-      interactions: existing.interactions + 1,
+      interactions: 1, // Will be added to existing count in updateDemoAnalytics
     });
+  } catch (error) {
+    // Session doesn't exist, ignore the interaction
+    console.debug(`Demo session ${sessionId} not found, skipping interaction tracking`);
   }
 }
 

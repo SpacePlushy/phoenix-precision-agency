@@ -1,11 +1,23 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import crypto from 'crypto';
+
+// Generate nonce for inline scripts (Next.js requires some inline scripts)
+function generateNonce(): string {
+  return crypto.randomBytes(16).toString('base64');
+}
 
 export default function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Add security headers for all responses
   const response = NextResponse.next();
+  
+  // Generate nonce for CSP
+  const nonce = generateNonce();
+  
+  // Pass nonce to the app via header for Next.js to use
+  response.headers.set('x-nonce', nonce);
 
   // Security headers based on OWASP recommendations
   response.headers.set("X-Frame-Options", "DENY");
@@ -16,22 +28,67 @@ export default function middleware(req: NextRequest) {
     "Permissions-Policy",
     "camera=(), microphone=(), geolocation=()"
   );
+  
+  // CRITICAL FIX: Add HSTS to ALL routes (not just API routes)
+  // This prevents protocol downgrade attacks
+  response.headers.set(
+    "Strict-Transport-Security",
+    "max-age=31536000; includeSubDomains; preload"
+  );
+  
+  // Additional security headers
+  response.headers.set("X-DNS-Prefetch-Control", "off");
 
-  // Only set CSP for non-API routes to avoid conflicts
+  // CRITICAL FIX: Implement proper CSP without unsafe-inline
+  // Using nonce-based approach for necessary inline scripts/styles
   if (!pathname.startsWith("/api/")) {
+    // Development vs Production CSP
+    const isDev = process.env.NODE_ENV === 'development';
+    
+    // Base CSP directives
+    const cspDirectives = [
+      "default-src 'self'",
+      // Allow nonce-based inline scripts for Next.js hydration
+      // In production, we'll use strict-dynamic for better security
+      isDev 
+        ? `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https: 'unsafe-eval'`
+        : `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https:`,
+      // Style sources - using nonce for inline styles
+      `style-src 'self' 'nonce-${nonce}'`,
+      // Allow data: URIs for images (commonly used for placeholders)
+      "img-src 'self' data: https:",
+      // Font sources
+      "font-src 'self' data:",
+      // Allow connections to self and Vercel analytics
+      "connect-src 'self' https://vitals.vercel-insights.com https://vercel.live",
+      // Frame sources
+      "frame-src 'self'",
+      // Object sources (plugins)
+      "object-src 'none'",
+      // Base URI
+      "base-uri 'self'",
+      // Form actions
+      "form-action 'self'",
+      // Frame ancestors (clickjacking protection)
+      "frame-ancestors 'none'",
+      // Upgrade insecure requests
+      "upgrade-insecure-requests",
+      // Block all mixed content
+      "block-all-mixed-content"
+    ];
+    
     response.headers.set(
       "Content-Security-Policy",
-      "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+      cspDirectives.join("; ")
     );
-  }
-
-  // Add security headers for API routes
-  if (pathname.startsWith("/api/")) {
-    response.headers.set("X-DNS-Prefetch-Control", "off");
-    response.headers.set(
-      "Strict-Transport-Security",
-      "max-age=31536000; includeSubDomains"
-    );
+    
+    // Report-Only CSP for monitoring (optional, for gradual rollout)
+    if (process.env.CSP_REPORT_URI) {
+      response.headers.set(
+        "Content-Security-Policy-Report-Only",
+        `${cspDirectives.join("; ")}; report-uri ${process.env.CSP_REPORT_URI}`
+      );
+    }
   }
 
   return response;

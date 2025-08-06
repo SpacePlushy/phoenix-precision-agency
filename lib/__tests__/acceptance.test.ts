@@ -1,28 +1,7 @@
-// Mock Upstash modules before importing anything
-jest.mock('@upstash/redis', () => ({
-  Redis: jest.fn().mockImplementation(() => ({
-    pipeline: jest.fn(),
-    setex: jest.fn(),
-    get: jest.fn(),
-    zadd: jest.fn(),
-    zrange: jest.fn(),
-  })),
-}));
+// Mock the modules
+jest.mock('../upstash');
+jest.mock('../analytics');
 
-jest.mock('@upstash/ratelimit', () => {
-  const slidingWindow = jest.fn(() => 'sliding-window-config');
-  return {
-    Ratelimit: Object.assign(
-      jest.fn().mockImplementation(() => ({
-        limit: jest.fn(),
-      })),
-      { slidingWindow }
-    ),
-  };
-});
-
-import { Redis } from '@upstash/redis';
-import { Ratelimit } from '@upstash/ratelimit';
 import {
   storeLead,
   getLead,

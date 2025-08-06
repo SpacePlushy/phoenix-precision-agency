@@ -1,3 +1,38 @@
+// Mock Request/Response for Next.js server components
+if (typeof global !== 'undefined' && !global.Request) {
+  global.Request = class Request {
+    constructor(url, init = {}) {
+      this.url = url;
+      this.headers = new Map();
+      if (init.headers) {
+        Object.entries(init.headers).forEach(([key, value]) => {
+          this.headers.set(key.toLowerCase(), value);
+        });
+      }
+      this.method = init.method || 'GET';
+      this.body = init.body;
+    }
+    
+    get(name) {
+      return this.headers.get(name.toLowerCase());
+    }
+  };
+  
+  global.Response = class Response {
+    constructor(body, init = {}) {
+      this.body = body;
+      this.status = init.status || 200;
+      this.statusText = init.statusText || 'OK';
+      this.headers = new Map();
+      if (init.headers) {
+        Object.entries(init.headers).forEach(([key, value]) => {
+          this.headers.set(key.toLowerCase(), value);
+        });
+      }
+    }
+  };
+}
+
 // Only run browser-specific setup in jsdom environment
 if (typeof window !== 'undefined') {
   // Learn more: https://github.com/testing-library/jest-dom

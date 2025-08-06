@@ -12,6 +12,13 @@ jest.mock('@/components/Navigation', () => {
   return MockNavigation;
 });
 
+// Mock Analytics component
+jest.mock('@/components/Analytics', () => {
+  return {
+    Analytics: () => null
+  };
+});
+
 // Mock Next.js Link component
 jest.mock('next/link', () => {
   const MockLink = ({ children, href, ...props }: any) => {
@@ -44,7 +51,7 @@ describe('MarketingLayout', () => {
       
       // Company info section
       expect(screen.getByText('Phoenix Precision Agency')).toBeInTheDocument();
-      expect(screen.getByText(/Transforming businesses with aerospace-grade precision/i)).toBeInTheDocument();
+      expect(screen.getByText(/NASA engineer bringing aerospace precision to small business websites/i)).toBeInTheDocument();
       
       // Quick links section
       expect(screen.getByText('Quick Links')).toBeInTheDocument();
@@ -52,7 +59,7 @@ describe('MarketingLayout', () => {
       // Contact section - use getAllByText since there are multiple
       const contactHeaders = screen.getAllByText('Contact');
       expect(contactHeaders.length).toBeGreaterThan(0);
-      expect(screen.getByText(/fmp321@gmail.com/i)).toBeInTheDocument();
+      expect(screen.getByText(/contact@phoenixprecision.dev/i)).toBeInTheDocument();
       expect(screen.getByText(/\(602\) 531-4111/i)).toBeInTheDocument();
     });
 

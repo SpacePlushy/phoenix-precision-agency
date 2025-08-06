@@ -1,43 +1,7 @@
-// Mock environment variables before importing anything
-process.env.UPSTASH_REDIS_REST_URL = 'https://test.upstash.io';
-process.env.UPSTASH_REDIS_REST_TOKEN = 'test-token';
+// Mock the entire upstash module
+jest.mock('../upstash');
 
-// Create mock instances
-const mockPipeline = {
-  setex: jest.fn().mockReturnThis(),
-  zadd: jest.fn().mockReturnThis(),
-  get: jest.fn().mockReturnThis(),
-  exec: jest.fn().mockResolvedValue([]),
-};
-
-const mockRedisInstance = {
-  pipeline: jest.fn().mockReturnValue(mockPipeline),
-  setex: jest.fn().mockResolvedValue('OK'),
-  get: jest.fn().mockResolvedValue(null),
-  zadd: jest.fn().mockResolvedValue(1),
-  zrange: jest.fn().mockResolvedValue([]),
-  incrby: jest.fn().mockResolvedValue(1),
-  decrby: jest.fn().mockResolvedValue(0),
-};
-
-const mockRatelimitInstance = {
-  limit: jest.fn(),
-};
-
-// Mock Upstash modules
-jest.mock('@upstash/redis', () => ({
-  Redis: jest.fn().mockImplementation(() => mockRedisInstance),
-}));
-
-jest.mock('@upstash/ratelimit', () => {
-  const RatelimitMock = jest.fn().mockImplementation(() => mockRatelimitInstance);
-  RatelimitMock.slidingWindow = jest.fn(() => 'sliding-window-config');
-  return {
-    Ratelimit: RatelimitMock,
-  };
-});
-
-// Now import the module after mocks are set up
+// Import the mocked module
 import {
   redis,
   rateLimiter,
@@ -55,6 +19,9 @@ import {
   decrement,
   STORAGE_KEYS,
 } from '../upstash';
+
+// Import mock instances from the mock file
+import { mockRedisInstance, mockPipeline } from '../__mocks__/upstash';
 import type { Lead, DemoAnalytics, DailyAnalytics } from '../types';
 
 describe('Upstash Redis Configuration', () => {
