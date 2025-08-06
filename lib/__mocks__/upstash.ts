@@ -69,7 +69,7 @@ export const getRecentLeads = jest.fn(async (limit = 10) => {
   const results = await pipeline.exec();
   
   return results
-    .map((data: any) => {
+    .map((data: unknown) => {
       if (!data) return null;
       try {
         return typeof data === 'string' ? JSON.parse(data) : data;
@@ -118,7 +118,7 @@ export const getBatchDemoAnalytics = jest.fn(async (sessionIds: string[]) => {
   
   const results = await pipeline.exec();
   
-  results.forEach((res: any, index: number) => {
+  results.forEach((res: unknown, index: number) => {
     if (res && res[1]) {
       try {
         const analytics = typeof res[1] === 'string' ? JSON.parse(res[1]) : res[1];
@@ -132,7 +132,7 @@ export const getBatchDemoAnalytics = jest.fn(async (sessionIds: string[]) => {
   return result;
 });
 
-export const updateDemoAnalytics = jest.fn(async (sessionId: string, updates: any) => {
+export const updateDemoAnalytics = jest.fn(async (sessionId: string, updates: Record<string, unknown>) => {
   // Mock pipeline behavior for the new implementation
   const pipeline = mockRedisInstance.pipeline();
   pipeline.get(STORAGE_KEYS.demoAnalytics(sessionId));
@@ -189,7 +189,7 @@ export const getAnalyticsRange = jest.fn(async (startDate: string, endDate: stri
   const results = await pipeline.exec();
   
   return results
-    .map((data: any, index: number) => {
+    .map((data: unknown, index: number) => {
       if (!data) return null;
       try {
         const parsed = typeof data === 'string' ? JSON.parse(data) : data;
@@ -201,7 +201,7 @@ export const getAnalyticsRange = jest.fn(async (startDate: string, endDate: stri
     .filter(Boolean);
 });
 
-export const setWithExpiry = jest.fn(async (key: string, value: any, expirySeconds: number) => {
+export const setWithExpiry = jest.fn(async (key: string, value: unknown, expirySeconds: number) => {
   return mockRedisInstance.setex(key, expirySeconds, JSON.stringify(value));
 });
 

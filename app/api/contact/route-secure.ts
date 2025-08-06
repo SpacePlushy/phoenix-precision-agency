@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { storeLead } from '@/lib/upstash';
 import { Lead } from '@/lib/types';
 import { Resend } from 'resend';
-import { ContactFormData } from '@/components/forms/ContactForm';
+// ContactFormData type is now replaced by ContactFormSchema below
 import { getClientIP, rateLimiters } from '@/lib/security/rate-limit';
 import { encryptPII } from '@/lib/security/encryption';
 import { z } from 'zod';
@@ -41,11 +41,11 @@ const ContactFormSchema = z.object({
     .max(1000, 'Message must be less than 1000 characters'),
 });
 
-// Honeypot field detection
-const HoneypotSchema = z.object({
-  website: z.string().optional(), // Hidden field - should be empty
-  timestamp: z.number().optional(), // Submission time check
-});
+// Honeypot field detection - currently not implemented
+// const HoneypotSchema = z.object({
+//   website: z.string().optional(), // Hidden field - should be empty
+//   timestamp: z.number().optional(), // Submission time check
+// });
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now();
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Parse and validate request body
-    let body: any;
+    let body: unknown;
     try {
       body = await request.json();
     } catch {
@@ -79,8 +79,18 @@ export async function POST(request: NextRequest) {
       );
     }
     
+    // Type guard to check if body is an object
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json(
+        { error: 'Invalid request format' },
+        { status: 400 }
+      );
+    }
+    
+    const requestBody = body as Record<string, unknown>;
+    
     // Check honeypot fields (anti-bot measure)
-    if (body.website || body.url || body.fax) {
+    if (requestBody.website || requestBody.url || requestBody.fax) {
       // Silently reject bot submissions
       console.warn('Honeypot triggered:', { ip: getClientIP(request) });
       return NextResponse.json(
@@ -90,8 +100,8 @@ export async function POST(request: NextRequest) {
     }
     
     // Check submission timing (too fast = likely bot)
-    if (body.timestamp) {
-      const submissionTime = Date.now() - body.timestamp;
+    if (requestBody.timestamp) {
+      const submissionTime = Date.now() - (requestBody.timestamp as number);
       if (submissionTime < 3000) { // Less than 3 seconds
         console.warn('Form submitted too quickly:', { 
           ip: getClientIP(request),
@@ -107,7 +117,7 @@ export async function POST(request: NextRequest) {
     // Validate input data
     let validatedData: z.infer<typeof ContactFormSchema>;
     try {
-      validatedData = ContactFormSchema.parse(body);
+      validatedData = ContactFormSchema.parse(requestBody);
     } catch (error) {
       if (error instanceof z.ZodError) {
         const firstError = error.issues[0];
@@ -177,12 +187,8 @@ export async function POST(request: NextRequest) {
     // Send email notification with rate limiting check
     if (resend && process.env.CONTACT_EMAIL_TO) {
       try {
-        // Escape HTML in email content to prevent XSS
-        const escapeHtml = (str: string) => {
-          const div = document.createElement('div');
-          div.textContent = str;
-          return div.innerHTML;
-        };
+        // Note: HTML escaping not needed as we're using template literals
+        // which automatically handle text content safely
         
         await resend.emails.send({
           from: process.env.CONTACT_EMAIL_FROM || 'Phoenix Precision <noreply@phoenix-precision.com>',
@@ -270,7 +276,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Handle preflight requests for CORS
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {

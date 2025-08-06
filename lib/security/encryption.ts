@@ -7,7 +7,7 @@ import crypto from 'crypto';
 
 const ALGORITHM = 'aes-256-gcm';
 const IV_LENGTH = 16;
-const TAG_LENGTH = 16;
+// const TAG_LENGTH = 16; // Currently unused, kept for reference
 const SALT_LENGTH = 32;
 const ITERATIONS = 100000;
 
@@ -102,7 +102,7 @@ export function decrypt(encryptedText: string, key?: string): string {
     ]);
     
     return decrypted.toString('utf8');
-  } catch (error) {
+  } catch {
     throw new Error('Failed to decrypt data. Invalid key or corrupted data.');
   }
 }

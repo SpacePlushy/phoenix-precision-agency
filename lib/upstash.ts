@@ -114,7 +114,7 @@ export async function storeDemoAnalytics(analytics: DemoAnalytics): Promise<void
   // Get existing daily analytics for update
   pipeline.get(dailyKey);
   
-  const results = await pipeline.exec();
+  const results = await pipeline.exec() as Array<[error: null | string, result: unknown]>;
   const existingDaily = results[1]?.[1] as DailyAnalytics | null;
   
   // Update daily aggregates with pre-fetched data
@@ -176,7 +176,7 @@ export async function updateDemoAnalytics(
   // Use pipeline to batch get and set operations
   const pipeline = redis.pipeline();
   pipeline.get(key);
-  const results = await pipeline.exec();
+  const results = await pipeline.exec() as Array<[error: null | string, result: unknown]>;
   
   const existingData = results[0]?.[1] as string | null;
   
@@ -213,55 +213,55 @@ export async function updateDemoAnalytics(
   const dailyKey = STORAGE_KEYS.dailyAnalytics(date);
   updatePipeline.get(dailyKey);
   
-  const updateResults = await updatePipeline.exec();
+  const updateResults = await updatePipeline.exec() as Array<[error: null | string, result: unknown]>;
   const existingDaily = updateResults[1]?.[1] as DailyAnalytics | null;
   
   // Update daily analytics using another pipeline
   await updateDailyAnalyticsOptimized(updated, existingDaily);
 }
 
-// Daily analytics aggregation
-async function updateDailyAnalytics(analytics: DemoAnalytics): Promise<void> {
-  if (!redis) return;
-  
-  const date = new Date(analytics.createdAt).toISOString().split('T')[0];
-  const key = STORAGE_KEYS.dailyAnalytics(date);
-  
-  const existing = await redis.get<DailyAnalytics>(key);
-  
-  const updated: DailyAnalytics = existing || {
-    date,
-    totalViews: 0,
-    oldVersionViews: 0,
-    newVersionViews: 0,
-    avgDuration: 0,
-    avgInteractions: 0,
-    totalInteractions: 0,
-    uniqueSessions: 0,
-  };
-  
-  // Update counters
-  updated.totalViews += 1;
-  updated.uniqueSessions += 1;
-  
-  if (analytics.version === 'old') {
-    updated.oldVersionViews += 1;
-  } else {
-    updated.newVersionViews += 1;
-  }
-  
-  // Update averages
-  if (analytics.duration) {
-    const totalDuration = updated.avgDuration * (updated.totalViews - 1) + analytics.duration;
-    updated.avgDuration = totalDuration / updated.totalViews;
-  }
-  
-  updated.totalInteractions += analytics.interactions;
-  updated.avgInteractions = updated.totalInteractions / updated.totalViews;
-  
-  // Store with 180-day expiration for daily analytics
-  await redis.setex(key, 15552000, updated);
-}
+// Daily analytics aggregation - currently unused but kept for future use
+// async function updateDailyAnalytics(analytics: DemoAnalytics): Promise<void> {
+//   if (!redis) return;
+//   
+//   const date = new Date(analytics.createdAt).toISOString().split('T')[0];
+//   const key = STORAGE_KEYS.dailyAnalytics(date);
+//   
+//   const existing = await redis.get<DailyAnalytics>(key);
+//   
+//   const updated: DailyAnalytics = existing || {
+//     date,
+//     totalViews: 0,
+//     oldVersionViews: 0,
+//     newVersionViews: 0,
+//     avgDuration: 0,
+//     avgInteractions: 0,
+//     totalInteractions: 0,
+//     uniqueSessions: 0,
+//   };
+//   
+//   // Update counters
+//   updated.totalViews += 1;
+//   updated.uniqueSessions += 1;
+//   
+//   if (analytics.version === 'old') {
+//     updated.oldVersionViews += 1;
+//   } else {
+//     updated.newVersionViews += 1;
+//   }
+//   
+//   // Update averages
+//   if (analytics.duration) {
+//     const totalDuration = updated.avgDuration * (updated.totalViews - 1) + analytics.duration;
+//     updated.avgDuration = totalDuration / updated.totalViews;
+//   }
+//   
+//   updated.totalInteractions += analytics.interactions;
+//   updated.avgInteractions = updated.totalInteractions / updated.totalViews;
+//   
+//   // Store with 180-day expiration for daily analytics
+//   await redis.setex(key, 15552000, updated);
+// }
 
 // Optimized version that accepts pre-fetched daily analytics
 async function updateDailyAnalyticsOptimized(

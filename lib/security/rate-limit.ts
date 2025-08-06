@@ -87,7 +87,7 @@ export class EnhancedRateLimiter {
     if (redis) {
       this.limiter = new Ratelimit({
         redis,
-        limiter: Ratelimit.slidingWindow(config.requests, config.window as any),
+        limiter: Ratelimit.slidingWindow(config.requests, config.window as Parameters<typeof Ratelimit.slidingWindow>[1]),
         analytics: true,
         prefix: `@upstash/ratelimit/${config.identifier || 'default'}`,
       });

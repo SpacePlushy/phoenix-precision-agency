@@ -21,7 +21,7 @@ export const trackDemoEnd = jest.fn(async (sessionId: string, duration: number) 
   };
 });
 
-export const trackDemoInteraction = jest.fn(async (sessionId: string, eventType: string, eventData?: any) => {
+export const trackDemoInteraction = jest.fn(async (sessionId: string, eventType: string, eventData?: unknown) => {
   return {
     sessionId,
     timestamp: new Date().toISOString(),

@@ -5,13 +5,14 @@
 import { headers } from 'next/headers';
 import Script from 'next/script';
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   // Get the nonce from middleware
-  const nonce = headers().get('x-nonce') || '';
+  const headersList = await headers();
+  const nonce = headersList.get('x-nonce') || '';
 
   return (
     <html lang="en">
@@ -44,8 +45,9 @@ export default function RootLayout({
 // For any inline styles in components, use the nonce:
 // Example component with inline styles:
 /*
-export function ComponentWithInlineStyles() {
-  const nonce = headers().get('x-nonce') || '';
+export async function ComponentWithInlineStyles() {
+  const headersList = await headers();
+  const nonce = headersList.get('x-nonce') || '';
   
   return (
     <div>
