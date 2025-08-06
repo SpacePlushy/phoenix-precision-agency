@@ -30,6 +30,14 @@ export const trackDemoInteraction = jest.fn(async (sessionId: string, eventType:
   };
 });
 
+export const trackViewportTime = jest.fn(async (sessionId: string, time: number) => {
+  return {
+    sessionId,
+    viewportTime: time,
+    timestamp: new Date().toISOString(),
+  };
+});
+
 export const getAnalyticsSummary = jest.fn(async (timeRange?: { start: string; end: string }) => {
   return {
     totalSessions: 100,

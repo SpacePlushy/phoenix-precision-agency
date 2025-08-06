@@ -1,7 +1,9 @@
 // Mock the modules
+jest.mock('@upstash/redis');
+jest.mock('@upstash/ratelimit');
 jest.mock('../upstash');
 jest.mock('../analytics');
-
+import { Ratelimit } from '@upstash/ratelimit';
 import {
   storeLead,
   getLead,
@@ -21,7 +23,7 @@ import {
 import type { Lead } from '../types';
 
 describe('Acceptance Tests - Real-World Scenarios', () => {
-  let mockRedis: jest.Mocked<Redis>;
+  let mockRedis: any;
   let inMemoryStore: Map<string, any>;
 
   beforeEach(() => {
@@ -83,7 +85,7 @@ describe('Acceptance Tests - Real-World Scenarios', () => {
       }),
     } as any;
 
-    (Redis as jest.MockedClass<typeof Redis>).mockImplementation(() => mockRedis);
+    // Mock Redis is already configured via jest.mock above
   });
 
   describe('Scenario 1: Marketing Campaign Lead Collection', () => {
@@ -187,7 +189,7 @@ describe('Acceptance Tests - Real-World Scenarios', () => {
 
   describe('Scenario 3: Rate Limiting Protection', () => {
     it('should protect against spam submissions', async () => {
-      const mockRatelimit = new Ratelimit({
+      const mockRatelimit = new (Ratelimit as any)({
         redis: mockRedis,
         limiter: Ratelimit.slidingWindow(10, '1 m'),
       });
