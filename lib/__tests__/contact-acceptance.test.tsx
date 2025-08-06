@@ -17,7 +17,7 @@ describe('Contact Form - End to End Acceptance Test', () => {
     render(<ContactPage />);
 
     // 2. Verify page elements
-    expect(screen.getByRole('heading', { name: /Contact Us/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Let's Build Something/i })).toBeInTheDocument();
     expect(screen.getByText(/Get in touch with Phoenix Precision Agency/i)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /Response Time/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /Business Hours/i })).toBeInTheDocument();

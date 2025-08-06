@@ -35,9 +35,9 @@ export default function OldSiteView({ className = '' }: OldSiteViewProps) {
       {/* Main content with table-based layout feel */}
       <div className="p-4 h-full">
         <center>
-          <div className="font-['Times_New_Roman',serif] text-5xl text-amber-800 font-bold mb-4">
+          <h1 className="font-['Times_New_Roman',serif] text-5xl text-amber-800 font-bold mb-4">
             ACME BUSINESS
-          </div>
+          </h1>
           
           {/* Animated GIF placeholder */}
           <div className="bg-stone-200 max-w-[468px] w-full h-[60px] mx-auto mb-4 flex items-center justify-center border-2 border-stone-400">

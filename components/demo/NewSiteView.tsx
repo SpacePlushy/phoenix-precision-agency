@@ -33,9 +33,9 @@ export default function NewSiteView({ className = '' }: NewSiteViewProps) {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="text-xl font-bold text-primary">
+                <h1 className="text-xl font-bold text-primary">
                   Phoenix Precision
-                </div>
+                </h1>
               </div>
               <div className="hidden md:block ml-10">
                 <div className="flex items-baseline space-x-4">

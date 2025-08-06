@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Ratelimit } from '@upstash/ratelimit';
 import { redis, storeLead } from '@/lib/upstash';
 import { Lead } from '@/lib/types';
 import { Resend } from 'resend';
 import { ContactFormData } from '@/components/forms/ContactForm';
+// CRITICAL FIX: Import secure rate limiting with proper IP extraction
+import { rateLimiters } from '@/lib/security/rate-limit';
 
 // Initialize Resend conditionally
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -14,36 +15,23 @@ const getResendInstance = () => {
   return resend || new Resend(process.env.RESEND_API_KEY);
 };
 
-// Create a custom rate limiter for contact form (3 per hour per IP) - only if Redis is configured
-const contactRateLimiter = redis ? new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(3, '1 h'),
-  analytics: true,
-  prefix: '@upstash/ratelimit/contact',
-}) : null;
-
 export async function POST(request: NextRequest) {
   try {
-    // Get IP address for rate limiting
-    const ip = request.headers.get('x-forwarded-for') ?? request.headers.get('x-real-ip') ?? 'unknown';
+    // CRITICAL FIX: Use secure rate limiting with proper IP extraction
+    // This prevents IP spoofing attacks
+    const rateLimitResult = await rateLimiters.contact.limit(request);
     
-    // Check rate limit if configured
-    let rateLimitHeaders = {};
-    if (contactRateLimiter) {
-      const { success, limit, remaining, reset } = await contactRateLimiter.limit(ip);
-      
-      rateLimitHeaders = {
-        'X-RateLimit-Limit': limit.toString(),
-        'X-RateLimit-Remaining': remaining.toString(),
-        'X-RateLimit-Reset': new Date(reset).toISOString(),
-      };
-      
-      if (!success) {
-        return NextResponse.json(
-          { error: 'Too many requests. Please try again later.' },
-          { status: 429, headers: rateLimitHeaders }
-        );
-      }
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { 
+          error: 'Too many requests. Please try again later.',
+          retryAfter: rateLimitResult.headers['Retry-After']
+        },
+        { 
+          status: 429, 
+          headers: rateLimitResult.headers 
+        }
+      );
     }
 
     // Parse request body
@@ -132,7 +120,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Return success response
+    // Return success response with rate limit headers
     return NextResponse.json(
       { 
         success: true,
@@ -141,7 +129,7 @@ export async function POST(request: NextRequest) {
       },
       { 
         status: 200,
-        headers: rateLimitHeaders,
+        headers: rateLimitResult.headers,
       }
     );
   } catch (error) {

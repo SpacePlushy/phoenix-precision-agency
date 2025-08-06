@@ -1,0 +1,156 @@
+{
+  "timestamp": "2025-08-05T23:32:01.738Z",
+  "bundleAnalysis": {
+    "routes": [
+      {
+        "type": "static",
+        "path": "/_not-found",
+        "size": "141 B",
+        "firstLoadJS": "99.6 kB"
+      },
+      {
+        "type": "dynamic",
+        "path": "/api/contact",
+        "size": "141 B",
+        "firstLoadJS": "99.6 kB"
+      },
+      {
+        "type": "static",
+        "path": "/contact",
+        "size": "10.6 kB",
+        "firstLoadJS": "110 kB"
+      },
+      {
+        "type": "static",
+        "path": "/dashboard",
+        "size": "141 B",
+        "firstLoadJS": "99.6 kB"
+      },
+      {
+        "type": "static",
+        "path": "/portfolio",
+        "size": "141 B",
+        "firstLoadJS": "99.6 kB"
+      }
+    ],
+    "sharedJSSize": "99.4 kB",
+    "totalRoutes": 5,
+    "staticRoutes": 4,
+    "dynamicRoutes": 1,
+    "largestRoute": {
+      "type": "static",
+      "path": "/contact",
+      "size": "10.6 kB",
+      "firstLoadJS": "110 kB"
+    }
+  },
+  "codeMetrics": {
+    "components": {
+      "files": 14,
+      "lines": 1749
+    },
+    "lib": {
+      "files": 14,
+      "lines": 2125
+    },
+    "app": {
+      "files": 16,
+      "lines": 1438
+    },
+    "totalFiles": 44,
+    "totalLines": 5312,
+    "avgFileSize": 120.72727272727273
+  },
+  "databasePatterns": {
+    "pipelineUsage": 3,
+    "individualFetches": 9,
+    "batchingRatio": 0.3333333333333333,
+    "ttlUsage": 4,
+    "infiniteTTL": 0,
+    "cacheStrategy": "TTL-based"
+  },
+  "animationPerformance": {
+    "optimizations": {
+      "willChange": true,
+      "gpuAcceleration": false,
+      "animatePresence": true,
+      "transforms": true,
+      "rafUsage": false
+    },
+    "expensiveAnimations": {
+      "boxShadow": 0,
+      "filters": 0
+    }
+  },
+  "cacheStrategy": {
+    "browser": {
+      "configured": false,
+      "imageOptimization": true,
+      "staticAssets": false
+    },
+    "cdn": {
+      "configured": false,
+      "provider": "Vercel (auto)"
+    },
+    "redis": {
+      "configured": true,
+      "ttlPatterns": {
+        "leads": null,
+        "analytics": null,
+        "default": 0
+      }
+    },
+    "api": {
+      "routes": [
+        {
+          "path": "/app/api/contact/route.ts",
+          "cached": false
+        }
+      ],
+      "cachedRoutes": 0,
+      "totalRoutes": 1
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "category": "Database",
+      "issue": "Potential N+1 query pattern detected",
+      "solution": "Use Redis pipeline for batch operations to reduce round trips",
+      "details": "Found 9 individual operations vs 3 pipeline uses"
+    },
+    {
+      "priority": "MEDIUM",
+      "category": "Code Organization",
+      "issue": "Found 1 files with > 500 lines",
+      "solution": "Consider splitting large components into smaller, reusable pieces",
+      "files": [
+        "/scripts/performance-analysis.js"
+      ]
+    },
+    {
+      "priority": "MEDIUM",
+      "category": "Caching",
+      "issue": "No cache headers found in API routes",
+      "solution": "Add appropriate Cache-Control headers to API responses"
+    }
+  ],
+  "resourceLoading": {
+    "lazyLoading": {
+      "components": true,
+      "images": true
+    },
+    "prefetching": {
+      "links": true,
+      "dns": true
+    },
+    "criticalCSS": {
+      "configured": false
+    },
+    "fontLoading": {
+      "optimized": true,
+      "hasDisplay": true
+    }
+  },
+  "performanceScore": 90
+}

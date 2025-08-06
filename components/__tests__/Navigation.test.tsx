@@ -138,7 +138,7 @@ describe('Navigation', () => {
       
       // Click on a mobile nav link - get the mobile one specifically
       const mobileLinks = screen.getAllByRole('link', { name: /portfolio/i });
-      const mobileLink = mobileLinks.find(link => link.classList.contains('py-2'));
+      const mobileLink = mobileLinks.find(link => link.classList.contains('py-3'));
       fireEvent.click(mobileLink!);
       
       // Menu should close
