@@ -48,11 +48,6 @@ export default defineConfig({
     /* Navigation timeout */
     navigationTimeout: 20000,
     
-    /* Disable animations for faster tests */
-    launchOptions: {
-      args: ['--disable-web-security'],
-    },
-    
     /* Browser context options */
     contextOptions: {
       reducedMotion: 'reduce',
